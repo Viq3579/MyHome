@@ -1,0 +1,165 @@
+/* 
+COLORS:
+    Text:
+    #f7f2ef
+
+    Accent:
+    #F2620F
+    #BF4C0A
+
+    Background:
+    
+    #F2E3D5
+    #162840
+    #19222e
+
+    #F29C50
+
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+
+    font-family: 'Noto Sans', sans-serif;
+    color: #f7f2ef;
+}
+
+body {
+    background: #19222e;
+}
+
+
+/* MAIN CONTENT */
+.main-content {
+    min-height: 70vh;
+    background: linear-gradient(180deg, #33619cbf 0%, #162840bf 60%), url(https://www.theplancollection.com/Upload/Designers/161/1030/Plan1611030MainImage_5_11_2020_17.jpg);
+    /* background: linear-gradient(180deg, rgba(51, 97, 156,.5) 0%, rgba(22,40,64,.5) 60%), url(https://cdn.discordapp.com/attachments/1008571191935639652/1082140731113750660/Viq_cozy_and_stylistic_concept_art_for_the_coverpage_of_a_home__b6052431-f838-4f46-8833-cd8ea1bcb7e5.png); */
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    display: flex;
+    justify-content: right;
+}
+.form {
+    background: linear-gradient(145deg, rgb(51, 97, 156) 0%, rgba(22,40,64,1) 100%);
+    height: fit-content;
+    border-radius: 20px;
+    box-shadow: 0px 0px 30px 10px #19222e;
+    padding: 20px;
+    margin: 100px 50px;
+    margin-right: 250px;
+}
+.form-header {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+.input {
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+}
+.input-header {
+    font-size: 14px;
+    margin-left: 15px;
+}
+.input-field {
+    background: #f7f2ef;
+    color: #19222e;
+    width: 350px;
+    font-size: 24px;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+}
+.submit-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.submit-container .input-header {
+    margin-top: 13px;
+}
+.submit-button {
+    background: #F2620F;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    border-radius: 15px;
+    justify-self: end;
+    padding: 10px 20px;
+
+    transition: background-color 100ms;
+}
+.submit-button:hover {
+    background-color: #BF4C0A;
+}
+
+
+
+
+
+
+
+
+
+
+
+.cover {
+    background: linear-gradient(145deg, rgb(51, 97, 156) 0%, rgba(22,40,64,1) 100%);
+    color: #F2E3D5;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 50px;
+}
+.cover-logo {
+    background: linear-gradient(30deg, rgba(191,76,10,1) 0%, rgba(242,98,15,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 80px;
+    font-family: 'Lilita One', cursive;
+    justify-self: right;
+    margin-top: 200px;
+    margin-bottom: 300px;
+    margin-left: 30px;
+}
+.cover-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.cover-description {
+    max-width: 500px;
+    font-size: 24px;
+    font-weight: 600;
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+.product-info {
+    padding: 100px;
+}
+.info-card {
+    background: #ffffffaa;
+    border-radius: 20px;
+    padding: 60px 40px;
+    margin: 10px 0px;
+    display: grid;
+}
+.info-card-l {
+    grid-template-columns: 1fr 4fr;
+}
+.info-card-r {
+    grid-template-columns: 4fr 1fr;
+    text-align: right;
+}
+.info-card-icon {
+    font-size: 80px;
+    text-align: center;
+}
