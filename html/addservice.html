@@ -1,0 +1,33 @@
+<?php
+//include auth_session.php file on all user panel pages
+include("auth_session.php");
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Add Service</title>
+    <link rel="stylesheet" href="../css/adddhome.css">
+</head>
+<body>
+    <form class="form" action="" method="post">
+        <h1 class="login-title">Add Service</h1>
+        <label for="owner">Owner Service</label>
+        <input type="radio" id="owner" class="login-input" name="ownerorhome">
+        <label for="home">Home Service</label>
+        <input type="radio" id="home" class="login-input" name="ownerorhome">
+        <input type="text" class="login-input" name="service_type" placeholder="Service Type" required />
+        <input type="number" class="login-input" name="price" placeholder="Price" required/>
+        <input type="text" class="login-input" name="provider" placeholder="Provider" required/>
+        <input type="text" class="login-input" name="service_name" placeholder="Service Name" required/>
+        <textarea rows="4" cols="40" name="terms" placeholder="Service Terms" required></textarea>
+        <br>
+        <br>
+        <textarea rows="4" cols="40" name="penalty" placeholder="Service Penalty" required></textarea>
+        <br>
+        <br>
+        <input type="text" class="login-input" name="address" placeholder="For Address"/>
+        <input type="submit" name="submit" value="Submit" class="login-button">
+    </form>
+</body>
+</html>

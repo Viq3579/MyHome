@@ -1,0 +1,33 @@
+<?php
+//include auth_session.php file on all user panel pages
+include("auth_session.php");
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Add Home</title>
+    <link rel="stylesheet" href="../css/adddhome.css">
+</head>
+<body>
+    <form class="form" action="" method="post">
+        <h1 class="login-title">Add Home</h1>
+        <input type="text" class="login-input" name="address" placeholder="Address" required />
+        <input type="text" class="login-input" name="year_built" placeholder="Year Built" required/>
+        <input type="number" class="login-input" name="lot_size" placeholder="Lot Size (square feet)" required/>
+        <input type="text" class="login-input" name="contype" placeholder="Construction Type" required/>
+        <input type="number" class="login-input" name="garage" placeholder="Garage Size" required/>
+        <input type="number" class="login-input" name="floors" placeholder="Floors" required/>
+        <input type="text" class="login-input" name="cooltype" placeholder="Cooling Type" required/>
+        <input type="number" class="login-input" name="floorspace" placeholder="Floor Space (square feet)" required />
+        <input type="number" class="login-input" name="bathrooms" placeholder="Bathrooms" required/>
+        <input type="text" class="login-input" name="heattype" placeholder="Heating Type" required/>
+        <input type="number" class="login-input" name="heattime" placeholder="Heating Time (minutes)" required/>
+        <input type="number" class="login-input" name="bedrooms" placeholder="Bedrooms" required/>
+        <input type="text" class="login-input" name="proptype" placeholder="Property Type" required/>
+        <input type="text" class="login-input" name="rooftype" placeholder="Roof Design" required/>
+        <input type="text" class="login-input" name="foundation" placeholder="Foundation Type" required/>
+        <input type="submit" name="submit" value="Add Home!" class="login-button">
+    </form>
+</body>
+</html>

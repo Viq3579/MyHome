@@ -24,9 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user`
+--
+CREATE TABLE `user` (
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `customer`
 --
-
 CREATE TABLE `customer` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -37,7 +48,15 @@ CREATE TABLE `customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
+--
+-- Table structure for table `customerservices`
+--
 
+CREATE TABLE `customerservice` (
+  FOREIGN KEY (name) REFERENCES customer(name)
+  FOREIGN KEY (sName) REFERENCES service(name)
+  FOREIGN KEY (provider) REFERENCES service(provider)
+)
 --
 -- Table structure for table `home`
 --
@@ -60,6 +79,16 @@ CREATE TABLE `home` (
   `bedrooms` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Table structure for table `homeservice`
+--
+CREATE TABLE `homeservice` (
+  FOREIGN KEY (address) REFERENCES home(address)
+  FOREIGN KEY (name) REFERENCES service(name)
+  FOREIGN KEY (provider) REFERENCES service(provider)
+)
+
+
 -- --------------------------------------------------------
 
 --
@@ -67,7 +96,8 @@ CREATE TABLE `home` (
 --
 
 CREATE TABLE `provider` (
-  `name` int(11) NOT NULL
+  `name` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -84,6 +114,32 @@ CREATE TABLE `service` (
   `terms` varchar(2048) NOT NULL,
   `penalty` varchar(1028) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `offers`
+--
+
+CREATE TABLE `offers` (
+  FOREIGN KEY (pName) REFERENCES provider(name)
+  FOREIGN KEY (cName) REFERENCES customer(name)
+  `name` varchar(255) NOT NULL
+  `type` varchar(128) NOT NULL
+)
+
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `requests`
+--
+
+CREATE TABLE `requests` (
+  FOREIGN KEY (pName) REFERENCES provider(name)
+  FOREIGN KEY (cName) REFERENCES customer(name)
+  `name` varchar(255) NOT NULL
+  `type` varchar(128) NOT NULL
+)
 
 --
 -- Indexes for dumped tables
@@ -113,7 +169,7 @@ ALTER TABLE `provider`
 -- Indexes for table `service`
 --
 ALTER TABLE `service`
-  ADD PRIMARY KEY (`name`);
+  ADD PRIMARY KEY (`name`, `provider`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
