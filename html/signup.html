@@ -23,7 +23,7 @@
                 
                 
                 <div class="header-cta">
-                    <a class="header-login login" href="login.html">Log In</a>
+                    <a class="header-login login" href="login.php">Log In</a>
                     <a class="header-signup signup" href="signup.html">Sign Up</a>
                 </div>
             
@@ -34,7 +34,7 @@
         
         <main class="main-content">
 
-            <form class="form">
+            <form class="form" action="../php/signup-process.php" method="post">
 
                 <h2 class="form-header">Create Account</h2>
 
@@ -64,8 +64,8 @@
                 </div>
 
                 <div class="submit-container">
-                    <a class="input-header" href="login.html">Already have an account?</a>
-                    <a class="submit-button" href="home.html">Add Account</a>
+                    <a class="input-header" href="login.php">Already have an account?</a>
+                    <button class="submit-button">Add Account</button>
                 </div>
 
             </form>

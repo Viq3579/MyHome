@@ -1,3 +1,35 @@
+<?php
+
+$is_invalid = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $mysqli = require __DIR__ . "/../php/database.php";
+
+    $sql = sprintf("SELECT *
+                    FROM user
+                    WHERE email = '%s'",
+                $mysqli->real_escape_string($_POST["email"]));
+
+    $result = $mysqli->query($sql);
+    $user = $result->fetch_assoc();
+
+    if ($user) {
+        if (password_verify($_POST["password"], $user["password_hash"])) {
+
+            session_start();
+            session_regenerate_id();
+            $_SESSION["user_id"] = $user["id"];
+
+            header("Location: home.html");
+            exit;
+        }
+    }
+
+    $is_invalid = true;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +55,7 @@
                 
                 
                 <div class="header-cta">
-                    <a class="header-login login" href="login.html">Log In</a>
+                    <a class="header-login login" href="login.php">Log In</a>
                     <a class="header-signup signup" href="signup.html">Sign Up</a>
                 </div>
             
@@ -34,7 +66,7 @@
         
         <main class="main-content">
 
-            <form class="form">
+            <form class="form" method="post">
 
                 <h2 class="form-header">Log In</h2>
 
@@ -50,7 +82,8 @@
 
                 <div class="submit-container">
                     <a class="input-header" href="signup.html">Create account?</a>
-                    <a class="submit-button" href="home.html">Log In</a>
+                    <a class="input-header" href="#">Forgot password?</a>
+                    <button class="submit-button">Log In</button>
                 </div>
 
             </form>
