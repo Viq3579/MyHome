@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2023 at 01:14 AM
+-- Generation Time: Mar 22, 2023 at 01:55 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -95,14 +95,15 @@ CREATE TABLE `service` (
 CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
-  `type` varchar(64) NOT NULL
+  `user_type` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`email`, `password_hash`, `type`) VALUES
+INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
+('jamesp@gmail.com', '$2y$10$HcaBpbD4PKFYp38gNoLMEejqil.MtY/dO6UZvRH9STHn6U5bzHY0O', 'Vendor'),
 ('varg9436@vandals.uidaho.edu', '$2y$10$7EuduTD6aKONF211fFLqfukTAGzp.TquK1EII/leBa2liFV4lQmgm', 'Client');
 
 --

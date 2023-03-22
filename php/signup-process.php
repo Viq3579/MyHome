@@ -1,13 +1,5 @@
 <?php
 
-if (empty($_POST["first_name"])) {
-    die("First name is required.");
-}
-
-if (empty($_POST["last_name"])) {
-    die("First name is required.");
-}
-
 // Email Check
 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
     die("Valid email is required.");
@@ -31,6 +23,13 @@ if($_POST["password"] != $_POST["password_confirmation"]) {
 }
 $hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
+// Client or Vendor Check
+if (isset($_POST["type"]) && $_POST["type"] == 'Yes') {
+    $user_type = "Client";
+} else {
+    $user_type = "Vendor";
+}
+
 
 // Connect to mySQL
 $mysqli = require __DIR__ . "/database.php";
@@ -51,8 +50,8 @@ if ($user) {
 
 
 // Add Account to Database
-$sql = "INSERT INTO user (email, password_hash, first_name, last_name)
-        VALUES (?, ?, ?, ?)";
+$sql = "INSERT INTO user (email, password_hash, user_type)
+        VALUES (?, ?, ?)";
 
 $stmt = $mysqli->stmt_init();
 
@@ -60,10 +59,16 @@ if (!$stmt->prepare($sql)) {
     die ("SQL Error: " . $mysqli->error);
 }
 
-$stmt->bind_param("ssss", $_POST['email'], $hash, $_POST['first_name'], $_POST['last_name']);
+$stmt->bind_param("sss", $_POST['email'], $hash, $user_type);
 
 if ($stmt->execute()) {
-    header("Location: ../html/home.html");
+
+    if ($user_type == 'Client') {
+        header("Location: ../html/home.html");
+    } else if ($user_type == 'Vendor') {
+        header("Location: ../html/vendor-home.html");
+    }
+
 } else {
     if ($mysqli->errno == 1062) {
         die("Email already taken");
