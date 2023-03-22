@@ -24,10 +24,10 @@ if($_POST["password"] != $_POST["password_confirmation"]) {
 $hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
 // Client or Vendor Check
-if (isset($_POST["type"]) && $_POST["type"] == 'Yes') {
-    $user_type = "Client";
-} else {
+if (isset($_POST["type"])&& $_POST["type"] == 'Yes') {
     $user_type = "Vendor";
+} else {
+    $user_type = "Client";
 }
 
 
@@ -62,11 +62,12 @@ if (!$stmt->prepare($sql)) {
 $stmt->bind_param("sss", $_POST['email'], $hash, $user_type);
 
 if ($stmt->execute()) {
-
+    session_start();
+    $_SESSION['email'] = $_POST['email'];
     if ($user_type == 'Client') {
-        header("Location: ../html/home.html");
+        header("Location: ../html/editprofilep2.php");
     } else if ($user_type == 'Vendor') {
-        header("Location: ../html/vendor-home.html");
+        header("Location: ../html/editprofile3.html");
     }
 
 } else {
