@@ -23,8 +23,8 @@
 
                 <nav class="header-nav">
 
-                    <a class="header-links current-page" href="">Services</a>
-                    <a class="header-links" href="clients.php">Clients</a>
+                    <a class="header-links" href="vendor-home.html">Services</a>
+                    <a class="header-links current-page" href="">Clients</a>
                     <a class="header-links" href="#">Requests</a>
 
                 </nav>
@@ -43,68 +43,26 @@
 
             <div class="user-information">
 
-                <h1 class="title">Services</h1>
+                <h1 class="title">Clients</h1>
                 
-                <div class="user-information-container">
+                <div class="user-information-container" style="grid-template-columns: 1fr;">
 
-                    <!-- <div class="user-services"> -->
-                        
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title">Service Name</h3>
-                            </div>
-                            <p class="service-description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                            </p>
-                            <p class="service-cost"><b>$100</b> per Month</p>
-                        </div>
-
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title">Lorem Ipsum Dolor Sit</h3>
-                            </div>
-                            <p class="service-description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                            </p>
-                            <p class="service-cost"><b>$100</b> per Month</p>
-                        </div>
-
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title">Lorem</h3>
-                            </div>
-                            <p class="service-description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                            </p>
-                            <p class="service-cost"><b>$100</b> per Month</p>
-                        </div>
-
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title">Lorem Ipsum Dolor</h3>
-                            </div>
-                            <p class="service-description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                            </p>
-                            <p class="service-cost"><b>$100</b> per Month</p>
-                        </div>
-
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title">Lorem Ipsum Dolor Sit Amet Consectetur</h3>
-                            </div>
-                            <p class="service-description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                            </p>
-                            <p class="service-cost"><b>$100</b> per Month</p>
-                        </div>
-                        
-                    <!-- </div> -->
+                    <table class="table">
+                        <tr class="table-row table-head">
+                            <th class="table-col-head">Name</th>
+                            <th class="table-col-head">Email</th>
+                            <th class="table-col-head">Service</th>
+                            <th class="table-col-head">Payments</th>
+                            <th class="table-col-head">Actions</th>
+                        </tr>
+                        <tr class="table-row">
+                            <th class="table-col">Victor</th>
+                            <th class="table-col">varg9436@vandals.uidaho.edu</th>
+                            <th class="table-col">Electricity</th>
+                            <th class="table-col">$200</th>
+                            <th class="table-col">Negotiate</th>
+                        </tr>
+                    </table>
 
                 </div>
 
@@ -112,7 +70,7 @@
 
             <div class="advertised-services">
                 
-                <h1 class="title">Register a Service</h1>
+                <h1 class="title">Recommended Clients</h1>
 
                 <div class="service-detail recommended-service">
                     <div class="service-title-container">
