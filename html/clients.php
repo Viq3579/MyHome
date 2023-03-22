@@ -7,9 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/07a7f1d094.js" crossorigin="anonymous"></script>
 
-        <title>MyHome - Signup</title>
+        <title>MyHome</title>
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/login-signup.css">
+        <link rel="stylesheet" href="../css/home.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
 
@@ -19,51 +19,71 @@
         <header class="header">
 
             <div class="header-container">
-                <h1><a class="header-logo" href="../index.html">MyHome</a></h1>
+                <h1 class="header-logo">MyHome</h1>
+
+                <nav class="header-nav">
+
+                    <a class="header-links" href="vendor-home.html">Services</a>
+                    <a class="header-links current-page" href="">Clients</a>
+                    <a class="header-links" href="#">Requests</a>
+
+                </nav>
                 
                 
                 <div class="header-cta">
-                    <a class="header-login login" href="login.php">Log In</a>
-                    <a class="header-signup signup" href="signup.html">Sign Up</a>
+                    <a class="header-login login" href="../index.html">Log Out</a>
                 </div>
             
             </div>
 
         </header>
 
-        
+
         <main class="main-content">
 
-            <form class="form" action="../php/signup-process.php" method="post">
+            <div class="user-information">
 
-                <h2 class="form-header">Create Account</h2>
+                <h1 class="title">Clients</h1>
+                
+                <div class="user-information-container" style="grid-template-columns: 1fr;">
 
-                <div class="input">
-                    <label class="input-header" for="email">Email:</label>
-                    <input class="input-field" type="email" id="email" name="email">
+                    <table class="table">
+                        <tr class="table-row table-head">
+                            <th class="table-col-head">Name</th>
+                            <th class="table-col-head">Email</th>
+                            <th class="table-col-head">Service</th>
+                            <th class="table-col-head">Payments</th>
+                            <th class="table-col-head">Actions</th>
+                        </tr>
+                        <tr class="table-row">
+                            <th class="table-col">Victor</th>
+                            <th class="table-col">varg9436@vandals.uidaho.edu</th>
+                            <th class="table-col">Electricity</th>
+                            <th class="table-col">$200</th>
+                            <th class="table-col">Negotiate</th>
+                        </tr>
+                    </table>
+
                 </div>
 
-                <div class="input">
-                    <label class="input-header" for="password">Password:</label>
-                    <input class="input-field" type="password" id="password" name="password">
+            </div>
+
+            <div class="advertised-services">
+                
+                <h1 class="title">Recommended Clients</h1>
+
+                <div class="service-detail recommended-service">
+                    <div class="service-title-container">
+                        <i class="service-title fa-solid fa-bolt"></i>
+                        <h3 class="service-title">Service Name</h3>
+                    </div>
+                    <p class="service-description">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
+                    </p>
+                    <p class="service-cost recommended-service-button"><b>$100</b> per Month</p>
                 </div>
 
-                <div class="input">
-                    <label class="input-header" for="password_confirmation">Confirm Password:</label>
-                    <input class="input-field" type="password" id="password_confirmation" name="password_confirmation">
-                </div>
-
-                <div class="input inline-input">
-                    <input class="input-checkbox" type="checkbox" name="type" id="type">
-                    <label class="input-header" for="type">Are you a Vendor?</label>
-                </div>
-
-                <div class="submit-container">
-                    <a class="input-header" href="login.php">Already have an account?</a>
-                    <button class="submit-button">Add Account</button>
-                </div>
-
-            </form>
+            </div>
 
         </main>
 
@@ -90,6 +110,7 @@
             </div>
 
         </footer>
+
     </body>
 
 </html>
