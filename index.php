@@ -22,7 +22,7 @@
 
         } else if ($user["user_type"] == "Vendor") {
 
-            header("Location: html/vendor-home.html");
+            header("Location: html/vendor-home.php");
             exit;
 
         }
