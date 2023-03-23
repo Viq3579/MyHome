@@ -67,7 +67,7 @@ if ($stmt->execute()) {
     if ($user_type == 'Client') {
         header("Location: ../html/editprofilep2.php");
     } else if ($user_type == 'Vendor') {
-        header("Location: ../html/editprofile3.html");
+        header("Location: ../html/editprofile3.php");
     }
 
 } else {

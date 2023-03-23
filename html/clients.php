@@ -23,7 +23,7 @@
 
                 <nav class="header-nav">
 
-                    <a class="header-links" href="vendor-home.html">Services</a>
+                    <a class="header-links" href="vendor-home.php">Services</a>
                     <a class="header-links current-page" href="">Clients</a>
                     <a class="header-links" href="#">Requests</a>
 
@@ -31,7 +31,7 @@
                 
                 
                 <div class="header-cta">
-                    <a class="header-login login" href="../index.html">Log Out</a>
+                <a class="header-login login" href="../php/logout.php">Log Out</a>
                 </div>
             
             </div>

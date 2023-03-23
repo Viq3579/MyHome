@@ -1,35 +1,35 @@
 <?php
 
-$is_invalid = false;
+session_start();
+
+$_SESSION;
+
+if ( !isset($_SESSION["email"]) ) {
+    header("Location: ../index.php");
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $mysqli = require __DIR__ . "/../php/database.php";
 
-    $sql = sprintf("SELECT *
-                    FROM user
-                    WHERE email = '%s'",
-                $mysqli->real_escape_string($_POST["email"]));
+    $sql = "INSERT INTO provider (name, email, type)
+            VALUES (?, ?, ?)";
 
-    $result = $mysqli->query($sql);
-    $user = $result->fetch_assoc();
+    $stmt = $mysqli->stmt_init();
 
-    if ($user) {
-        if (password_verify($_POST["password"], $user["password_hash"])) {
-
-            session_start();
-            session_regenerate_id();
-            $_SESSION["email"] = $user["email"];
-
-            if ($user["user_type"] == 'Client') {
-                header("Location: home.html");
-            } else if ($user["user_type"] == 'Vendor') {
-                header("Location: vendor-home.html");
-            }
-            exit;
-        }
+    if (!$stmt->prepare($sql)) {
+        die ("SQL Error: " . $mysqli->error);
     }
 
-    $is_invalid = true;
+    $stmt->bind_param("sss", 
+        $_POST["name"], 
+        $_SESSION["email"],
+        $_POST["type"]
+    );
+
+    $stmt->execute();
+    
 }
 
 ?>
@@ -43,9 +43,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/07a7f1d094.js" crossorigin="anonymous"></script>
 
-        <title>MyHome - Signup</title>
+        <title>MyHome</title>
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/login-signup.css">
+        <link rel="stylesheet" href="../css/home.css">
+        <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
 
@@ -55,43 +56,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <header class="header">
 
             <div class="header-container">
-                <h1><a class="header-logo" href="../index.html">MyHome</a></h1>
+                <h1 class="header-logo">MyHome</h1>
+
+                <nav class="header-nav">
+
+                    <a class="header-links current-page" href="">Services</a>
+                    <a class="header-links" href="clients.php">Clients</a>
+                    <a class="header-links" href="#">Requests</a>
+
+                </nav>
                 
                 
                 <div class="header-cta">
-                    <a class="header-login login" href="login.php">Log In</a>
-                    <a class="header-signup signup" href="signup.html">Sign Up</a>
+                    <a class="header-login login" href="../php/logout.php">Log Out</a>
                 </div>
-            
+
             </div>
 
         </header>
 
-        
-        <main class="main-content">
+
+        <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
 
             <form class="form" method="post">
-
-                <h2 class="form-header">Log In</h2>
-
+    
+                <h1 class="login-title">Edit Vendor Profile</h1>
+    
                 <div class="input">
-                    <label class="input-header" for="email">Email:</label>
-                    <input class="input-field" type="email" id="email" name="email">
+                    <label class="input-header" for="name">Name of Company:</label>
+                    <input class="input-field" type="text" id="name" name="name">
                 </div>
-
+    
                 <div class="input">
-                    <label class="input-header" for="password">Password:</label>
-                    <input class="input-field" type="password" id="password" name="password">
+                    <label class="input-header" for="type">Type of Company:</label>
+                    <input class="input-field" type="text" id="type" name="type">
                 </div>
-
+    
                 <div class="submit-container">
-                    <a class="input-header" href="signup.html">Create account?</a>
-                    <a class="input-header" href="forgotpass.html">Forgot password?</a>
-                    <button class="submit-button">Log In</button>
+                    <button class="submit-button">Update Account</button>
                 </div>
-
-            </form>
-
+    
+            </form>    
+        
         </main>
 
 
@@ -117,6 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
         </footer>
+
     </body>
 
 </html>

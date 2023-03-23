@@ -1,3 +1,37 @@
+<?php
+
+    session_start();
+
+    $_SESSION;
+
+    if (isset($_SESSION["email"])) {
+
+        $mysqli = require __DIR__ . "/php/database.php";
+        $sql = sprintf("SELECT *
+                        FROM user
+                        WHERE email = '%s'",
+                    $mysqli->real_escape_string($_SESSION["email"]));
+
+        $result = $mysqli->query($sql);
+        $user = $result->fetch_assoc();
+
+        if ($user["user_type"] == "Client") {
+
+            header("Location: html/home.html");
+            exit;
+
+        } else if ($user["user_type"] == "Vendor") {
+
+            header("Location: html/vendor-home.html");
+            exit;
+
+        }
+        die("An error has occured.");
+        exit;
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

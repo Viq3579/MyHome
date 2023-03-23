@@ -1,3 +1,44 @@
+<?php
+
+session_start();
+
+$_SESSION;
+
+if ( !isset($_SESSION["email"]) ) {
+    header("Location: ../index.php");
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $mysqli = require __DIR__ . "/../php/database.php";
+
+    $sql = "INSERT INTO service (name, type, provider, cost, description, terms, penalty)
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $mysqli->stmt_init();
+
+    if (!$stmt->prepare($sql)) {
+        die ("SQL Error: " . $mysqli->error);
+    }
+
+    $stmt->bind_param("sssssss", 
+        $_POST["name"], 
+        $_POST["type"], 
+        $_SESSION["email"], 
+        $_POST["cost"], 
+        $_POST["description"], 
+        $_POST["terms"], 
+        $_POST["penalty"]
+    );
+
+    $stmt->execute();
+    
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +51,7 @@
         <title>MyHome</title>
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/home.css">
+        <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
 
@@ -31,7 +73,7 @@
                 
                 
                 <div class="header-cta">
-                    <a class="header-login login" href="../index.html">Log Out</a>
+                    <a class="header-login login" href="../php/logout.php">Log Out</a>
                 </div>
             
             </div>
@@ -114,16 +156,43 @@
                 
                 <h1 class="title">Register a Service</h1>
 
-                <div class="service-detail recommended-service">
-                    <div class="service-title-container">
-                        <i class="service-title fa-solid fa-bolt"></i>
-                        <h3 class="service-title">Service Name</h3>
+                <form class="form" method="post">
+    
+                    <div class="input">
+                        <label class="input-header" for="name">Name of Service:</label>
+                        <input class="input-field" type="text" id="name" name="name">
                     </div>
-                    <p class="service-description">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                    </p>
-                    <p class="service-cost recommended-service-button"><b>$100</b> per Month</p>
-                </div>
+                    
+                    <div class="input">
+                        <label class="input-header" for="type">Type of Service:</label>
+                        <input class="input-field" type="text" id="type" name="type">
+                    </div>
+    
+                    <div class="input">
+                        <label class="input-header" for="cost">Monthly Cost:</label>
+                        <input class="input-field" type="text" id="cost" name="cost">
+                    </div>
+    
+                    <div class="input">
+                        <label class="input-header" for="description">Description:</label>
+                        <input class="input-field" type="text" id="description" name="description">
+                    </div>
+
+                    <div class="input">
+                        <label class="input-header" for="terms">Terms of Service:</label>
+                        <input class="input-field" type="text" id="terms" name="terms">
+                    </div>
+
+                    <div class="input">
+                        <label class="input-header" for="penalty">Penalty:</label>
+                        <input class="input-field" type="text" id="penalty" name="penalty">
+                    </div>
+    
+                    <div class="submit-container">
+                        <button class="submit-button">Register Service</button>
+                    </div>
+    
+                </form>
 
             </div>
 
