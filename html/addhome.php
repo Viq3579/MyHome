@@ -47,19 +47,38 @@ include("../php/auth_session.php");
             $rooftype = mysqli_real_escape_string($mysqli, $rooftype);
             $foundation = stripslashes($_REQUEST['foundation']);
             $foundation = mysqli_real_escape_string($mysqli, $foundation);
-            $query    = "INSERT into `home` (owner_email, address, lot_size, cooling_type, construction_type, garage_size, year_built, property_type, heating_type, heating_time, num_floors, floor_space, roof, bathrooms)
-                        VALUES ('$email', '$address','$lot_size', '$cooltype', '$contype', '$garage', '$year_built', '$proptype', '$heattype', '$heattime', '$floors', '$floorspace', '$rooftype', '$bathrooms')";
-            $result   = mysqli_query($mysqli, $query);
-            if ($result) {
+
+                    // Varify Address is Unique
+            $sql = sprintf("SELECT *
+            FROM home
+            WHERE address = '$address'",
+            $mysqli->real_escape_string($_POST["address"]));
+
+            $result = $mysqli->query($sql);
+            $user = $result->fetch_assoc();
+
+            if ($user) {
                 echo "<div class='form'>
-                    <h3>Home added successfully.</h3><br/>
-                    <p class='link'>Click here to <a href='profile.html'>Dashboard</a></p>
-                    </div>";
-            } else {
-                echo "<div class='form'>
-                    <h3>Required fields are missing.</h3><br/>
-                    <p class='link'>Click here to <a href='addhome.php'>Add Home</a> again.</p>
-                    </div>";
+                <h3>That Address has already been registered. If you believe this to be an error, please contact support</h3><br/>
+                <p class='link'>Click here to <a href='addhome.php'>Try Again</a></p>
+                </div>";
+            }
+            else
+            {
+                $query    = "INSERT into `home` (owner_email, address, lot_size, cooling_type, construction_type, garage_size, year_built, property_type, heating_type, heating_time, num_floors, floor_space, roof, bathrooms)
+                            VALUES ('$email', '$address','$lot_size', '$cooltype', '$contype', '$garage', '$year_built', '$proptype', '$heattype', '$heattime', '$floors', '$floorspace', '$rooftype', '$bathrooms')";
+                $result   = mysqli_query($mysqli, $query);
+                if ($result) {
+                    echo "<div class='form'>
+                        <h3>Home added successfully.</h3><br/>
+                        <p class='link'>Click here to <a href='profile.html'>Dashboard</a></p>
+                        </div>";
+                } else {
+                    echo "<div class='form'>
+                        <h3>Required fields are missing.</h3><br/>
+                        <p class='link'>Click here to <a href='addhome.php'>Add Home</a> again.</p>
+                        </div>";
+                }
             }
         } else {
     ?>

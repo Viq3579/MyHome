@@ -28,19 +28,38 @@ include("../php/auth_session.php");
         $expense = mysqli_real_escape_string($mysqli, $expense);
         $cars = stripslashes($_REQUEST['numbcars']);
         $cars = mysqli_real_escape_string($mysqli, $cars);
-        $query    = "INSERT into `customer` (name, email, phone_num, family_income, num_cars, misc_expenses)
-                     VALUES ('$name', '$email', '$phone', '$income', '$cars', '$expense')";
-        $result   = mysqli_query($mysqli, $query);
-        if ($result) {
+
+                // Varify Phone is Unique
+        $sql = sprintf("SELECT *
+        FROM customer
+        WHERE phone_num = '$phone'",
+        $mysqli->real_escape_string($_POST["phone"]));
+
+        $result = $mysqli->query($sql);
+        $user = $result->fetch_assoc();
+
+        if ($user) {
             echo "<div class='form'>
-                  <h3>You are registered successfully.</h3><br/>
-                  <p class='link'>Click here to <a href='home.html'>Login</a></p>
-                  </div>";
-        } else {
-            echo "<div class='form'>
-                  <h3>Required fields are missing.</h3><br/>
-                  <p class='link'>Click here to <a href='editprofilep2.php'>registration</a> again.</p>
-                  </div>";
+            <h3>That Phone Number has already been registered. If you believe this to be an error, please contact support</h3><br/>
+            <p class='link'>Click here to <a href='editprofilep2.php'>Try Again</a></p>
+            </div>";
+        }
+        else
+        {
+            $query    = "INSERT into `customer` (name, email, phone_num, family_income, num_cars, misc_expenses)
+                        VALUES ('$name', '$email', '$phone', '$income', '$cars', '$expense')";
+            $result   = mysqli_query($mysqli, $query);
+            if ($result) {
+                echo "<div class='form'>
+                    <h3>You are registered successfully.</h3><br/>
+                    <p class='link'>Click here to <a href='home.html'>Login</a></p>
+                    </div>";
+            } else {
+                echo "<div class='form'>
+                    <h3>Required fields are missing.</h3><br/>
+                    <p class='link'>Click here to <a href='editprofilep2.php'>registration</a> again.</p>
+                    </div>";
+            }
         }
     } else {
 ?>
