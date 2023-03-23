@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2023 at 07:03 AM
+-- Generation Time: Mar 23, 2023 at 08:46 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -43,6 +43,7 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`name`, `email`, `phone_num`, `family_income`, `num_cars`, `misc_expenses`) VALUES
 ('hello', 'doesisworkfromhere@gmail.com', 2147483647, 555, 5, 5555),
 ('Ian Finnigan', 'pleasework@gmail.com', 2088814537, 1e26, 16, 10000),
+('test test', 'testingduplicatephone@gmail.com', 987654321, 123, 54, 12343),
 ('try not same', 'thisiscompletelynew@gmail.com', 1234567890, 6, 6, 6),
 ('youcanchangethemnow', 'thisshouldgoincustomertable@gmail.com', 8989898989, 88, 1000, 999);
 
@@ -93,8 +94,16 @@ CREATE TABLE `outsideservice` (
   `cost` float NOT NULL,
   `description` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `terms` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `penalty` varchar(1028) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `penalty` varchar(1028) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `outsideservice`
+--
+
+INSERT INTO `outsideservice` (`customer_email`, `type`, `name`, `cost`, `description`, `terms`, `penalty`, `address`) VALUES
+('ghghghghghg@gmail.com', 'dental insurance', 'dental insurance', 55555, 'lorem ipsum', 'lorem ipsum', 'lorem ipsum', NULL);
 
 -- --------------------------------------------------------
 
@@ -113,7 +122,8 @@ CREATE TABLE `provider` (
 --
 
 INSERT INTO `provider` (`email`, `name`, `type`) VALUES
-('jamesp@gmail.com', 'James P. Electricity', 'Electricity');
+('jamesp@gmail.com', 'James P. Electricity', 'Electricity'),
+('vendortest@gmail.com', 'Progressive', 'Insurance');
 
 -- --------------------------------------------------------
 
@@ -136,7 +146,8 @@ CREATE TABLE `service` (
 --
 
 INSERT INTO `service` (`name`, `type`, `provider`, `cost`, `description`, `terms`, `penalty`) VALUES
-('Standard Electricity', 'Electricity', 'jamesp@gmail.com', 200, 'The basic electricity plan designed for common users.', 'Lorem ipsum.', 'Electricity will be shut down');
+('Standard Electricity', 'Electricity', 'jamesp@gmail.com', 200, 'The basic electricity plan designed for common users.', 'Lorem ipsum.', 'Electricity will be shut down'),
+('Super Insurance', 'Car Insurance', 'vendortest@gmail.com', 100, 'the best insurance money can buy, lorem ipsum etc etc', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
 
 -- --------------------------------------------------------
 
@@ -160,6 +171,7 @@ INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 ('definitelynotvendor@live.com', '$2y$10$GwFcSISDBfLqSn7YIv5/gerf8XPvgg0L70lF54a6m/VjOWDFPlC6u', 'Vendor'),
 ('doesisworkfromhere@gmail.com', '$2y$10$mG8uWRR53zg.AUP/c9lkLuWB0lHkXfvt1FpQwBmzoVBxMc1kQz.4e', 'Client'),
 ('doublecheck@hotmail.com', '$2y$10$A5/TC4vH1hmm34gNZ5eIQOSpudxh3YPx8rdbPw06w5WxVBGMyP5gG', 'Vendor'),
+('ghghghghghg@gmail.com', '$2y$10$8eiTIjCF9CfUge8yK706devhsDr7FYwjpAEcIFhEiIzUl/3UCTn9q', 'Client'),
 ('gibberish@gmail.com', '$2y$10$HMMacb3YTLSqzTR1qnyTeuuwokwGLoE9r/CWBScEDsSRl3WpIQNA.', 'Client'),
 ('gointocustomertable2@gmail.com', '$2y$10$Wr6yX3vCvC0s7g7VzyOVU.RXZAZcX4w/5ZW4eQoeo5uagZu/XKMrS', 'Client'),
 ('gointocustomertable@gmail.com', '$2y$10$oeuIfMPNZRQG7GFfpUE3geq3V2THa0ZPiCI/cwinpHzxFPLCLgbqa', 'Client'),
@@ -168,6 +180,7 @@ INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 ('imnotavendor@gmail.com', '$2y$10$XNncLBoFfhqqkCm1eI2v7.K6Z6VkED92zRLncuMx0so8R5qaUpsv2', 'Vendor'),
 ('jamesp@gmail.com', '$2y$10$HcaBpbD4PKFYp38gNoLMEejqil.MtY/dO6UZvRH9STHn6U5bzHY0O', 'Vendor'),
 ('pleasework@gmail.com', '$2y$10$JsBMPw2veFfMeJnGH8/Jk.ASF8jLMeUrIAqqF1XiWDN32pmc7wtwy', 'Client'),
+('testingduplicatephone@gmail.com', '$2y$10$8BSHX2cWV9jdjsbkc84bwujBnA87q3lYitrX2/4bSsl6vxUnd5wJa', 'Client'),
 ('thirdtimesthecharm@yahoo.com', '$2y$10$ZdaAVrl.geQOw/7m3kmRSulskzxH9C4kxc.IhOgFST0fFUkUmU6Nu', 'Client'),
 ('thisiscompletelynew@gmail.com', '$2y$10$iddk5SPx5/sKqX9Q1pXpG.MhVcqAECYoUuCvMBn2N2ZcrZkm.DuIO', 'Client'),
 ('thisshouldgoincustomertable@gmail.com', '$2y$10$lUNiHCYvafk3f.7IHyX3qesUJVolt9twoR61DgnsBkyO7RUXQ0AVC', 'Client'),
@@ -182,8 +195,7 @@ INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
-  ADD PRIMARY KEY (`name`),
-  ADD UNIQUE KEY `email` (`email`),
+  ADD PRIMARY KEY (`email`) USING BTREE,
   ADD UNIQUE KEY `phone_num` (`phone_num`);
 
 --
