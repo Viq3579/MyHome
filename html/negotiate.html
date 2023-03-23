@@ -1,34 +1,99 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Negotiate</title>
-    <link rel="stylesheet" href="../css/adddhome.css"/>
-</head>
-<body>
-    <form class="form" action="" method="post">
-        <h1 class="login-title">Negotiate</h1>
-        <p><b>Service Name:</b> Lorem Ipsum</p>
-        <p><b>Service Provider:</b> Lorem Ipsum</p>
-        <p><b>Customer Name:</b> Lorem Ipsum</p>
-        <p><b>Address:</b> Lorem Ipsum</p>
-        <h1 class="login-title">Current Offer:</h1>
-        <p><b>Price:</b> $100 per month</p>
-        <p><b>Terms:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p><b>Penalty:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <h1 class="login-title">Response:</h1>
-        <input type="number" class="login-input" name="price" placeholder="price" required />
-        <textarea rows="4" cols="40" name="terms" placeholder="Service Terms" required></textarea>
-        <br>
-        <br>
-        <textarea rows="4" cols="40" name="penalty" placeholder="Service Penalty" required></textarea>
-        <br>
-        <br>
-        <a class="login-button" href="paymentpage.html">Accept Current Offer</a>
-        <br><br>
-        <a class="login-button" href="searchservices.html">Send Counter-Offer</a>
-        <br><br>
-        <a class="login-button" href="home.html">Return to Dashboard</a>
-    </form>
-</body>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/07a7f1d094.js" crossorigin="anonymous"></script>
+
+        <title>Negotiate</title>
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/home.css">
+        <!-- <link rel="stylesheet" href="../css/input-form.css"/> -->
+        <link rel="stylesheet" href="../css/adddhome.css">
+        <link rel="stylesheet" href="../css/footer.css">
+    </head>
+
+
+    <body>
+
+        <header class="header">
+
+            <div class="header-container">
+                <h1 class="header-logo">MyHome</h1>
+
+                <nav class="header-nav">
+
+                    <a class="header-links" href="home.html">Dashboard</a>
+                    <a class="header-links" href="searchservices.html">Services</a>
+                    <a class="header-links" href="profile.html">Profile</a>
+
+                </nav>
+                
+                
+                <div class="header-cta">
+                    <a class="header-login login" href="../php/logout.php">Log Out</a>
+                </div>
+            
+            </div>
+
+        </header>
+
+
+        <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
+
+            <form class="form" action="" method="post">
+                <h1 class="login-title">Negotiate</h1>
+                <p><b>Service Name:</b> Lorem Ipsum</p>
+                <p><b>Service Provider:</b> Lorem Ipsum</p>
+                <p><b>Customer Name:</b> Lorem Ipsum</p>
+                <p><b>Address:</b> Lorem Ipsum</p>
+                <h1 class="login-title">Current Offer:</h1>
+                <p><b>Price:</b> $100 per month</p>
+                <p><b>Terms:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p><b>Penalty:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <h1 class="login-title">Response:</h1>
+                <input type="number" class="login-input" name="price" placeholder="price" required />
+                <textarea rows="4" cols="40" name="terms" placeholder="Service Terms" required></textarea>
+                <br>
+                <br>
+                <textarea rows="4" cols="40" name="penalty" placeholder="Service Penalty" required></textarea>
+                <br>
+                <br>
+                <a class="login-button" href="paymentpage.html">Accept Current Offer</a>
+                <br><br>
+                <a class="login-button" href="searchservices.html">Send Counter-Offer</a>
+                <br><br>
+                <a class="login-button" href="home.html">Return to Dashboard</a>
+            </form>
+
+        </main>
+
+
+        <footer class="footer">
+
+            <div class="footer-container">
+                <p class="footer-subtitle">Terms and Conditions</p>
+                <p class="footer-content">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, doloremque dicta obcaecati odio at alias molestias impedit id sit? Quasi, perspiciatis, eius doloremque corrupti eum laborum laudantium atque nam enim, expedita totam! Consequatur, quos consequuntur praesentium impedit officiis modi blanditiis at eius odio odit nostrum. Doloremque dolorum recusandae at dignissimos aperiam quos quas porro laborum eveniet magni voluptas, autem est, facilis nobis eligendi architecto magnam. Laudantium inventore earum vero culpa eius facere est neque eos!
+                </p>
+            </div>
+            <div class="footer-container">
+                <p class="footer-subtitle">Privacy Policy</p>
+                <p class="footer-content">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, doloremque dicta obcaecati odio at alias molestias impedit id sit? Quasi, perspiciatis, eius doloremque corrupti eum laborum laudantium atque nam enim, expedita totam! Consequatur, quos consequuntur praesentium impedit officiis modi blanditiis at eius odio odit nostrum. Doloremque dolorum recusandae at dignissimos aperiam quos quas porro laborum eveniet magni voluptas, autem est, facilis nobis eligendi architecto magnam. Laudantium inventore earum vero culpa eius facere est neque eos!
+                </p>
+            </div>
+            <div class="footer-container">
+                <p class="footer-subtitle">Cookie Policy</p>
+                <p class="footer-content">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, nobis excepturi consequatur similique accusamus repudiandae doloremque quos minus eaque temporibus rem omnis aut quis commodi eligendi ratione nulla suscipit laudantium accusantium, explicabo debitis nihil dignissimos. Quia esse quis necessitatibus perspiciatis architecto explicabo totam quae odit placeat voluptatum accusamus neque aperiam fuga reiciendis eligendi ab quas tenetur, voluptates temporibus cumque ipsa similique fugiat. Voluptatibus reiciendis quibusdam modi consectetur voluptas ab rem quas veniam ullam, quod repellat!
+                </p>
+            </div>
+
+        </footer>
+
+    </body>
+
 </html>
