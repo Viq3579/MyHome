@@ -7,9 +7,10 @@
     if (isset($_SESSION["email"])) {
 
         $mysqli = require __DIR__ . "/php/database.php";
-        $sql = "SELECT *
-                FROM user
-                WHERE email = {$_SESSION["email"]}";
+        $sql = sprintf("SELECT *
+                        FROM user
+                        WHERE email = '%s'",
+                    $mysqli->real_escape_string($_SESSION["email"]));
 
         $result = $mysqli->query($sql);
         $user = $result->fetch_assoc();

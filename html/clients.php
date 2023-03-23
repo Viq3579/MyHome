@@ -31,7 +31,7 @@
                 
                 
                 <div class="header-cta">
-                    <a class="header-login login" href="../index.php">Log Out</a>
+                <a class="header-login login" href="../php/logout.php">Log Out</a>
                 </div>
             
             </div>
