@@ -82,6 +82,7 @@ include("../php/auth_session.php");
             <form class="form" action="" method="post">
 
                 <h1 class="login-title">Edit Customer Profile</h1>
+                <p> Email: <?php echo $_SESSION['email']?></p>
 
                 <div class="input">
                     <label class="input-header" for="name">Your Name:</label>
@@ -141,26 +142,7 @@ include("../php/auth_session.php");
         </footer>
         <?php
         }
-<<<<<<< HEAD
         ?>
     </body>
 
-=======
-    } else {
-?>
-    <form class="form" action="" method="post">
-        <h1 class="login-title">Edit Customer Profile</h1>
-        <p> Email: <?php echo $_SESSION['email']?></p>
-        <input type="text" class="login-input" name="name" placeholder="Name" required />
-        <input type="number" class="login-input" name="phone" placeholder="Phone Number" required/>
-        <input type="number" class="login-input" name="income" placeholder="Annual Income" required/>
-        <input type="number" class="login-input" name="miscexpenses" placeholder="Non-Service Expenses" required/>
-        <input type="number" class="login-input" name="numbcars" placeholder="Number of Cars" required/>
-        <button class="login-button">Submit</button>
-    </form>
-    <?php
-}
-?>
-</body>
->>>>>>> 080135cab7c138a5a58ee811c4219ad18aa64aba
 </html>
