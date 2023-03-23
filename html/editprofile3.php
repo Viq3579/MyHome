@@ -1,3 +1,39 @@
+<?php
+
+session_start();
+
+$_SESSION;
+
+if ( !isset($_SESSION["email"]) ) {
+    header("Location: ../index.php");
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $mysqli = require __DIR__ . "/../php/database.php";
+
+    $sql = "INSERT INTO provider (name, email, type)
+            VALUES (?, ?, ?)";
+
+    $stmt = $mysqli->stmt_init();
+
+    if (!$stmt->prepare($sql)) {
+        die ("SQL Error: " . $mysqli->error);
+    }
+
+    $stmt->bind_param("sss", 
+        $_POST["name"], 
+        $_SESSION["email"],
+        $_POST["type"]
+    );
+
+    $stmt->execute();
+    
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +46,7 @@
         <title>MyHome</title>
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/home.css">
+        <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
 
@@ -23,68 +60,44 @@
 
                 <nav class="header-nav">
 
-                    <a class="header-links" href="vendor-home.php">Services</a>
-                    <a class="header-links current-page" href="">Clients</a>
+                    <a class="header-links current-page" href="">Services</a>
+                    <a class="header-links" href="clients.php">Clients</a>
                     <a class="header-links" href="#">Requests</a>
 
                 </nav>
                 
                 
                 <div class="header-cta">
-                <a class="header-login login" href="../php/logout.php">Log Out</a>
+                    <a class="header-login login" href="../php/logout.php">Log Out</a>
                 </div>
-            
+
             </div>
 
         </header>
 
 
-        <main class="main-content">
+        <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
 
-            <div class="user-information">
-
-                <h1 class="title">Clients</h1>
-                
-                <div class="user-information-container" style="grid-template-columns: 1fr;">
-
-                    <table class="table">
-                        <tr class="table-row table-head">
-                            <th class="table-col-head">Name</th>
-                            <th class="table-col-head">Email</th>
-                            <th class="table-col-head">Service</th>
-                            <th class="table-col-head">Payments</th>
-                            <th class="table-col-head">Actions</th>
-                        </tr>
-                        <tr class="table-row">
-                            <th class="table-col">Victor</th>
-                            <th class="table-col">varg9436@vandals.uidaho.edu</th>
-                            <th class="table-col">Electricity</th>
-                            <th class="table-col">$200</th>
-                            <th class="table-col">Negotiate</th>
-                        </tr>
-                    </table>
-
+            <form class="form" method="post">
+    
+                <h1 class="login-title">Edit Vendor Profile</h1>
+    
+                <div class="input">
+                    <label class="input-header" for="name">Name of Company:</label>
+                    <input class="input-field" type="text" id="name" name="name">
                 </div>
-
-            </div>
-
-            <div class="advertised-services">
-                
-                <h1 class="title">Recommended Clients</h1>
-
-                <div class="service-detail recommended-service">
-                    <div class="service-title-container">
-                        <i class="service-title fa-solid fa-bolt"></i>
-                        <h3 class="service-title">Service Name</h3>
-                    </div>
-                    <p class="service-description">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                    </p>
-                    <p class="service-cost recommended-service-button"><b>$100</b> per Month</p>
+    
+                <div class="input">
+                    <label class="input-header" for="type">Type of Company:</label>
+                    <input class="input-field" type="text" id="type" name="type">
                 </div>
-
-            </div>
-
+    
+                <div class="submit-container">
+                    <button class="submit-button">Update Account</button>
+                </div>
+    
+            </form>    
+        
         </main>
 
 
