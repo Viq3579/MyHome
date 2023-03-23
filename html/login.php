@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user["user_type"] == 'Client') {
                 header("Location: home.html");
             } else if ($user["user_type"] == 'Vendor') {
-                header("Location: vendor-home.html");
+                header("Location: vendor-home.php");
             }
             exit;
         }

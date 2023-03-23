@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2023 at 05:40 AM
+-- Generation Time: Mar 23, 2023 at 06:11 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -85,8 +85,17 @@ INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, 
 --
 
 CREATE TABLE `provider` (
-  `name` int(11) NOT NULL
+  `email` varchar(255) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `type` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `provider`
+--
+
+INSERT INTO `provider` (`email`, `name`, `type`) VALUES
+('jamesp@gmail.com', 'James P. Electricity', 'Electricity');
 
 -- --------------------------------------------------------
 
@@ -103,6 +112,13 @@ CREATE TABLE `service` (
   `terms` varchar(2048) NOT NULL,
   `penalty` varchar(1028) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `service`
+--
+
+INSERT INTO `service` (`name`, `type`, `provider`, `cost`, `description`, `terms`, `penalty`) VALUES
+('Standard Electricity', 'Electricity', 'jamesp@gmail.com', 200, 'The basic electricity plan designed for common users.', 'Lorem ipsum.', 'Electricity will be shut down');
 
 -- --------------------------------------------------------
 
@@ -158,7 +174,7 @@ ALTER TABLE `home`
 -- Indexes for table `provider`
 --
 ALTER TABLE `provider`
-  ADD PRIMARY KEY (`name`);
+  ADD PRIMARY KEY (`email`) USING BTREE;
 
 --
 -- Indexes for table `service`

@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $mysqli = require __DIR__ . "/../php/database.php";
 
-    $sql = "INSERT INTO provider (name, email, type)
+    $sql = "INSERT INTO provider (email, name, type)
             VALUES (?, ?, ?)";
 
     $stmt = $mysqli->stmt_init();
@@ -23,12 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $stmt->bind_param("sss", 
-        $_POST["name"], 
         $_SESSION["email"],
+        $_POST["name"], 
         $_POST["type"]
     );
 
-    $stmt->execute();
+    if ($stmt->execute()) {
+        header("Location: vendor-home.php");
+        exit;
+    }
     
 }
 
@@ -60,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <nav class="header-nav">
 
-                    <a class="header-links current-page" href="">Services</a>
+                    <a class="header-links" href="vendor-home.php">Services</a>
                     <a class="header-links" href="clients.php">Clients</a>
                     <a class="header-links" href="#">Requests</a>
 
