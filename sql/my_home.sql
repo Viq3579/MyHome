@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2023 at 08:46 AM
+-- Generation Time: Mar 23, 2023 at 12:09 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -43,6 +43,7 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`name`, `email`, `phone_num`, `family_income`, `num_cars`, `misc_expenses`) VALUES
 ('hello', 'doesisworkfromhere@gmail.com', 2147483647, 555, 5, 5555),
 ('Ian Finnigan', 'pleasework@gmail.com', 2088814537, 1e26, 16, 10000),
+('Test McSample', 'sample@gmail.com', 5556667777, 10000, 1, 100),
 ('test test', 'testingduplicatephone@gmail.com', 987654321, 123, 54, 12343),
 ('try not same', 'thisiscompletelynew@gmail.com', 1234567890, 6, 6, 6),
 ('youcanchangethemnow', 'thisshouldgoincustomertable@gmail.com', 8989898989, 88, 1000, 999);
@@ -77,9 +78,12 @@ CREATE TABLE `home` (
 --
 
 INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, `garage_size`, `year_built`, `property_type`, `heating_type`, `heating_time`, `num_floors`, `floor_space`, `roof`, `bathrooms`, `foundation`, `bedrooms`, `owner_email`) VALUES
+('1010 10th street', 10101000, 'AC', 'Brick', 10, 1010, 'Home', 'Natural Gas', '00:00:10', 11, 200000, 0, 5, 'Concrete', 10, 'sample@gmail.com'),
 ('123 Main Street', 1000000, 'AC', 'Brick', 2, 1972, 'Home', 'Natural Gas', '00:00:13', 2, 5000, 0, 2, '', 0, 'thirdtimesthecharm@yahoo.com'),
 ('555 5th street', 55555, 'ac', 'Brick', 5, 1955, 'Home', 'Natural Gas', '00:00:05', 5, 5555, 0, 5, '', 0, 'doesisworkfromhere@gmail.com'),
-('616161 89th street', 1000000, 'there\'s a fan in the corner but that\'s about it', 'sdhgsgfdh', 76, 1666, 'Haunted Mansion', 'Fireplace', '00:00:30', 17, 100000000000, 0, 199, '', 0, 'thirdtimesthecharm@yahoo.com');
+('616161 89th street', 1000000, 'there\'s a fan in the corner but that\'s about it', 'sdhgsgfdh', 76, 1666, 'Haunted Mansion', 'Fireplace', '00:00:30', 17, 100000000000, 0, 199, '', 0, 'thirdtimesthecharm@yahoo.com'),
+('777 7th street', 7777780, 'ac', 'brick', 7, 1777, 'Home', '7', '00:00:07', 7, 7, 0, 7, '', 0, 'thirdtimesthecharm@yahoo.com'),
+('888 9th street', 567857000, 'AC', 'brick', 6, 12324, 'home', 'furnace', '00:00:10', 7, 88888900, 0, 17, '', 10, 'thirdtimesthecharm@yahoo.com');
 
 -- --------------------------------------------------------
 
@@ -103,7 +107,9 @@ CREATE TABLE `outsideservice` (
 --
 
 INSERT INTO `outsideservice` (`customer_email`, `type`, `name`, `cost`, `description`, `terms`, `penalty`, `address`) VALUES
-('ghghghghghg@gmail.com', 'dental insurance', 'dental insurance', 55555, 'lorem ipsum', 'lorem ipsum', 'lorem ipsum', NULL);
+('ghghghghghg@gmail.com', '', '', 0, '', '', '', NULL),
+('ghghghghghg@gmail.com', 'dental insurance', 'dental insurance', 55555, 'lorem ipsum', 'lorem ipsum', 'lorem ipsum', NULL),
+('thirdtimesthecharm@yahoo.com', 'dfgh', 'fdhjgfh', 111, 'dfhgjgf', 'ghjfg', 'fghj', NULL);
 
 -- --------------------------------------------------------
 
@@ -123,6 +129,7 @@ CREATE TABLE `provider` (
 
 INSERT INTO `provider` (`email`, `name`, `type`) VALUES
 ('jamesp@gmail.com', 'James P. Electricity', 'Electricity'),
+('samplevend@gmail.com', 'ElectriCorp', 'Electricity Provider'),
 ('vendortest@gmail.com', 'Progressive', 'Insurance');
 
 -- --------------------------------------------------------
@@ -180,6 +187,8 @@ INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 ('imnotavendor@gmail.com', '$2y$10$XNncLBoFfhqqkCm1eI2v7.K6Z6VkED92zRLncuMx0so8R5qaUpsv2', 'Vendor'),
 ('jamesp@gmail.com', '$2y$10$HcaBpbD4PKFYp38gNoLMEejqil.MtY/dO6UZvRH9STHn6U5bzHY0O', 'Vendor'),
 ('pleasework@gmail.com', '$2y$10$JsBMPw2veFfMeJnGH8/Jk.ASF8jLMeUrIAqqF1XiWDN32pmc7wtwy', 'Client'),
+('sample@gmail.com', '$2y$10$6Ki3a09xEjoTuJNFecsbQuLcphaEzH5ZHfgFOlQo79pfeg5bAsOXW', 'Client'),
+('samplevend@gmail.com', '$2y$10$ZNnqWJFZN4C4Wkcyr561Tu3Wgw3TjdnSvWJ9ElD5mOmYlA7YV4IdO', 'Vendor'),
 ('testingduplicatephone@gmail.com', '$2y$10$8BSHX2cWV9jdjsbkc84bwujBnA87q3lYitrX2/4bSsl6vxUnd5wJa', 'Client'),
 ('thirdtimesthecharm@yahoo.com', '$2y$10$ZdaAVrl.geQOw/7m3kmRSulskzxH9C4kxc.IhOgFST0fFUkUmU6Nu', 'Client'),
 ('thisiscompletelynew@gmail.com', '$2y$10$iddk5SPx5/sKqX9Q1pXpG.MhVcqAECYoUuCvMBn2N2ZcrZkm.DuIO', 'Client'),
