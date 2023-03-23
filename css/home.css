@@ -106,6 +106,9 @@ b {
 .advertised-services {
     padding-left: 25px;
     border-left: 3px solid #162840;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .recommended-service {
     background: linear-gradient(160deg, #33619c 0%, #233f64 50%, #162840 100%);
