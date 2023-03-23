@@ -28,18 +28,18 @@ include("../php/auth_session.php");
         $expense = mysqli_real_escape_string($mysqli, $expense);
         $cars = stripslashes($_REQUEST['numbcars']);
         $cars = mysqli_real_escape_string($mysqli, $cars);
-        $query    = "INSERT into `customer` (name, email, phone_num, family_income, num_cars, misc_expenses)
-                     VALUES ('$name', '$email', '$phone', '$income', '$cars', '$expense')";
+        $query    = "UPDATE customer SET name = '$name', phone_num = '$phone', family_income = '$income', num_cars = '$cars', misc_expenses = '$expense' WHERE email = '$email';";
+
         $result   = mysqli_query($mysqli, $query);
         if ($result) {
             echo "<div class='form'>
-                  <h3>You are registered successfully.</h3><br/>
-                  <p class='link'>Click here to <a href='home.html'>Login</a></p>
+                  <h3>Edited successfully.</h3><br/>
+                  <p class='link'>Click here to <a href='profile.html'>Return to Profile</a></p>
                   </div>";
         } else {
             echo "<div class='form'>
                   <h3>Required fields are missing.</h3><br/>
-                  <p class='link'>Click here to <a href='editprofilep2.php'>registration</a> again.</p>
+                  <p class='link'>Click here to <a href='changeprofile.php'>Edit Profile</a> again.</p>
                   </div>";
         }
     } else {
