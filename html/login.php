@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             session_start();
             session_regenerate_id();
-            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["email"] = $user["email"];
 
             if ($user["user_type"] == 'Client') {
                 header("Location: home.html");
