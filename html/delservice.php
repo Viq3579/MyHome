@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     $stmt->execute();
-    header("Location: ../html/profile.html");
+    header("Location: ../html/profile.php");
     
 }
 
@@ -60,9 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <nav class="header-nav">
 
-                    <a class="header-links" href="home.html">Dashboard</a>
+                    <a class="header-links" href="home.php">Dashboard</a>
                     <a class="header-links" href="searchservices.html">Services</a>
-                    <a class="header-links" href="profile.html">Profile</a>
+                    <a class="header-links" href="profile.php">Profile</a>
 
                 </nav>
                 

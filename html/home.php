@@ -1,3 +1,7 @@
+<?php
+include("../php/auth_session.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +29,7 @@
 
                     <a class="header-links current-page" href="#">Dashboard</a>
                     <a class="header-links" href="searchservices.html">Services</a>
-                    <a class="header-links" href="profile.html">Profile</a>
+                    <a class="header-links" href="profile.php">Profile</a>
 
                 </nav>
                 
@@ -43,7 +47,7 @@
 
             <div class="user-information">
 
-                <h1 class="title">Welcome back Victor</h1>
+                <h1 class="title">Welcome back <?php echo $_SESSION['email']; ?></h1>
                 
                 <div class="user-information-container">
 
@@ -112,47 +116,92 @@
                         
                         <h2 class="subtitle">Your Home Information</h2>
                         
-                        <img class="house-image" height="200px" src="https://cdn.houseplansservices.com/product/dt0biqq4ga38s7rdm8tjnbglkp/w800x533.jpg?v=2" alt="A Picture of Your House.">
                         
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-location-dot"></i>
-                            <p class="house-description">2923 Modoc Alley, Moscow, ID 83843</p>
-                        </div>
+                        <?php
+                            require('../php/database.php');
+                            $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
+                            $result = mysqli_query($mysqli, "SELECT * FROM home WHERE owner_email='$sanemail'");
+                            while($row = mysqli_fetch_array($result))
+                            {
+                                ?>
+                                    <img class="house-image" height="200px" src="https://cdn.houseplansservices.com/product/dt0biqq4ga38s7rdm8tjnbglkp/w800x533.jpg?v=2" alt="A Picture of Your House.">
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-location-dot"></i>
+                                        <p class="house-description"><?php echo $row['address'];?></p>
+                                    </div>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-bed"></i>
-                            <p class="house-description">4 Bedrooms</p>
-                        </div>
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-bed"></i>
+                                        <p class="house-description"><?php echo $row['bedrooms'];?> Bedrooms</p>
+                                    </div>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-shower"></i>
-                            <p class="house-description">3 Bathrooms</p>
-                        </div>
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-shower"></i>
+                                        <p class="house-description"><?php echo $row['bathrooms'];?> Bathrooms</p>
+                                    </div>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-square"></i>
-                            <p class="house-description">Lorem ipsum dolor sit amet.</p>
-                        </div>
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Construction Type: <?php echo $row['construction_type'];?></p>
+                                    </div>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-square"></i>
-                            <p class="house-description">Lorem ipsum dolor sit amet.</p>
-                        </div>
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Cooling Type: <?php echo $row['cooling_type'];?></p>
+                                    </div>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-square"></i>
-                            <p class="house-description">Lorem ipsum dolor sit amet.</p>
-                        </div>
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Floor Space: <?php echo $row['floor_space'];?></p>
+                                    </div>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-square"></i>
-                            <p class="house-description">Lorem ipsum dolor sit amet.</p>
-                        </div>
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Foundation Type: <?php echo $row['foundation'];?></p>
+                                    </div>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-square"></i>
-                            <p class="house-description">Lorem ipsum dolor sit amet.</p>
-                        </div>
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Garage Size: <?php echo $row['garage_size'];?></p>
+                                    </div>
+
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Heating Time: <?php echo $row['heating_time'];?></p>
+                                    </div>
+
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Heating Type: <?php echo $row['heating_type'];?></p>
+                                    </div>
+
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Lot Size: <?php echo $row['lot_size'];?></p>
+                                    </div>
+
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Number of Floors: <?php echo $row['num_floors'];?></p>
+                                    </div>
+
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Property Type: <?php echo $row['property_type'];?></p>
+                                    </div>
+
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Roof Style: <?php echo $row['roof'];?></p>
+                                    </div>
+
+                                    <div class="house-detail">
+                                        <i class="house-description fa-solid fa-square"></i>
+                                        <p class="house-description">Year Built: <?php echo $row['year_built'];?></p>
+                                    </div>
+                                <?php
+                            }
+                        ?>
                         
                     </div>
 

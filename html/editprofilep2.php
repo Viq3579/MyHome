@@ -62,7 +62,7 @@ include("../php/auth_session.php");
                     if ($result) {
                         echo "<div class='form'>
                         <h3>You are registered successfully.</h3><br/>
-                        <p class='link'>Click here to <a href='home.html'>Login</a></p>
+                        <p class='link'>Click here to <a href='home.php'>Login</a></p>
                         </div>";
                     } else {
                         echo "<div class='form'>
@@ -80,9 +80,9 @@ include("../php/auth_session.php");
 
                 <nav class="header-nav">
 
-                    <a class="header-links" href="home.html">Dashboard</a>
+                    <a class="header-links" href="home.php">Dashboard</a>
                     <a class="header-links" href="searchservices.html">Services</a>
-                    <a class="header-links" href="profile.html">Profile</a>
+                    <a class="header-links" href="profile.php">Profile</a>
 
                 </nav>
                 

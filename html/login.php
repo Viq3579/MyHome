@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["email"] = $user["email"];
 
             if ($user["user_type"] == 'Client') {
-                header("Location: home.html");
+                header("Location: home.php");
             } else if ($user["user_type"] == 'Vendor') {
                 header("Location: vendor-home.php");
             }

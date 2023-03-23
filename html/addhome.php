@@ -75,13 +75,13 @@ include("../php/auth_session.php");
             }
             else
             {
-                $query    = "INSERT into `home` (owner_email, address, lot_size, cooling_type, construction_type, garage_size, year_built, property_type, heating_type, heating_time, num_floors, floor_space, roof, bathrooms)
-                            VALUES ('$email', '$address','$lot_size', '$cooltype', '$contype', '$garage', '$year_built', '$proptype', '$heattype', '$heattime', '$floors', '$floorspace', '$rooftype', '$bathrooms')";
+                $query    = "INSERT into `home` (owner_email, address, lot_size, cooling_type, construction_type, garage_size, year_built, property_type, heating_type, heating_time, num_floors, floor_space, roof, bathrooms, bedrooms, foundation)
+                            VALUES ('$email', '$address','$lot_size', '$cooltype', '$contype', '$garage', '$year_built', '$proptype', '$heattype', '$heattime', '$floors', '$floorspace', '$rooftype', '$bathrooms', '$bedrooms', '$foundation')";
                 $result   = mysqli_query($mysqli, $query);
                 if ($result) {
                     echo "<div class='form'>
                         <h3>Home added successfully.</h3><br/>
-                        <p class='link'>Click here to <a href='profile.html'>Dashboard</a></p>
+                        <p class='link'>Click here to <a href='profile.php'>Dashboard</a></p>
                         </div>";
                 } else {
                     echo "<div class='form'>
@@ -100,9 +100,9 @@ include("../php/auth_session.php");
 
                 <nav class="header-nav">
 
-                    <a class="header-links" href="home.html">Dashboard</a>
+                    <a class="header-links" href="home.php">Dashboard</a>
                     <a class="header-links" href="searchservices.html">Services</a>
-                    <a class="header-links" href="profile.html">Profile</a>
+                    <a class="header-links" href="profile.php">Profile</a>
 
                 </nav>
                 
