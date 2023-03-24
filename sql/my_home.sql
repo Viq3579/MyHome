@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2023 at 12:09 PM
+-- Generation Time: Mar 24, 2023 at 07:01 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -51,6 +51,19 @@ INSERT INTO `customer` (`name`, `email`, `phone_num`, `family_income`, `num_cars
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hasservice`
+--
+
+CREATE TABLE `hasservice` (
+  `owner_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `service_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `provider_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `home`
 --
 
@@ -80,6 +93,7 @@ CREATE TABLE `home` (
 INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, `garage_size`, `year_built`, `property_type`, `heating_type`, `heating_time`, `num_floors`, `floor_space`, `roof`, `bathrooms`, `foundation`, `bedrooms`, `owner_email`) VALUES
 ('1010 10th street', 10101000, 'AC', 'Brick', 10, 1010, 'Home', 'Natural Gas', '00:00:10', 11, 200000, 0, 5, 'Concrete', 10, 'sample@gmail.com'),
 ('123 Main Street', 1000000, 'AC', 'Brick', 2, 1972, 'Home', 'Natural Gas', '00:00:13', 2, 5000, 0, 2, '', 0, 'thirdtimesthecharm@yahoo.com'),
+('444 4th Street', 546789, 'AC', 'Brick', 4, 1945, 'Home', 'Furnace', '00:00:15', 3, 5000, 0, 2, 'Concrete', 6, 'pleasework@gmail.com'),
 ('555 5th street', 55555, 'ac', 'Brick', 5, 1955, 'Home', 'Natural Gas', '00:00:05', 5, 5555, 0, 5, '', 0, 'doesisworkfromhere@gmail.com'),
 ('616161 89th street', 1000000, 'there\'s a fan in the corner but that\'s about it', 'sdhgsgfdh', 76, 1666, 'Haunted Mansion', 'Fireplace', '00:00:30', 17, 100000000000, 0, 199, '', 0, 'thirdtimesthecharm@yahoo.com'),
 ('777 7th street', 7777780, 'ac', 'brick', 7, 1777, 'Home', '7', '00:00:07', 7, 7, 0, 7, '', 0, 'thirdtimesthecharm@yahoo.com'),
@@ -109,7 +123,9 @@ CREATE TABLE `outsideservice` (
 INSERT INTO `outsideservice` (`customer_email`, `type`, `name`, `cost`, `description`, `terms`, `penalty`, `address`) VALUES
 ('ghghghghghg@gmail.com', '', '', 0, '', '', '', NULL),
 ('ghghghghghg@gmail.com', 'dental insurance', 'dental insurance', 55555, 'lorem ipsum', 'lorem ipsum', 'lorem ipsum', NULL),
-('thirdtimesthecharm@yahoo.com', 'dfgh', 'fdhjgfh', 111, 'dfhgjgf', 'ghjfg', 'fghj', NULL);
+('thirdtimesthecharm@yahoo.com', 'dfgh', 'fdhjgfh', 111, 'dfhgjgf', 'ghjfg', 'fghj', NULL),
+('pleasework@gmail.com', 'Transport', 'Private Jet Flight', 100000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL),
+('pleasework@gmail.com', 'Insurance', 'Super Dental Service', 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL);
 
 -- --------------------------------------------------------
 
@@ -206,6 +222,12 @@ INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`email`) USING BTREE,
   ADD UNIQUE KEY `phone_num` (`phone_num`);
+
+--
+-- Indexes for table `hasservice`
+--
+ALTER TABLE `hasservice`
+  ADD PRIMARY KEY (`owner_email`,`service_name`,`address`);
 
 --
 -- Indexes for table `home`

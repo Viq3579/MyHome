@@ -28,7 +28,7 @@ include("../php/auth_session.php");
                 <nav class="header-nav">
 
                     <a class="header-links" href="home.php">Dashboard</a>
-                    <a class="header-links" href="searchservices.html">Services</a>
+                    <a class="header-links" href="searchservices.php">Services</a>
                     <a class="header-links current-page" href="#">Profile</a>
 
                 </nav>
@@ -55,31 +55,41 @@ include("../php/auth_session.php");
                         
                         <h2 class="subtitle">Personal Details</h2>
                         
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-envelope"></i>
-                            <p class="house-description">finn1162@vandals.uidaho.edu</p>
-                        </div>
+                        <?php
+                        require('../php/database.php');
+                        $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
+                        $result = mysqli_query($mysqli, "SELECT * FROM customer WHERE email='$sanemail'");
+                        while($row = mysqli_fetch_array($result))
+                        {
+                            ?>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-phone"></i>
-                            <p class="house-description">(555) 555-5555</p>
-                        </div>
+                                <div class="house-detail">
+                                    <i class="house-description fa-solid fa-envelope"></i>
+                                    <p class="house-description"><?php echo $row['email'];?></p>
+                                </div>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-car"></i>
-                            <p class="house-description">3 Cars</p>
-                        </div>
+                                <div class="house-detail">
+                                    <i class="house-description fa-solid fa-phone"></i>
+                                    <p class="house-description"><?php echo $row['phone_num'];?></p>
+                                </div>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-bank"></i>
-                            <p class="house-description">$100000 Annual Income</p>
-                        </div>
+                                <div class="house-detail">
+                                    <i class="house-description fa-solid fa-car"></i>
+                                    <p class="house-description"><?php echo $row['num_cars'];?> Cars</p>
+                                </div>
 
-                        <div class="house-detail">
-                            <i class="house-description fa-solid fa-balance-scale"></i>
-                            <p class="house-description">$5000 Non-Service Expenses</p>
-                        </div>
-                        
+                                <div class="house-detail">
+                                    <i class="house-description fa-solid fa-bank"></i>
+                                    <p class="house-description">Annual Income: $ <?php echo $row['family_income'];?></p>
+                                </div>
+
+                                <div class="house-detail">
+                                    <i class="house-description fa-solid fa-balance-scale"></i>
+                                    <p class="house-description">Non-Service Expenses: $<?php echo $row['misc_expenses'];?></p>
+                                </div>
+                            <?php
+                        }
+                    ?>
                     </div>
                     
                     <div class="home-information">
