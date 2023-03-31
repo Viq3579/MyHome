@@ -178,7 +178,8 @@ include("../php/auth_session.php");
                                     <i class="house-description fa-solid fa-square"></i>
                                     <p class="house-description">Year Built: <?php echo $row['year_built'];?></p>
                                 </div>
-                                <p class="service-cost recommended-service-button"><b>Edit Property Details</b></p>
+                                <a href="edithome.php" class="service-cost recommended-service-button"><b>Edit Property Details</b></a>
+                                <br>
                             <?php
                         }
                     ?>
