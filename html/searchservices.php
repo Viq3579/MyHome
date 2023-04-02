@@ -20,6 +20,20 @@ include("../php/auth_session.php");
 
     <body>
 
+    <?php
+        require('../php/database.php');
+        
+        $stype = stripslashes($_REQUEST['stype']);
+        $stype = mysqli_real_escape_string($mysqli, $stype);
+        $sname = stripslashes($_REQUEST['sname']);
+        $sname = mysqli_real_escape_string($mysqli, $sname);
+        $name = stripslashes($_REQUEST['name']);
+        $name = mysqli_real_escape_string($mysqli, $name);
+        $type = stripslashes($_REQUEST['type']);
+        $type = mysqli_real_escape_string($mysqli, $type);
+
+        ?>
+
         <header class="header">
 
             <div class="header-container">
@@ -47,29 +61,32 @@ include("../php/auth_session.php");
 
             <div>
                 <h1 class="title">Search Services</h1>
-                    <div class="input">
-                        <label class="input-header" for="name">Provider Name:</label>
-                        <input class="input-field" type="name" id="name" name="name">
-                    </div>
 
-                    <div class="input">
-                        <label class="input-header" for="type">Provider Type:</label>
-                        <input class="input-field" type="type" id="type" name="type">
-                    </div>
+                    <form class="form" method="post">
+                        <div class="input">
+                            <label class="input-header" for="name">Provider Name:</label>
+                            <input class="input-field" type="text" id="name" name="name">
+                        </div>
 
-                    <div class="input">
-                        <label class="input-header" for="sname">Service Name:</label>
-                        <input class="input-field" type="sname" id="sname" name="sname">
-                    </div>
+                        <div class="input">
+                            <label class="input-header" for="type">Provider Type:</label>
+                            <input class="input-field" type="text" id="type" name="type">
+                        </div>
 
-                    <div class="input">
-                        <label class="input-header" for="stype">Service Type:</label>
-                        <input class="input-field" type="stype" id="stype" name="stype">
-                    </div>
+                        <div class="input">
+                            <label class="input-header" for="sname">Service Name:</label>
+                            <input class="input-field" type="text" id="sname" name="sname">
+                        </div>
 
-                    <div class="submit-container">
-                        <a class="submit-button" href="searchservices.php">Search</a>
-                    </div>
+                        <div class="input">
+                            <label class="input-header" for="stype">Service Type:</label>
+                            <input class="input-field" type="text" id="stype" name="stype">
+                        </div>
+
+                        <div class="submit-container">
+                            <button class="submit-button" href="searchservices.php">Search</button>
+                        </div>
+                    </form>
 
                     <div class="user-information-container">
 
@@ -78,41 +95,133 @@ include("../php/auth_session.php");
                             <h1 class="title">Results</h1>
                             
                             <a href="#" class="service-cost recommended-service-button"><b>Filter By Affordability<br></b></a><br>
-                            <div class="service-detail recommended-service">
-                                <div class="service-title-container">
-                                    <i class="service-title fa-solid fa-bolt"></i>
-                                    <h3 class="service-title">Service Name</h3>
-                                </div>
-                                <p class="service-description">
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                                </p>
-                                <a class="service-cost recommended-service-button" href="negotiate.html"><b>$100</b> per Month</a>
-                                <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
-                            </div>
-            
-                            <div class="service-detail recommended-service">
-                                <div class="service-title-container">
-                                    <i class="service-title fa-solid fa-bolt"></i>
-                                    <h3 class="service-title">Lorem Ipsum Dolor Sit</h3>
-                                </div>
-                                <p class="service-description">
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                                </p>
-                                <a class="service-cost recommended-service-button" href="negotiate.html"><b>$100</b> per Month</a>
-                                <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
-                            </div>
-            
-                            <div class="service-detail recommended-service">
-                                <div class="service-title-container">
-                                    <i class="service-title fa-solid fa-bolt"></i>
-                                    <h3 class="service-title">Lorem</h3>
-                                </div>
-                                <p class="service-description">
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                                </p>
-                                <a class="service-cost recommended-service-button" href="negotiate.html"><b>$100</b> per Month</a>
-                                <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
-                            </div>
+
+                            <?php
+                            require('../php/database.php');
+
+                            if ($stype != NULL)
+                            {
+                                $result = mysqli_query($mysqli, "SELECT * FROM service WHERE type='$stype'");
+                                while($row = mysqli_fetch_array($result))
+                                {
+                                    ?>
+                                        <div class="service-detail recommended-service">
+                                            <div class="service-title-container">
+                                                <i class="service-title fa-solid fa-bolt"></i>
+                                                <h3 class="service-title"><?php echo $row['name'];?></h3>
+                                            </div>
+                                            <p class="service-description">
+                                                Type: <?php echo $row['type'];?>
+                                            </p>
+                                            <br>
+                                            <p class="service-description">
+                                                Description: <?php echo $row['description'];?>
+                                            </p>
+                                            <br>
+                                            <br>
+                                            <p class="service-description">
+                                                Terms: <?php echo $row['terms'];?>
+                                            </p>
+                                            <a class="service-cost recommended-service-button" href="negotiate.html"><b><?php echo $row['cost'];?></b> per Month</a>
+                                            <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
+                                        </div>
+                                    <?php
+                                }
+    
+                            } 
+
+                            if ($sname != NULL)
+                            {
+                                $result = mysqli_query($mysqli, "SELECT * FROM service WHERE name='$sname'");
+                                while($row = mysqli_fetch_array($result))
+                                {
+                                    ?>
+                                        <div class="service-detail recommended-service">
+                                            <div class="service-title-container">
+                                                <i class="service-title fa-solid fa-bolt"></i>
+                                                <h3 class="service-title"><?php echo $row['name'];?></h3>
+                                            </div>
+                                            <p class="service-description">
+                                                Type: <?php echo $row['type'];?>
+                                            </p>
+                                            <br>
+                                            <p class="service-description">
+                                                Description: <?php echo $row['description'];?>
+                                            </p>
+                                            <br>
+                                            <br>
+                                            <p class="service-description">
+                                                Terms: <?php echo $row['terms'];?>
+                                            </p>
+                                            <a class="service-cost recommended-service-button" href="negotiate.html"><b><?php echo $row['cost'];?></b> per Month</a>
+                                            <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
+                                        </div>
+                                    <?php
+                                }
+                            } 
+
+                            if ($name != NULL)
+                            {
+                                $result = mysqli_query($mysqli, "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider");
+                                while($row = mysqli_fetch_array($result))
+                                {
+                                    ?>
+                                        <div class="service-detail recommended-service">
+                                            <div class="service-title-container">
+                                                <i class="service-title fa-solid fa-bolt"></i>
+                                                <h3 class="service-title"><?php echo $row['name'];?></h3>
+                                            </div>
+                                            <p class="service-description">
+                                                Type: <?php echo $row['type'];?>
+                                            </p>
+                                            <br>
+                                            <p class="service-description">
+                                                Description: <?php echo $row['description'];?>
+                                            </p>
+                                            <br>
+                                            <br>
+                                            <p class="service-description">
+                                                Terms: <?php echo $row['terms'];?>
+                                            </p>
+                                            <a class="service-cost recommended-service-button" href="negotiate.html"><b><?php echo $row['cost'];?></b> per Month</a>
+                                            <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
+                                        </div>
+                                    <?php
+                                }
+    
+                            }
+                            if ($type != NULL)
+                            {
+                                $result = mysqli_query($mysqli, "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$type' AND P.email=S.provider");
+                                while($row = mysqli_fetch_array($result))
+                                {
+                                    ?>
+                                        <div class="service-detail recommended-service">
+                                            <div class="service-title-container">
+                                                <i class="service-title fa-solid fa-bolt"></i>
+                                                <h3 class="service-title"><?php echo $row['name'];?></h3>
+                                            </div>
+                                            <p class="service-description">
+                                                Type: <?php echo $row['type'];?>
+                                            </p>
+                                            <br>
+                                            <p class="service-description">
+                                                Description: <?php echo $row['description'];?>
+                                            </p>
+                                            <br>
+                                            <br>
+                                            <p class="service-description">
+                                                Terms: <?php echo $row['terms'];?>
+                                            </p>
+                                            <a class="service-cost recommended-service-button" href="negotiate.html"><b><?php echo $row['cost'];?></b> per Month</a>
+                                            <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
+                                        </div>
+                                    <?php
+                                }
+    
+                            }
+                            ?>
+                        
                             
                         </div>
 
