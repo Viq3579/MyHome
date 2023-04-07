@@ -23,14 +23,69 @@ include("../php/auth_session.php");
     <?php
         require('../php/database.php');
         
-        $stype = stripslashes($_REQUEST['stype']);
-        $stype = mysqli_real_escape_string($mysqli, $stype);
-        $sname = stripslashes($_REQUEST['sname']);
-        $sname = mysqli_real_escape_string($mysqli, $sname);
-        $name = stripslashes($_REQUEST['name']);
-        $name = mysqli_real_escape_string($mysqli, $name);
-        $type = stripslashes($_REQUEST['type']);
-        $type = mysqli_real_escape_string($mysqli, $type);
+        if (isset($_REQUEST['stype']))
+        {
+            $stype = stripslashes($_REQUEST['stype']);
+            $stype = mysqli_real_escape_string($mysqli, $stype);
+        } else {
+            $stype = "NULL";
+        }
+        if (isset($_REQUEST['type']))
+        {
+            $type = stripslashes($_REQUEST['type']);
+            $type = mysqli_real_escape_string($mysqli, $type);
+        } else {
+            $type = "NULL";
+        }
+
+        if (isset($_REQUEST['sname']))
+        {
+            $sname = stripslashes($_REQUEST['sname']);
+            $sname = mysqli_real_escape_string($mysqli, $sname);
+        } else {
+            $sname = "NULL";
+        }
+
+        if (isset($_REQUEST['name']))
+        {
+            $name = stripslashes($_REQUEST['name']);
+            $name = mysqli_real_escape_string($mysqli, $name);
+        } else {
+            $name = "NULL";
+        }
+
+        if (isset($_REQUEST['afford']))
+        {
+            $afford = $_REQUEST['afford'];
+        } else {
+            $afford = "NULL";
+        }
+        
+        $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
+        $result = mysqli_query($mysqli, "SELECT family_income FROM customer WHERE email = '$sanemail'");
+        $temp = mysqli_fetch_array($result);
+        $monthlyincome = $temp['family_income'] / 12;
+        $result = mysqli_query($mysqli, "SELECT SUM(S.cost) FROM service AS S, hasservice AS H
+        WHERE H.owner_email = '$sanemail' and H.service_name = S.name");
+        $temp = mysqli_fetch_array($result);
+        $maxprice = $monthlyincome - $temp['SUM(S.cost)'];
+        $result = mysqli_query($mysqli, "SELECT SUM(O.cost) FROM outsideservice AS O
+        WHERE O.customer_email = '$sanemail'");
+        $temp = mysqli_fetch_array($result);
+        $maxprice = $monthlyincome - $temp['SUM(O.cost)'];
+        if ($afford != 'Yes')
+        {
+            $stypequery = "SELECT * FROM service WHERE type='$stype'";
+            $snamequery = "SELECT * FROM service WHERE name='$sname'";
+            $typequery = "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$type' AND P.email=S.provider";
+            $namequery = "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider";
+        } else {
+            $stypequery = "SELECT * FROM service WHERE type='$stype' AND cost <= '$maxprice'";
+            $snamequery = "SELECT * FROM service WHERE name='$sname' AND cost <= '$maxprice'";
+            $typequery = "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$type' AND P.email=S.provider AND S.cost <= '$maxprice'";
+            $namequery = "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider AND S.cost <= '$maxprice'";
+    
+        }
 
         ?>
 
@@ -83,6 +138,10 @@ include("../php/auth_session.php");
                             <input class="input-field" type="text" id="stype" name="stype">
                         </div>
 
+                       
+                        <label class="input-header" for="afford">Filter By Affordability?</label>
+                        <input class="input-checkbox" type="checkbox" name="afford" value="Yes" id="afford">                
+
                         <div class="submit-container">
                             <button class="submit-button" href="searchservices.php">Search</button>
                         </div>
@@ -93,15 +152,13 @@ include("../php/auth_session.php");
                         <div class="user-services">
                             
                             <h1 class="title">Results</h1>
-                            
-                            <a href="#" class="service-cost recommended-service-button"><b>Filter By Affordability<br></b></a><br>
 
                             <?php
                             require('../php/database.php');
 
                             if ($stype != NULL)
                             {
-                                $result = mysqli_query($mysqli, "SELECT * FROM service WHERE type='$stype'");
+                                $result = mysqli_query($mysqli, $stypequery);
                                 while($row = mysqli_fetch_array($result))
                                 {
                                     ?>
@@ -132,7 +189,7 @@ include("../php/auth_session.php");
 
                             if ($sname != NULL)
                             {
-                                $result = mysqli_query($mysqli, "SELECT * FROM service WHERE name='$sname'");
+                                $result = mysqli_query($mysqli, $snamequery);
                                 while($row = mysqli_fetch_array($result))
                                 {
                                     ?>
@@ -162,7 +219,7 @@ include("../php/auth_session.php");
 
                             if ($name != NULL)
                             {
-                                $result = mysqli_query($mysqli, "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider");
+                                $result = mysqli_query($mysqli, $namequery);
                                 while($row = mysqli_fetch_array($result))
                                 {
                                     ?>
@@ -192,7 +249,7 @@ include("../php/auth_session.php");
                             }
                             if ($type != NULL)
                             {
-                                $result = mysqli_query($mysqli, "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$type' AND P.email=S.provider");
+                                $result = mysqli_query($mysqli, $typequery);
                                 while($row = mysqli_fetch_array($result))
                                 {
                                     ?>

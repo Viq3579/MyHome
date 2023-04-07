@@ -17,7 +17,7 @@
 
         if ($user["user_type"] == "Client") {
 
-            header("Location: html/home.html");
+            header("Location: html/home.php");
             exit;
 
         } else if ($user["user_type"] == "Vendor") {

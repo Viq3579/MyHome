@@ -147,6 +147,13 @@ b {
     border-radius: 15px;
     padding: 10px;
 }
+
+.input-checkbox {
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
 .submit-container {
     display: flex;
     justify-content: space-between;
