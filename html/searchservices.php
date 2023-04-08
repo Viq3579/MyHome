@@ -75,15 +75,15 @@ include("../php/auth_session.php");
         $maxprice = $monthlyincome - $temp['SUM(O.cost)'];
         if ($afford != 'Yes')
         {
-            $stypequery = "SELECT * FROM service WHERE type='$stype'";
-            $snamequery = "SELECT * FROM service WHERE name='$sname'";
-            $typequery = "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$type' AND P.email=S.provider";
-            $namequery = "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider";
+            $stypequery = "SELECT S.name AS sname, P.name AS pname, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE S.type='$stype' AND P.email=S.provider";
+            $snamequery = "SELECT S.name AS sname, P.name AS pname, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE S.name='$sname' AND P.email=S.provider";
+            $typequery = "SELECT S.name AS sname, P.name AS pname, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$type' AND P.email=S.provider";
+            $namequery = "SELECT S.name AS sname, P.name AS pname, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider";
         } else {
-            $stypequery = "SELECT * FROM service WHERE type='$stype' AND cost <= '$maxprice'";
-            $snamequery = "SELECT * FROM service WHERE name='$sname' AND cost <= '$maxprice'";
-            $typequery = "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$type' AND P.email=S.provider AND S.cost <= '$maxprice'";
-            $namequery = "SELECT S.name, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider AND S.cost <= '$maxprice'";
+            $stypequery = "SELECT S.name AS sname, P.name AS pname, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE type='$stype' AND P.email=S.provider AND cost <= '$maxprice'";
+            $snamequery = "SELECT S.name AS sname, P.name AS pname, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE name='$sname' AND P.email=S.provider AND cost <= '$maxprice'";
+            $typequery = "SELECT S.name AS sname, P.name AS pname, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$type' AND P.email=S.provider AND S.cost <= '$maxprice'";
+            $namequery = "SELECT S.name AS sname, P.name AS pname, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider AND S.cost <= '$maxprice'";
     
         }
 
@@ -165,8 +165,11 @@ include("../php/auth_session.php");
                                         <div class="service-detail recommended-service">
                                             <div class="service-title-container">
                                                 <i class="service-title fa-solid fa-bolt"></i>
-                                                <h3 class="service-title"><?php echo $row['name'];?></h3>
+                                                <h3 class="service-title"><?php echo $row['sname'];?></h3>
                                             </div>
+                                            <p class="service-description">
+                                                Provider Name: <?php echo $row['pname'];?>
+                                            </p>
                                             <p class="service-description">
                                                 Type: <?php echo $row['type'];?>
                                             </p>
@@ -180,7 +183,7 @@ include("../php/auth_session.php");
                                                 Terms: <?php echo $row['terms'];?>
                                             </p>
                                             <a class="service-cost recommended-service-button" href="negotiate.html"><b><?php echo $row['cost'];?></b> per Month</a>
-                                            <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
+                                            <a class="service-cost recommended-service-button" href="requestquote.php"><b>Request Quote</b></a>
                                         </div>
                                     <?php
                                 }
@@ -196,8 +199,11 @@ include("../php/auth_session.php");
                                         <div class="service-detail recommended-service">
                                             <div class="service-title-container">
                                                 <i class="service-title fa-solid fa-bolt"></i>
-                                                <h3 class="service-title"><?php echo $row['name'];?></h3>
+                                                <h3 class="service-title"><?php echo $row['sname'];?></h3>
                                             </div>
+                                            <p class="service-description">
+                                                Provider Name: <?php echo $row['pname'];?>
+                                            </p>
                                             <p class="service-description">
                                                 Type: <?php echo $row['type'];?>
                                             </p>
@@ -211,7 +217,7 @@ include("../php/auth_session.php");
                                                 Terms: <?php echo $row['terms'];?>
                                             </p>
                                             <a class="service-cost recommended-service-button" href="negotiate.html"><b><?php echo $row['cost'];?></b> per Month</a>
-                                            <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
+                                            <a class="service-cost recommended-service-button" href="requestquote.php"><b>Request Quote</b></a>
                                         </div>
                                     <?php
                                 }
@@ -226,10 +232,10 @@ include("../php/auth_session.php");
                                         <div class="service-detail recommended-service">
                                             <div class="service-title-container">
                                                 <i class="service-title fa-solid fa-bolt"></i>
-                                                <h3 class="service-title"><?php echo $row['name'];?></h3>
+                                                <h3 class="service-title"><?php echo $row['sname'];?></h3>
                                             </div>
                                             <p class="service-description">
-                                                Type: <?php echo $row['type'];?>
+                                                Provider Name: <?php echo $row['pname'];?>
                                             </p>
                                             <br>
                                             <p class="service-description">
@@ -241,7 +247,7 @@ include("../php/auth_session.php");
                                                 Terms: <?php echo $row['terms'];?>
                                             </p>
                                             <a class="service-cost recommended-service-button" href="negotiate.html"><b><?php echo $row['cost'];?></b> per Month</a>
-                                            <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
+                                            <a class="service-cost recommended-service-button" href="requestquote.php"><b>Request Quote</b></a>
                                         </div>
                                     <?php
                                 }
@@ -256,10 +262,10 @@ include("../php/auth_session.php");
                                         <div class="service-detail recommended-service">
                                             <div class="service-title-container">
                                                 <i class="service-title fa-solid fa-bolt"></i>
-                                                <h3 class="service-title"><?php echo $row['name'];?></h3>
+                                                <h3 class="service-title"><?php echo $row['sname'];?></h3>
                                             </div>
                                             <p class="service-description">
-                                                Type: <?php echo $row['type'];?>
+                                                Provider Name: <?php echo $row['pname'];?>
                                             </p>
                                             <br>
                                             <p class="service-description">
@@ -271,7 +277,7 @@ include("../php/auth_session.php");
                                                 Terms: <?php echo $row['terms'];?>
                                             </p>
                                             <a class="service-cost recommended-service-button" href="negotiate.html"><b><?php echo $row['cost'];?></b> per Month</a>
-                                            <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
+                                            <a class="service-cost recommended-service-button" href="requestquote.php"><b>Request Quote</b></a>
                                         </div>
                                     <?php
                                 }
@@ -296,7 +302,7 @@ include("../php/auth_session.php");
                                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
                                 </p>
                                 <a class="service-cost recommended-service-button" href="negotiate.html"><b>$100</b> per Month</a>
-                                <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
+                                <a class="service-cost recommended-service-button" href="requestquote.php"><b>Request Quote</b></a>
                             </div>
             
                             <div class="service-detail recommended-service">
@@ -308,7 +314,7 @@ include("../php/auth_session.php");
                                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
                                 </p>
                                 <a class="service-cost recommended-service-button" href="negotiate.html"><b>$100</b> per Month</a>
-                                <a class="service-cost recommended-service-button" href="requestquote.html"><b>Request Quote</b></a>
+                                <a class="service-cost recommended-service-button" href="requestquote.php"><b>Request Quote</b></a>
                             </div>
 
                         </div>

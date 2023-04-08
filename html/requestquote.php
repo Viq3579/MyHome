@@ -1,3 +1,8 @@
+<?php
+include("../php/auth_session.php");
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -16,6 +21,58 @@
 
 
     <body>
+        <?php
+        require('../php/database.php');
+        
+        // When form submitted, insert values into the database.
+        if (isset($_REQUEST['cname']) && isset($_REQUEST['sname']) && isset($_REQUEST['pname'])) {
+            // removes backslashes
+            $email = ($_SESSION['email']);
+            $address = stripslashes($_REQUEST['address']);
+            //escapes special characters in a string
+            $address = mysqli_real_escape_string($mysqli, $address);
+            $cname = stripslashes($_REQUEST['cname']);
+            $cname = mysqli_real_escape_string($mysqli, $cname);
+            $sname = stripslashes($_REQUEST['sname']);
+            $sname = mysqli_real_escape_string($mysqli, $sname);
+            $pname = stripslashes($_REQUEST['pname']);
+            $pname = mysqli_real_escape_string($mysqli, $pname);
+
+                    // Varify Key is unique
+            $sql = sprintf("SELECT *
+            FROM quoterequest
+            WHERE email = '$email' AND sname = '$sname' AND pname = '$pname'",
+            $mysqli->real_escape_string($_POST["address"]));
+
+            $result = $mysqli->query($sql);
+            $user = $result->fetch_assoc();
+
+            if ($user) {
+                echo "<div class='form'>
+                <h3>You already have an active request for this service. If you believe this to be an error, please contact support</h3><br/>
+                <p class='link'>Click here to <a href='requestquote.php'>Try Again</a></p>
+                </div>";
+            }
+            else
+            {
+                $query    = "INSERT into `quoterequest` (email, address, cname, pname, sname)
+                            VALUES ('$email', '$address','$cname', '$pname', '$sname')";
+                $result   = mysqli_query($mysqli, $query);
+                if ($result) {
+                    echo "<div class='form'>
+                        <h3> Request made successfully.</h3><br/>
+                        <p class='link'>Click here to return to <a href='searchservices.php'>Search</a></p>
+                        </div>";
+                } else {
+                    echo "<div class='form'>
+                        <h3>Required fields are missing.</h3><br/>
+                        <p class='link'>Click here to <a href='requestquote.php'>Request Quote</a> again.</p>
+                        </div>";
+                }
+            }
+        } else {
+        ?>
+
 
         <header class="header">
 
@@ -42,28 +99,28 @@
 
         <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
             
-            <form class="form" action="searchservices.php" method="post">
+            <form class="form" action="requestquote.php" method="post">
 
                 <h1 class="login-title">Request Quote</h1>
 
                 <div class="input">
                     <label class="input-header" for="provider">Provider Name:</label>
-                    <input class="input-field" type="text" id="provider" name="provider" required>
+                    <input class="input-field" type="text" id="pname" name="pname" required>
                 </div>
 
                 <div class="input">
                     <label class="input-header" for="service">Service Name:</label>
-                    <input class="input-field" type="text" id="service" name="service" required>
+                    <input class="input-field" type="text" id="sname" name="sname" required>
                 </div>
 
                 <div class="input">
                     <label class="input-header" for="customer">Your Name:</label>
-                    <input class="input-field" type="text" id="customer" name="customer" required>
+                    <input class="input-field" type="text" id="cname" name="cname" required>
                 </div>
 
                 <div class="input">
                     <label class="input-header" for="address">Address:</label>
-                    <input class="input-field" type="text" id="address" name="address" required>
+                    <input class="input-field" type="text" id="address" name="address">
                 </div>
                 
                 <div class="submit-container">
@@ -97,7 +154,9 @@
             </div>
 
         </footer>
-
+        <?php
+        }
+        ?>
     </body>
 
 </html>

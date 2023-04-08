@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2023 at 07:01 AM
+-- Generation Time: Apr 08, 2023 at 11:26 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -91,13 +91,13 @@ CREATE TABLE `home` (
 --
 
 INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, `garage_size`, `year_built`, `property_type`, `heating_type`, `heating_time`, `num_floors`, `floor_space`, `roof`, `bathrooms`, `foundation`, `bedrooms`, `owner_email`) VALUES
-('1010 10th street', 10101000, 'AC', 'Brick', 10, 1010, 'Home', 'Natural Gas', '00:00:10', 11, 200000, 0, 5, 'Concrete', 10, 'sample@gmail.com'),
-('123 Main Street', 1000000, 'AC', 'Brick', 2, 1972, 'Home', 'Natural Gas', '00:00:13', 2, 5000, 0, 2, '', 0, 'thirdtimesthecharm@yahoo.com'),
-('444 4th Street', 546789, 'AC', 'Brick', 4, 1945, 'Home', 'Furnace', '00:00:15', 3, 5000, 0, 2, 'Concrete', 6, 'pleasework@gmail.com'),
-('555 5th street', 55555, 'ac', 'Brick', 5, 1955, 'Home', 'Natural Gas', '00:00:05', 5, 5555, 0, 5, '', 0, 'doesisworkfromhere@gmail.com'),
-('616161 89th street', 1000000, 'there\'s a fan in the corner but that\'s about it', 'sdhgsgfdh', 76, 1666, 'Haunted Mansion', 'Fireplace', '00:00:30', 17, 100000000000, 0, 199, '', 0, 'thirdtimesthecharm@yahoo.com'),
-('777 7th street', 7777780, 'ac', 'brick', 7, 1777, 'Home', '7', '00:00:07', 7, 7, 0, 7, '', 0, 'thirdtimesthecharm@yahoo.com'),
-('888 9th street', 567857000, 'AC', 'brick', 6, 12324, 'home', 'furnace', '00:00:10', 7, 88888900, 0, 17, '', 10, 'thirdtimesthecharm@yahoo.com');
+('1010 10th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'sample@gmail.com'),
+('123 Main Street', 123, 'There should only be one of these now', 'I think i fixed it', 5, 10101, 'Home', 'Fireplace', '00:00:04', 34, 5623550, 0, 1, 'please', 6, 'thirdtimesthecharm@yahoo.com'),
+('444 4th Street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'pleasework@gmail.com'),
+('555 5th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'doesisworkfromhere@gmail.com'),
+('616161 89th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com'),
+('777 7th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com'),
+('888 9th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com');
 
 -- --------------------------------------------------------
 
@@ -151,6 +151,27 @@ INSERT INTO `provider` (`email`, `name`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `quoterequest`
+--
+
+CREATE TABLE `quoterequest` (
+  `pname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `cname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `sname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `email` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `quoterequest`
+--
+
+INSERT INTO `quoterequest` (`pname`, `cname`, `address`, `sname`, `email`) VALUES
+('James P. Electricity', 'Ian Finnigan', '615 12th street', 'Standard Electricity', 'pleasework@gmail.com');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `service`
 --
 
@@ -170,7 +191,8 @@ CREATE TABLE `service` (
 
 INSERT INTO `service` (`name`, `type`, `provider`, `cost`, `description`, `terms`, `penalty`) VALUES
 ('Standard Electricity', 'Electricity', 'jamesp@gmail.com', 200, 'The basic electricity plan designed for common users.', 'Lorem ipsum.', 'Electricity will be shut down'),
-('Super Insurance', 'Car Insurance', 'vendortest@gmail.com', 100, 'the best insurance money can buy, lorem ipsum etc etc', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+('Super Insurance', 'Car Insurance', 'vendortest@gmail.com', 100, 'the best insurance money can buy, lorem ipsum etc etc', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+('Ultra Power', 'Electricity', 'samplevend@gmail.com', 3.40282e38, 'The most expensive electricity ever', 'lorem ipsum', 'Termination of service');
 
 -- --------------------------------------------------------
 
@@ -246,6 +268,12 @@ ALTER TABLE `outsideservice`
 --
 ALTER TABLE `provider`
   ADD PRIMARY KEY (`email`) USING BTREE;
+
+--
+-- Indexes for table `quoterequest`
+--
+ALTER TABLE `quoterequest`
+  ADD PRIMARY KEY (`pname`,`email`,`sname`);
 
 --
 -- Indexes for table `service`
