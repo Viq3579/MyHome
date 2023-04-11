@@ -1,3 +1,7 @@
+<?php
+include("../php/auth_session.php");
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -13,10 +17,43 @@
         <!-- <link rel="stylesheet" href="../css/input-form.css"/> -->
         <link rel="stylesheet" href="../css/adddhome.css">
         <link rel="stylesheet" href="../css/footer.css">
+        <link rel="stylesheet" href="../css/input-form.css"/>
     </head>
 
 
     <body>
+
+        <?php
+            require('../php/database.php');
+            
+            $servicename = $_POST["servicename"];
+            $providername = $_POST["providername"];
+
+            $terms = $_POST["terms"];
+            $cost = $_POST["cost"];
+
+
+            if (isset($_POST["address"]))
+            {
+                $address = $_POST["address"];
+                $address = mysqli_real_escape_string($mysqli, $address);
+            }
+            else {
+                $address = "Not Specified";
+            }
+
+            $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
+            $result = mysqli_query($mysqli, "SELECT name FROM customer WHERE email='$sanemail'");
+            $displayname = mysqli_fetch_array($result);
+
+            $result = mysqli_query($mysqli, "SELECT penalty FROM service AS S, provider AS P WHERE S.provider = P.email AND P.name = '$providername' AND S.name = '$servicename'");
+            $penalty = mysqli_fetch_array($result);
+
+            $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
+            $pemail = $_POST['pemail'];
+
+
+        ?>
 
         <header class="header">
 
@@ -43,27 +80,34 @@
 
         <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
 
-            <form class="form" action="" method="post">
-                <h1 class="login-title">Negotiate</h1>
-                <p><b>Service Name:</b> Lorem Ipsum</p>
-                <p><b>Service Provider:</b> Lorem Ipsum</p>
-                <p><b>Customer Name:</b> Lorem Ipsum</p>
-                <p><b>Address:</b> Lorem Ipsum</p>
+            <form class="form" action="sendnegotiate.php" method="post">
+                <h1 class="login-title"><b>Negotiate</b></h1>
+                <p><b>Service Name:</b> <?php echo $servicename?></p>
+                <input type="hidden" name="servicename" value="<?php echo $servicename;?>">
+                <p><b>Service Provider:</b> <?php echo $providername?></p>
+                <p><b>Customer Name:</b> <?php echo $displayname[0]?></p>
+                <p><b>Address:</b> <?php echo $address?></p>
+                <input type="hidden" name="setaddress" value="<?php echo $address;?>">
                 <h1 class="login-title">Current Offer:</h1>
-                <p><b>Price:</b> $100 per month</p>
-                <p><b>Terms:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p><b>Penalty:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p><b>Price:</b> $<?php echo $cost?> per month</p>
+                <input type="hidden" name="setcost" value="<?php echo $cost;?>">
+                <p><b>Terms:</b> <?php echo $terms?></p>
+                <input type="hidden" name="setterms" value="<?php echo $terms;?>">
+                <input type="hidden" name="pemail" value="<?php echo $pemail;?>">
+                <p><b>Penalty:</b> <?php echo $penalty[0]?></p>
+                <input type="hidden" name="setpenalty" value="<?php echo $penalty[0];?>">
                 <h1 class="login-title">Response:</h1>
-                <input type="number" class="login-input" name="price" placeholder="price" required />
-                <textarea rows="4" cols="40" name="terms" placeholder="Service Terms" required></textarea>
+                <input type="number" class="login-input" name="price" placeholder="Price" required />
+                <input type="text" class="login-input" name="address" placeholder="For Address:" required />
+                <textarea rows="4" cols="40" name="newterms" placeholder="Service Terms" required></textarea>
                 <br>
                 <br>
-                <textarea rows="4" cols="40" name="penalty" placeholder="Service Penalty" required></textarea>
+                <textarea rows="4" cols="40" name="newpenalty" placeholder="Service Penalty" required></textarea>
                 <br>
                 <br>
                 <a class="login-button" href="paymentpage.html">Accept Current Offer</a>
                 <br><br>
-                <a class="login-button" href="searchservices.php">Send Counter-Offer</a>
+                <button class="login-button" href="sendnegotiate.php">Send Counter-Offer</button>
                 <br><br>
                 <a class="login-button" href="home.php">Return to Dashboard</a>
             </form>

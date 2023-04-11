@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2023 at 11:26 AM
+-- Generation Time: Apr 11, 2023 at 07:44 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -98,6 +98,30 @@ INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, 
 ('616161 89th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com'),
 ('777 7th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com'),
 ('888 9th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `offers`
+--
+
+CREATE TABLE `offers` (
+  `cemail` varchar(255) NOT NULL,
+  `pemail` varchar(255) NOT NULL,
+  `sname` varchar(255) NOT NULL,
+  `cost` float NOT NULL,
+  `terms` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `penalty` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Not Specified'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `offers`
+--
+
+INSERT INTO `offers` (`cemail`, `pemail`, `sname`, `cost`, `terms`, `penalty`, `address`) VALUES
+('pleasework@gmail.com', 'jamesp@gmail.com', 'Standard Electricity', 97, 'Service must be restored within 2 hours in the event of an outage', 'No penalty if terms are violated, otherwise service is cut off after two months of missed payments', '615 12th street'),
+('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 90, 'payment on the 15th of every month, free car air freshener on signup', 'service never gets cut off unless i skip payments for a whole year', '615 12th street');
 
 -- --------------------------------------------------------
 
@@ -256,6 +280,12 @@ ALTER TABLE `hasservice`
 --
 ALTER TABLE `home`
   ADD PRIMARY KEY (`address`);
+
+--
+-- Indexes for table `offers`
+--
+ALTER TABLE `offers`
+  ADD PRIMARY KEY (`cemail`,`pemail`,`sname`);
 
 --
 -- Indexes for table `outsideservice`
