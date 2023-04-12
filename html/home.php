@@ -89,7 +89,7 @@ include("../php/auth_session.php");
 
                         <?php
                         require('../php/database.php');
-                        $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, address, type FROM hasservice, service WHERE owner_email='$sanemail' and service_name = name");
+                        $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, address, type FROM hasservice, service WHERE owner_email='$sanemail' and service_name = name and custom = 0");
                         while($row = mysqli_fetch_array($result))
                         {
                         ?>
@@ -111,6 +111,31 @@ include("../php/auth_session.php");
                         <?php
                         }
                         ?>
+                        <?php
+                        require('../php/database.php');
+                        $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, hasservice.address, type FROM hasservice, customservice WHERE owner_email='$sanemail' and service_name = name and custom = 1");
+                        while($row = mysqli_fetch_array($result))
+                        {
+                        ?>
+
+                            <div class="service-detail">
+                                <div class="service-title-container">
+                                    <i class="service-title fa-solid fa-bolt"></i>
+                                    <h3 class="service-title"><?php echo $row['service_name'];?></h3>
+                                </div>
+                                <p class="service-description">
+                                    <?php echo $row['description'];?><br><br>
+                                    Type: <?php echo $row['type'];?><br><br>
+                                    Terms: <?php echo $row['terms'];?>
+                                    Address: <?php echo $row['address'];?>
+                                </p>
+                                <p class="service-cost"><b>$<?php echo $row['cost'];?></b> per Month</p>
+                            </div>
+
+                        <?php
+                        }
+                        ?>
+                        
                         
                     </div>
                     

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2023 at 07:44 AM
+-- Generation Time: Apr 12, 2023 at 08:15 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -51,6 +51,24 @@ INSERT INTO `customer` (`name`, `email`, `phone_num`, `family_income`, `num_cars
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `customservice`
+--
+
+CREATE TABLE `customservice` (
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `cemail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `type` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `cost` float NOT NULL,
+  `description` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `terms` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `penalty` varchar(1028) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `provider` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hasservice`
 --
 
@@ -58,8 +76,16 @@ CREATE TABLE `hasservice` (
   `owner_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `service_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `provider_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `custom` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hasservice`
+--
+
+INSERT INTO `hasservice` (`owner_email`, `service_name`, `provider_email`, `address`, `custom`) VALUES
+('pleasework@gmail.com', 'Standard Electricity', 'jamesp@gmail.com', 'Not Specified', 0);
 
 -- --------------------------------------------------------
 
@@ -106,22 +132,27 @@ INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, 
 --
 
 CREATE TABLE `offers` (
-  `cemail` varchar(255) NOT NULL,
-  `pemail` varchar(255) NOT NULL,
-  `sname` varchar(255) NOT NULL,
+  `cemail` varchar(100) NOT NULL,
+  `pemail` varchar(100) NOT NULL,
+  `sname` varchar(100) NOT NULL,
   `cost` float NOT NULL,
   `terms` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `penalty` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Not Specified'
+  `address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Not Specified',
+  `custom` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `offers`
 --
 
-INSERT INTO `offers` (`cemail`, `pemail`, `sname`, `cost`, `terms`, `penalty`, `address`) VALUES
-('pleasework@gmail.com', 'jamesp@gmail.com', 'Standard Electricity', 97, 'Service must be restored within 2 hours in the event of an outage', 'No penalty if terms are violated, otherwise service is cut off after two months of missed payments', '615 12th street'),
-('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 90, 'payment on the 15th of every month, free car air freshener on signup', 'service never gets cut off unless i skip payments for a whole year', '615 12th street');
+INSERT INTO `offers` (`cemail`, `pemail`, `sname`, `cost`, `terms`, `penalty`, `address`, `custom`) VALUES
+('pleasework@gmail.com', 'jamesp@gmail.com', 'Standard Electricity', 0, '', '', '', 0),
+('pleasework@gmail.com', 'jamesp@gmail.com', 'Standard Electricity', 200, 'sdghfsdgh', 'gfdhdfgh', '615 12th street', 0),
+('pleasework@gmail.com', 'jamesp@gmail.com', 'Standard Electricity', 200, 'Lorem ipsum.', 'Electricity will be shut down', 'Not Specified', 0),
+('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 55550, 'lorem ipsum', 'Termination of service', '444 4th Street', 0),
+('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 90, 'payment on the 15th of every month, free car air freshener on signup', 'service never gets cut off unless i skip payments for a whole year', '615 12th street', 0),
+('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 3.40282e38, 'lorem ipsum', 'Termination of service', 'Not Specified', 0);
 
 -- --------------------------------------------------------
 
@@ -285,7 +316,7 @@ ALTER TABLE `home`
 -- Indexes for table `offers`
 --
 ALTER TABLE `offers`
-  ADD PRIMARY KEY (`cemail`,`pemail`,`sname`);
+  ADD PRIMARY KEY (`cemail`,`pemail`,`sname`,`address`);
 
 --
 -- Indexes for table `outsideservice`

@@ -31,6 +31,7 @@ include("../php/auth_session.php");
 
             $terms = $_POST["terms"];
             $cost = $_POST["cost"];
+            $description = $_POST["desc"];
 
 
             if (isset($_POST["address"]))
@@ -91,23 +92,25 @@ include("../php/auth_session.php");
                 <h1 class="login-title">Current Offer:</h1>
                 <p><b>Price:</b> $<?php echo $cost?> per month</p>
                 <input type="hidden" name="setcost" value="<?php echo $cost;?>">
+                <input type="hidden" name="description" value="<?php echo $description;?>">
                 <p><b>Terms:</b> <?php echo $terms?></p>
                 <input type="hidden" name="setterms" value="<?php echo $terms;?>">
                 <input type="hidden" name="pemail" value="<?php echo $pemail;?>">
                 <p><b>Penalty:</b> <?php echo $penalty[0]?></p>
                 <input type="hidden" name="setpenalty" value="<?php echo $penalty[0];?>">
+                <label class="input-header" for="afford"><b>Accept Current Offer?  </b></label>
+                <input class="input-checkbox" type="checkbox" name="accept" value="Yes" id="afford"> 
+                <h1 class="login-title">--------------OR--------------</h1><br>
                 <h1 class="login-title">Response:</h1>
-                <input type="number" class="login-input" name="price" placeholder="Price" required />
-                <input type="text" class="login-input" name="address" placeholder="For Address:" required />
-                <textarea rows="4" cols="40" name="newterms" placeholder="Service Terms" required></textarea>
+                <input type="number" class="login-input" name="price" placeholder="Price"/>
+                <input type="text" class="login-input" name="address" placeholder="For Address:"/>
+                <textarea rows="4" cols="40" name="newterms" placeholder="Service Terms"></textarea>
                 <br>
                 <br>
-                <textarea rows="4" cols="40" name="newpenalty" placeholder="Service Penalty" required></textarea>
+                <textarea rows="4" cols="40" name="newpenalty" placeholder="Service Penalty"></textarea>
                 <br>
                 <br>
-                <a class="login-button" href="paymentpage.html">Accept Current Offer</a>
-                <br><br>
-                <button class="login-button" href="sendnegotiate.php">Send Counter-Offer</button>
+                <button class="login-button">Submit</button>
                 <br><br>
                 <a class="login-button" href="home.php">Return to Dashboard</a>
             </form>
