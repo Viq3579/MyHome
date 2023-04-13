@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="submit-container">
                     <a class="input-header" href="signup.html">Create account?</a>
-                    <a class="input-header" href="forgotpass.html">Forgot password?</a>
+                    <a class="input-header" href="forgotpass.php">Forgot password?</a>
                     <button class="submit-button">Log In</button>
                 </div>
 
