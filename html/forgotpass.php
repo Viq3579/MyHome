@@ -24,10 +24,9 @@
     session_start(); // Remove if session.auto_start=1 in php.ini
 
     $provider = new Google([
-        'clientId'     => '1066791594661-ph70e73u1jkt1hekk5go10a2bo5hsj47.apps.googleusercontent.com',
-        'clientSecret' => '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',
+        'clientId'     => '{google-client-id}',
+        'clientSecret' => '{google-client-secret}',
         'redirectUri'  => 'http://localhost/MyHome/html/forgotpass.php',
-        'hostedDomain' => 'example.com', // optional; used to restrict access to users on your G Suite/Google Apps for Business accounts
     ]);
     //Import PHPMailer classes into the global namespace
     use PHPMailer\PHPMailer\PHPMailer;
@@ -44,7 +43,7 @@
     // $mail->SMTPDebug = 1;
     $mail->Host = 'smtp.gmail.com';  //gmail SMTP server
     $mail->Username = 'ian.m.finnigan@gmail.com';   //email
-    $mail->Password = 'kxgjotranjpqoedw' ;   //16 character obtained from app password created
+    $mail->Password = 'bdxqzraatkmlotpu' ;   //16 character obtained from app password created
     $mail->Port = 465;                    //SMTP port
     $mail->SMTPSecure = "ssl";
 
