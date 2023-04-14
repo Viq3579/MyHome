@@ -9,9 +9,22 @@ if ( !isset($_SESSION["email"]) ) {
     exit;
 }
 
+$mysqli = require __DIR__ . "/../php/database.php";
+
+
+// Gets all of the Vendor's Services
+$sql = sprintf("SELECT name, description, cost
+                FROM service
+                WHERE provider = '%s'",
+                $mysqli->real_escape_string($_SESSION["email"]));
+
+$result = $mysqli->query($sql);
+
+
+
+// Adds a new Service
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $mysqli = require __DIR__ . "/../php/database.php";
 
     $sql = "INSERT INTO service (name, type, provider, cost, description, terms, penalty)
             VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -33,6 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     );
 
     $stmt->execute();
+
+    header("Location: #");
     
 }
 
@@ -88,65 +103,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h1 class="title">Services</h1>
                 
                 <div class="user-information-container">
-
-                    <!-- <div class="user-services"> -->
                         
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title">Service Name</h3>
-                            </div>
-                            <p class="service-description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                            </p>
-                            <p class="service-cost"><b>$100</b> per Month</p>
-                        </div>
-
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title">Lorem Ipsum Dolor Sit</h3>
-                            </div>
-                            <p class="service-description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                            </p>
-                            <p class="service-cost"><b>$100</b> per Month</p>
-                        </div>
-
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title">Lorem</h3>
-                            </div>
-                            <p class="service-description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                            </p>
-                            <p class="service-cost"><b>$100</b> per Month</p>
-                        </div>
-
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title">Lorem Ipsum Dolor</h3>
-                            </div>
-                            <p class="service-description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                            </p>
-                            <p class="service-cost"><b>$100</b> per Month</p>
-                        </div>
-
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title">Lorem Ipsum Dolor Sit Amet Consectetur</h3>
-                            </div>
-                            <p class="service-description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                            </p>
-                            <p class="service-cost"><b>$100</b> per Month</p>
-                        </div>
-                        
-                    <!-- </div> -->
+                    <?php
+                    while($service = $result->fetch_assoc()) {
+                        echo "<div class=\"service-detail\">";
+                        echo    "<div class=\"service-title-container\">";
+                        echo        "<i class=\"service-title fa-solid fa-bolt\"></i>";
+                        echo        "<h3 class=\"service-title\">" . $service["name"] . "</h3>";
+                        echo    "</div>";
+                        echo    "<p class=\"service-description\">";
+                        echo        $service["description"];
+                        echo    "</p>";
+                        echo    "<p class=\"service-cost\"><b>$" . $service["cost"] . "</b> per Month</p>";
+                        echo "</div>";
+                    }
+                    ?>
 
                 </div>
 
