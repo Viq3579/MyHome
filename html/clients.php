@@ -1,3 +1,26 @@
+<?php
+
+session_start();
+
+$_SESSION;
+
+if ( !isset($_SESSION["email"]) ) {
+    header("Location: ../index.php");
+    exit;
+}
+
+$mysqli = require __DIR__ . "/../php/database.php";
+
+$sql = sprintf("SELECT customer.name AS name, hasservice.owner_email AS email, hasservice.service_name AS service, service.cost AS cost
+                FROM customer, hasservice, service
+                WHERE customer.email = hasservice.owner_email 
+                AND hasservice.provider_email = service.provider 
+                AND hasservice.service_name = service.name",
+                $mysqli->real_escape_string($_SESSION["email"]));
+
+$result = $mysqli->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,13 +78,18 @@
                             <th class="table-col-head">Payments</th>
                             <th class="table-col-head">Actions</th>
                         </tr>
-                        <tr class="table-row">
-                            <th class="table-col">Victor</th>
-                            <th class="table-col">varg9436@vandals.uidaho.edu</th>
-                            <th class="table-col">Electricity</th>
-                            <th class="table-col">$200</th>
-                            <th class="table-col">Negotiate</th>
-                        </tr>
+
+                        <?php
+                        while($client = $result->fetch_assoc()) {
+                            echo "<tr class=\"table-row\">";
+                            echo    "<th class=\"table-col\">" . $client["name"] . "</th>";
+                            echo    "<th class=\"table-col\">" . $client["email"] . "</th>";
+                            echo    "<th class=\"table-col\">" . $client["service"] . "</th>";
+                            echo    "<th class=\"table-col\">$" . $client["cost"] . "</th>";
+                            echo    "<th class=\"table-col\">Negotiate</th>";
+                            echo "</tr>";
+                        }
+                        ?>
                     </table>
 
                 </div>
