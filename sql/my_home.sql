@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2023 at 08:15 AM
+-- Generation Time: Apr 14, 2023 at 11:31 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -185,6 +185,17 @@ INSERT INTO `outsideservice` (`customer_email`, `type`, `name`, `cost`, `descrip
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) NOT NULL,
+  `created_at` timestamp(6) NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `provider`
 --
 
@@ -276,7 +287,7 @@ INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 ('gointocustomertable2@gmail.com', '$2y$10$Wr6yX3vCvC0s7g7VzyOVU.RXZAZcX4w/5ZW4eQoeo5uagZu/XKMrS', 'Client'),
 ('gointocustomertable@gmail.com', '$2y$10$oeuIfMPNZRQG7GFfpUE3geq3V2THa0ZPiCI/cwinpHzxFPLCLgbqa', 'Client'),
 ('helloworld@idk.com', '$2y$10$rRRmnKfETh97rVwtxXPKnuNxBH6IeUhvtTuw6Q3NDGlvuh.667t6u', 'Client'),
-('ian9921broadcast@gmail.com', '$2y$10$xiUupYT50YG7KywKhQbKe.ga/nculIUd8GJifoGC0k5XAqt59NHTy', 'Vendor'),
+('ian9921broadcast@gmail.com', '$2y$10$wg5tKL6olYlTGtLBNxApX.Qzt1/4VDX2414SE2F.pc6bzTPMIMeX.', 'Vendor'),
 ('imnotavendor@gmail.com', '$2y$10$XNncLBoFfhqqkCm1eI2v7.K6Z6VkED92zRLncuMx0so8R5qaUpsv2', 'Vendor'),
 ('jamesp@gmail.com', '$2y$10$HcaBpbD4PKFYp38gNoLMEejqil.MtY/dO6UZvRH9STHn6U5bzHY0O', 'Vendor'),
 ('pleasework@gmail.com', '$2y$10$JsBMPw2veFfMeJnGH8/Jk.ASF8jLMeUrIAqqF1XiWDN32pmc7wtwy', 'Client'),
@@ -323,6 +334,12 @@ ALTER TABLE `offers`
 --
 ALTER TABLE `outsideservice`
   ADD PRIMARY KEY (`name`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD PRIMARY KEY (`email`);
 
 --
 -- Indexes for table `provider`

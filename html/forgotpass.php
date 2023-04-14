@@ -50,6 +50,7 @@
 
     if (isset($_REQUEST['email'])) {
         $email = $_REQUEST['email'];
+        //$email = mysqli_real_escape_string($mysqli, $email);
         //verify the email is valid
         $query = "SELECT * FROM user WHERE email = '$email'";
         $result = $mysqli->query($query);
@@ -67,15 +68,28 @@
             
             $mail->isHTML(true);
             
-            $mail->Subject = 'PHPMailer SMTP test';
-            $mail->Body    = "<h4> PHPMailer the awesome Package </h4>
-            <b>PHPMailer is working fine for sending mail</b>
-                <p> This is a tutorial to guide you on PHPMailer integration</p>";
+            $mail->Subject = 'My Home Password Reset';
+            $mail->Body    = "
+            <b>You are recieving this email because someone requested a password change for your MyHome account.</b>
+                <p>If you did not request a change, ignore this email. If you did make this request, please click the following link:</p>
+                <a href=\"http://localhost/MyHome/html/passrecovery.php?email='$email'\">Reset Password</a>
+                <p>This link will last for 24 hours or until used.</p>";
 
             // Send mail   
             if (!$mail->send()) {
                 echo 'Email not sent an error was encountered: ' . $mail->ErrorInfo;
             } else {
+                $timestamp = date("Y-m-d H:i:s");
+                $query = "SELECT * FROM password_resets WHERE email = '$email'";
+                $temp = $mysqli->query($query);
+                $result = $temp->fetch_assoc();
+                if ($result){
+                    $query = "UPDATE password_resets SET created_at = '$timestamp' WHERE email = '$email'";
+                } else {
+                    $query = "INSERT into `password_resets` (email, created_at)
+                    VALUES ('$email', '$timestamp')";
+                }
+                $result = $mysqli->query($query);
                 echo 'Message has been sent.';
             }
 
