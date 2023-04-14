@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2023 at 11:31 AM
+-- Generation Time: Apr 15, 2023 at 01:15 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -27,13 +27,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `customer`
 --
 
-CREATE TABLE `customer` (
+CREATE TABLE IF NOT EXISTS `customer` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone_num` bigint(11) NOT NULL,
   `family_income` float NOT NULL,
   `num_cars` int(11) NOT NULL,
-  `misc_expenses` float NOT NULL
+  `misc_expenses` float NOT NULL,
+  PRIMARY KEY (`email`) USING BTREE,
+  UNIQUE KEY `phone_num` (`phone_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -41,6 +43,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`name`, `email`, `phone_num`, `family_income`, `num_cars`, `misc_expenses`) VALUES
+('Victor Vargas', 'cust1@gmail.com', 2223337777, 80000, 2, 20000),
 ('hello', 'doesisworkfromhere@gmail.com', 2147483647, 555, 5, 5555),
 ('Ian Finnigan', 'pleasework@gmail.com', 2088814537, 1e26, 16, 10000),
 ('Test McSample', 'sample@gmail.com', 5556667777, 10000, 1, 100),
@@ -54,7 +57,7 @@ INSERT INTO `customer` (`name`, `email`, `phone_num`, `family_income`, `num_cars
 -- Table structure for table `customservice`
 --
 
-CREATE TABLE `customservice` (
+CREATE TABLE IF NOT EXISTS `customservice` (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `cemail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -72,12 +75,13 @@ CREATE TABLE `customservice` (
 -- Table structure for table `hasservice`
 --
 
-CREATE TABLE `hasservice` (
+CREATE TABLE IF NOT EXISTS `hasservice` (
   `owner_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `service_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `provider_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `custom` tinyint(1) NOT NULL DEFAULT 0
+  `custom` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`owner_email`,`service_name`,`address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -85,6 +89,7 @@ CREATE TABLE `hasservice` (
 --
 
 INSERT INTO `hasservice` (`owner_email`, `service_name`, `provider_email`, `address`, `custom`) VALUES
+('cust1@gmail.com', 'Standard Electricity', 'jamesp@gmail.com', 'Not Specified', 0),
 ('pleasework@gmail.com', 'Standard Electricity', 'jamesp@gmail.com', 'Not Specified', 0);
 
 -- --------------------------------------------------------
@@ -93,7 +98,7 @@ INSERT INTO `hasservice` (`owner_email`, `service_name`, `provider_email`, `addr
 -- Table structure for table `home`
 --
 
-CREATE TABLE `home` (
+CREATE TABLE IF NOT EXISTS `home` (
   `address` varchar(255) NOT NULL,
   `lot_size` float NOT NULL,
   `cooling_type` varchar(128) NOT NULL,
@@ -109,7 +114,8 @@ CREATE TABLE `home` (
   `bathrooms` int(11) NOT NULL,
   `foundation` varchar(128) NOT NULL,
   `bedrooms` int(11) NOT NULL,
-  `owner_email` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `owner_email` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -119,6 +125,7 @@ CREATE TABLE `home` (
 INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, `garage_size`, `year_built`, `property_type`, `heating_type`, `heating_time`, `num_floors`, `floor_space`, `roof`, `bathrooms`, `foundation`, `bedrooms`, `owner_email`) VALUES
 ('1010 10th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'sample@gmail.com'),
 ('123 Main Street', 123, 'There should only be one of these now', 'I think i fixed it', 5, 10101, 'Home', 'Fireplace', '00:00:04', 34, 5623550, 0, 1, 'please', 6, 'thirdtimesthecharm@yahoo.com'),
+('380 Palm Street', 5000, 'AC', 'Brick', 600, 2000, 'Home', 'Natural Gas', '00:00:00', 2, 4500, 0, 3, 'Concrete', 4, 'cust1@gmail.com'),
 ('444 4th Street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'pleasework@gmail.com'),
 ('555 5th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'doesisworkfromhere@gmail.com'),
 ('616161 89th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com'),
@@ -131,7 +138,7 @@ INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, 
 -- Table structure for table `offers`
 --
 
-CREATE TABLE `offers` (
+CREATE TABLE IF NOT EXISTS `offers` (
   `cemail` varchar(100) NOT NULL,
   `pemail` varchar(100) NOT NULL,
   `sname` varchar(100) NOT NULL,
@@ -139,7 +146,8 @@ CREATE TABLE `offers` (
   `terms` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `penalty` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Not Specified',
-  `custom` tinyint(1) NOT NULL DEFAULT 0
+  `custom` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`cemail`,`pemail`,`sname`,`address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -160,7 +168,7 @@ INSERT INTO `offers` (`cemail`, `pemail`, `sname`, `cost`, `terms`, `penalty`, `
 -- Table structure for table `outsideservice`
 --
 
-CREATE TABLE `outsideservice` (
+CREATE TABLE IF NOT EXISTS `outsideservice` (
   `customer_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `type` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -168,7 +176,8 @@ CREATE TABLE `outsideservice` (
   `description` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `terms` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `penalty` varchar(1028) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -188,9 +197,10 @@ INSERT INTO `outsideservice` (`customer_email`, `type`, `name`, `cost`, `descrip
 -- Table structure for table `password_resets`
 --
 
-CREATE TABLE `password_resets` (
+CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(255) NOT NULL,
-  `created_at` timestamp(6) NULL DEFAULT NULL
+  `created_at` timestamp(6) NULL DEFAULT NULL,
+  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -199,10 +209,11 @@ CREATE TABLE `password_resets` (
 -- Table structure for table `provider`
 --
 
-CREATE TABLE `provider` (
+CREATE TABLE IF NOT EXISTS `provider` (
   `email` varchar(255) NOT NULL,
   `name` varchar(128) NOT NULL,
-  `type` varchar(128) NOT NULL
+  `type` varchar(128) NOT NULL,
+  PRIMARY KEY (`email`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -220,12 +231,13 @@ INSERT INTO `provider` (`email`, `name`, `type`) VALUES
 -- Table structure for table `quoterequest`
 --
 
-CREATE TABLE `quoterequest` (
+CREATE TABLE IF NOT EXISTS `quoterequest` (
   `pname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `cname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `sname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `email` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL,
+  PRIMARY KEY (`pname`,`email`,`sname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -241,14 +253,15 @@ INSERT INTO `quoterequest` (`pname`, `cname`, `address`, `sname`, `email`) VALUE
 -- Table structure for table `service`
 --
 
-CREATE TABLE `service` (
+CREATE TABLE IF NOT EXISTS `service` (
   `name` varchar(255) NOT NULL,
   `type` varchar(128) NOT NULL,
   `provider` varchar(255) NOT NULL,
   `cost` float NOT NULL,
   `description` varchar(2048) NOT NULL,
   `terms` varchar(2048) NOT NULL,
-  `penalty` varchar(1028) NOT NULL
+  `penalty` varchar(1028) NOT NULL,
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -256,6 +269,8 @@ CREATE TABLE `service` (
 --
 
 INSERT INTO `service` (`name`, `type`, `provider`, `cost`, `description`, `terms`, `penalty`) VALUES
+('Economy Electricity', 'Electricity', 'jamesp@gmail.com', 100, 'A bare-bones electricity plan designed for those who do not use much electricity.', 'Lorem ipsum.', 'Electricity will be shut down'),
+('Premium Electricity', 'Electricity', 'jamesp@gmail.com', 300, 'The premium electricity plan designed for power users or large families.', 'Lorem ipsum.', 'Electricity will be shut down'),
 ('Standard Electricity', 'Electricity', 'jamesp@gmail.com', 200, 'The basic electricity plan designed for common users.', 'Lorem ipsum.', 'Electricity will be shut down'),
 ('Super Insurance', 'Car Insurance', 'vendortest@gmail.com', 100, 'the best insurance money can buy, lorem ipsum etc etc', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 ('Ultra Power', 'Electricity', 'samplevend@gmail.com', 3.40282e38, 'The most expensive electricity ever', 'lorem ipsum', 'Termination of service');
@@ -266,10 +281,11 @@ INSERT INTO `service` (`name`, `type`, `provider`, `cost`, `description`, `terms
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
-  `user_type` varchar(64) NOT NULL
+  `user_type` varchar(64) NOT NULL,
+  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -279,6 +295,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 ('asftgsdafgdrs@gmail.com', '$2y$10$Crzcxa4QPiZI4dGtp3uBduG8xDdjFHZo3G9Z8Yh937pvmjvLA4pp6', 'Client'),
 ('asftgsdafgds@gmail.com', '$2y$10$t2CX7jV/pEcxYRapBxj4keLbWZhzX2mmi8QaFDEwbsbwovgm0qMES', 'Client'),
+('cust1@gmail.com', '$2y$10$7APiftC6CWkMvXD/Vda0NuCMVF471dAAb2U1B6FLAUujI1tCPHY0e', 'Client'),
 ('definitelynotvendor@live.com', '$2y$10$GwFcSISDBfLqSn7YIv5/gerf8XPvgg0L70lF54a6m/VjOWDFPlC6u', 'Vendor'),
 ('doesisworkfromhere@gmail.com', '$2y$10$mG8uWRR53zg.AUP/c9lkLuWB0lHkXfvt1FpQwBmzoVBxMc1kQz.4e', 'Client'),
 ('doublecheck@hotmail.com', '$2y$10$A5/TC4vH1hmm34gNZ5eIQOSpudxh3YPx8rdbPw06w5WxVBGMyP5gG', 'Vendor'),
@@ -298,72 +315,8 @@ INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 ('thisiscompletelynew@gmail.com', '$2y$10$iddk5SPx5/sKqX9Q1pXpG.MhVcqAECYoUuCvMBn2N2ZcrZkm.DuIO', 'Client'),
 ('thisshouldgoincustomertable@gmail.com', '$2y$10$lUNiHCYvafk3f.7IHyX3qesUJVolt9twoR61DgnsBkyO7RUXQ0AVC', 'Client'),
 ('varg9436@vandals.uidaho.edu', '$2y$10$7EuduTD6aKONF211fFLqfukTAGzp.TquK1EII/leBa2liFV4lQmgm', 'Client'),
+('vend1@gmail.com', '$2y$10$B2G9qI7JM6wRO4bZm5jnpOyQWKvewAPeAK4eYHYybexkYAXPg1C0.', 'Client'),
 ('vendortest@gmail.com', '$2y$10$PqLU837bA9WU8chdJNZ9JOUQYNWTAHkp2IxQyvGSNlnRX0nFNMXAe', 'Vendor');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`email`) USING BTREE,
-  ADD UNIQUE KEY `phone_num` (`phone_num`);
-
---
--- Indexes for table `hasservice`
---
-ALTER TABLE `hasservice`
-  ADD PRIMARY KEY (`owner_email`,`service_name`,`address`);
-
---
--- Indexes for table `home`
---
-ALTER TABLE `home`
-  ADD PRIMARY KEY (`address`);
-
---
--- Indexes for table `offers`
---
-ALTER TABLE `offers`
-  ADD PRIMARY KEY (`cemail`,`pemail`,`sname`,`address`);
-
---
--- Indexes for table `outsideservice`
---
-ALTER TABLE `outsideservice`
-  ADD PRIMARY KEY (`name`);
-
---
--- Indexes for table `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD PRIMARY KEY (`email`);
-
---
--- Indexes for table `provider`
---
-ALTER TABLE `provider`
-  ADD PRIMARY KEY (`email`) USING BTREE;
-
---
--- Indexes for table `quoterequest`
---
-ALTER TABLE `quoterequest`
-  ADD PRIMARY KEY (`pname`,`email`,`sname`);
-
---
--- Indexes for table `service`
---
-ALTER TABLE `service`
-  ADD PRIMARY KEY (`name`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

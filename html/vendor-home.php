@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <a class="header-links current-page" href="">Services</a>
                     <a class="header-links" href="clients.php">Clients</a>
-                    <a class="header-links" href="#">Requests</a>
+                    <a class="header-links" href="requests.php">Requests</a>
 
                 </nav>
                 

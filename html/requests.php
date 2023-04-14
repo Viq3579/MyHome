@@ -10,15 +10,6 @@ if ( !isset($_SESSION["email"]) ) {
 }
 
 $mysqli = require __DIR__ . "/../php/database.php";
-
-$sql = sprintf("SELECT customer.name AS name, hasservice.owner_email AS email, hasservice.service_name AS service, service.cost AS cost
-                FROM customer, hasservice, service
-                WHERE customer.email = hasservice.owner_email 
-                AND hasservice.provider_email = service.provider 
-                AND hasservice.service_name = service.name",
-                $mysqli->real_escape_string($_SESSION["email"]));
-
-$result = $mysqli->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +24,7 @@ $result = $mysqli->query($sql);
         <title>MyHome</title>
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/home.css">
+        <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
 
@@ -47,14 +39,14 @@ $result = $mysqli->query($sql);
                 <nav class="header-nav">
 
                     <a class="header-links" href="vendor-home.php">Services</a>
-                    <a class="header-links current-page" href="">Clients</a>
-                    <a class="header-links" href="requests.php">Requests</a>
+                    <a class="header-links" href="clients.php">Clients</a>
+                    <a class="header-links current-page" href="">Requests</a>
 
                 </nav>
                 
                 
                 <div class="header-cta">
-                <a class="header-login login" href="../php/logout.php">Log Out</a>
+                    <a class="header-login login" href="../php/logout.php">Log Out</a>
                 </div>
             
             </div>
@@ -63,56 +55,7 @@ $result = $mysqli->query($sql);
 
 
         <main class="main-content">
-
-            <div class="user-information">
-
-                <h1 class="title">Clients</h1>
-                
-                <div class="user-information-container" style="grid-template-columns: 1fr;">
-
-                    <table class="table">
-                        <tr class="table-row table-head">
-                            <th class="table-col-head">Name</th>
-                            <th class="table-col-head">Email</th>
-                            <th class="table-col-head">Service</th>
-                            <th class="table-col-head">Payments</th>
-                            <th class="table-col-head">Actions</th>
-                        </tr>
-
-                        <?php
-                        while($client = $result->fetch_assoc()) {
-                            echo "<tr class=\"table-row\">";
-                            echo    "<th class=\"table-col\">" . $client["name"] . "</th>";
-                            echo    "<th class=\"table-col\">" . $client["email"] . "</th>";
-                            echo    "<th class=\"table-col\">" . $client["service"] . "</th>";
-                            echo    "<th class=\"table-col\">$" . $client["cost"] . "</th>";
-                            echo    "<th class=\"table-col\">Negotiate</th>";
-                            echo "</tr>";
-                        }
-                        ?>
-                    </table>
-
-                </div>
-
-            </div>
-
-            <div class="advertised-services">
-                
-                <h1 class="title">Recommended Clients</h1>
-
-                <div class="service-detail recommended-service">
-                    <div class="service-title-container">
-                        <i class="service-title fa-solid fa-bolt"></i>
-                        <h3 class="service-title">Service Name</h3>
-                    </div>
-                    <p class="service-description">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                    </p>
-                    <p class="service-cost recommended-service-button"><b>$100</b> per Month</p>
-                </div>
-
-            </div>
-
+            
         </main>
 
 
