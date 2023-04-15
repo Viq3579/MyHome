@@ -75,14 +75,14 @@ include("../php/auth_session.php");
         $maxprice = $monthlyincome - $temp['SUM(O.cost)'];
         if ($afford != 'Yes')
         {
-            $stypequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE S.type='$stype' AND P.email=S.provider";
-            $snamequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE S.name='$sname' AND P.email=S.provider";
-            $typequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$type' AND P.email=S.provider";
+            $stypequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE S.type='$name' AND P.email=S.provider";
+            $snamequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE S.name='$name' AND P.email=S.provider";
+            $typequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$name' AND P.email=S.provider";
             $namequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider";
         } else {
-            $stypequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE type='$stype' AND P.email=S.provider AND cost <= '$maxprice'";
-            $snamequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE name='$sname' AND P.email=S.provider AND cost <= '$maxprice'";
-            $typequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$type' AND P.email=S.provider AND S.cost <= '$maxprice'";
+            $stypequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE type='$name' AND P.email=S.provider AND cost <= '$maxprice'";
+            $snamequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE name='$name' AND P.email=S.provider AND cost <= '$maxprice'";
+            $typequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$name' AND P.email=S.provider AND S.cost <= '$maxprice'";
             $namequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider AND S.cost <= '$maxprice'";
     
         }
@@ -119,11 +119,11 @@ include("../php/auth_session.php");
 
                     <form class="form" method="post">
                         <div class="input">
-                            <label class="input-header" for="name">Provider Name:</label>
+                            <!-- <label class="input-header" for="name">Search:</label> -->
                             <input class="input-field" type="text" id="name" name="name">
                         </div>
 
-                        <div class="input">
+                        <!-- <div class="input">
                             <label class="input-header" for="type">Provider Type:</label>
                             <input class="input-field" type="text" id="type" name="type">
                         </div>
@@ -140,7 +140,7 @@ include("../php/auth_session.php");
 
                        
                         <label class="input-header" for="afford">Filter By Affordability?</label>
-                        <input class="input-checkbox" type="checkbox" name="afford" value="Yes" id="afford">                
+                        <input class="input-checkbox" type="checkbox" name="afford" value="Yes" id="afford"> -->                
 
                         <div class="submit-container">
                             <button class="submit-button" href="searchservices.php">Search</button>
