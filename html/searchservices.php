@@ -23,42 +23,12 @@ include("../php/auth_session.php");
     <?php
         require('../php/database.php');
         
-        if (isset($_REQUEST['stype']))
-        {
-            $stype = stripslashes($_REQUEST['stype']);
-            $stype = mysqli_real_escape_string($mysqli, $stype);
-        } else {
-            $stype = "NULL";
-        }
-        if (isset($_REQUEST['type']))
-        {
-            $type = stripslashes($_REQUEST['type']);
-            $type = mysqli_real_escape_string($mysqli, $type);
-        } else {
-            $type = "NULL";
-        }
-
-        if (isset($_REQUEST['sname']))
-        {
-            $sname = stripslashes($_REQUEST['sname']);
-            $sname = mysqli_real_escape_string($mysqli, $sname);
-        } else {
-            $sname = "NULL";
-        }
-
         if (isset($_REQUEST['name']))
         {
             $name = stripslashes($_REQUEST['name']);
             $name = mysqli_real_escape_string($mysqli, $name);
         } else {
             $name = "NULL";
-        }
-
-        if (isset($_REQUEST['afford']))
-        {
-            $afford = $_REQUEST['afford'];
-        } else {
-            $afford = "NULL";
         }
         
         $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);

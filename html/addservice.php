@@ -13,8 +13,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $mysqli = require __DIR__ . "/../php/database.php";
 
-    $sql = "INSERT INTO outsideservice (name, type, customer_email, cost, description, terms, penalty, address)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $name = stripslashes($_REQUEST['name']);
+    //escapes special characters in a string
+    $name = mysqli_real_escape_string($mysqli, $name);
+    $provider = stripslashes($_REQUEST['provider']);
+    $provider = mysqli_real_escape_string($mysqli, $provider);
+    $email = $_SESSION["email"];
+    $address = $_POST["provider"];
+    $cost = $_POST["cost"];
+    $type = $_POST["type"];
+    $desc = $_POST["description"]; 
+    $terms = $_POST["terms"];
+    $penalty = $_POST["penalty"];
+
+
+    
+    $query = "SELECT email FROM provider WHERE name = '$provider'";
+    $result = mysqli_query($mysqli, $query);
+    $temp = mysqli_fetch_array($result);
+    $pemail = $temp[0];
+
+    $query = "SELECT * FROM service WHERE provider = '$pemail' AND name = '$name'";
+    $result = mysqli_query($mysqli, $query);
+    if ($result){
+        $query = "SELECT * FROM service WHERE provider = '$pemail' AND name = '$name' AND cost = '$cost' AND type = '$type' AND description = '$desc' AND penalty = '$penalty'";
+        $result = mysqli_query($mysqli, $query);
+        if ($result){
+            $custom = 0;
+        } else {
+            $custom = 1;
+        }
+        $sql = "INSERT INTO unverifiedservice (name, provider, type, cemail, cost, description, terms, penalty, address, custom)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, $custom)";
+    } else {
+        $sql = "INSERT INTO outsideservice (name, provider, type, customer_email, cost, description, terms, penalty, address)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }
+
 
     $stmt = $mysqli->stmt_init();
 
@@ -22,27 +57,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die ("SQL Error: " . $mysqli->error);
     }
 
-    $name = stripslashes($_REQUEST['name']);
-    //escapes special characters in a string
-    $name = mysqli_real_escape_string($mysqli, $name);
+
+
     // Varify Name is Unique
     $sql = sprintf("SELECT *
     FROM outsideservice
-    WHERE name = '$name'",
+    WHERE name = '$name' AND provider = '$provider' AND customer_email = '$email' AND address = '$address'",
     $mysqli->real_escape_string($_POST["name"]));
 
     $result = $mysqli->query($sql);
     $user = $result->fetch_assoc();
 
     if ($user) {
-        die("Name Already Taken");
+        die("Key Already Taken");
     }
     else
     {
         if ($_POST["ownerorhome"] == 'Owner') {
             $address = NULL;
-            $stmt->bind_param("ssssssss", 
+            $stmt->bind_param("sssssssss", 
             $_POST["name"], 
+            $_POST["provider"],
             $_POST["type"], 
             $_SESSION["email"], 
             $_POST["cost"], 
@@ -52,8 +87,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $address
             );
         } else if ($_POST["ownerorhome"] == 'Home') {
-            $stmt->bind_param("ssssssss", 
-            $_POST["name"], 
+            $stmt->bind_param("sssssssss", 
+            $_POST["name"],
+            $_POST["provider"], 
             $_POST["type"], 
             $_SESSION["email"], 
             $_POST["cost"], 
@@ -129,6 +165,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="input">
                 <label class="input-header" for="name">Name of Service:</label>
                 <input class="input-field" type="text" id="name" name="name">
+            </div>
+
+            <div class="input">
+                <label class="input-header" for="name">Provider:</label>
+                <input class="input-field" type="text" id="name" name="provider">
             </div>
             
             <div class="input">
