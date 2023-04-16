@@ -71,7 +71,12 @@ include("../php/auth_session.php");
                         $query = "SELECT custom FROM offers WHERE sname = '$sname' AND pemail = '$pemail' AND cemail = '$cemail' AND cost = '$cost' AND terms = '$terms' AND penalty = '$penalty' AND address = '$address'";
                         $result = mysqli_query($mysqli, $query);
                         $temp = mysqli_fetch_array($result);
-                        $custom = $temp[0];
+                        if (isset($temp[0])){
+                            $custom = $temp[0];
+                        } else {
+                            $custom = 0;
+                        }
+
                         $query = "INSERT into `hasservice` (service_name, provider_email, owner_email, address, custom)
                         VALUES ('$sname', '$pemail', '$cemail', '$address', '$custom')";
                         $result   = mysqli_query($mysqli, $query);
@@ -82,8 +87,8 @@ include("../php/auth_session.php");
                         }
                         if ($result) {
                             echo "<div class='form'>
-                                <h3>Thank you for your purchase, your contact information and the final service details have been sent to the provider, and they will contact you regarding their preferred method of payment.</h3><br/>
-                                <p class='link'>Click here to <a href='profile.php'>Return to Profile</a></p>
+                                <h3></h3><br/>
+                                <p class='link'>Click here to <a href='paymentform.html?provider='$pemail'>Fill out payment information</a></p>
                                 </div>";
                         } else {
                             echo "<div class='form'>

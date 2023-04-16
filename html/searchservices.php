@@ -43,6 +43,11 @@ include("../php/auth_session.php");
         WHERE O.customer_email = '$sanemail'");
         $temp = mysqli_fetch_array($result);
         $maxprice = $monthlyincome - $temp['SUM(O.cost)'];
+        if (isset($_POST["afford"])){
+            $afford = $_POST["afford"];
+        } else {
+            $afford = 'No';
+        }
         if ($afford != 'Yes')
         {
             $stypequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE S.type='$name' AND P.email=S.provider";
@@ -106,11 +111,11 @@ include("../php/auth_session.php");
                         <div class="input">
                             <label class="input-header" for="stype">Service Type:</label>
                             <input class="input-field" type="text" id="stype" name="stype">
-                        </div>
+                        </div> --> 
 
                        
                         <label class="input-header" for="afford">Filter By Affordability?</label>
-                        <input class="input-checkbox" type="checkbox" name="afford" value="Yes" id="afford"> -->                
+                        <input class="input-checkbox" type="checkbox" name="afford" value="Yes" id="afford">               
 
                         <div class="submit-container">
                             <button class="submit-button" href="searchservices.php">Search</button>
@@ -126,7 +131,7 @@ include("../php/auth_session.php");
                             <?php
                             require('../php/database.php');
 
-                            if ($stype != NULL)
+                            if ($name != NULL)
                             {
                                 $result = mysqli_query($mysqli, $stypequery);
                                 while($row = mysqli_fetch_array($result))
@@ -171,7 +176,7 @@ include("../php/auth_session.php");
     
                             } 
 
-                            if ($sname != NULL)
+                            if ($name != NULL)
                             {
                                 $result = mysqli_query($mysqli, $snamequery);
                                 while($row = mysqli_fetch_array($result))
@@ -259,7 +264,7 @@ include("../php/auth_session.php");
                                 }
     
                             }
-                            if ($type != NULL)
+                            if ($name != NULL)
                             {
                                 $result = mysqli_query($mysqli, $typequery);
                                 while($row = mysqli_fetch_array($result))
