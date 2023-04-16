@@ -23,7 +23,7 @@ $mysqli = require __DIR__ . "/../php/database.php";
 
         <title>MyHome</title>
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/home.css">
+        <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
@@ -55,6 +55,47 @@ $mysqli = require __DIR__ . "/../php/database.php";
 
 
         <main class="main-content">
+
+            <div class="container">
+
+                <div class="left-content">
+                    <h1 class="title">Send Quotes</h1>
+
+                    <div class="item highlighted-item">
+                        <div class="item-title-container">
+                            <i class="item-title fa-solid fa-user"></i>
+                            <h3 class="item-title">Victor Vargas</h3>
+                        </div>
+                        <p class="item-description">
+                            Service: Standard Electricity
+                        </p>
+                        <p class="item-footer item-footer-button"><b>Send Quote</b></p>
+                    </div>
+
+                </div>
+
+                <div class="center-content">
+                    <h1 class="title">Negotiations</h1>
+                </div>
+
+                <div class="right-content">
+                    <h1 class="title">Sign Customers</h1>
+
+                    <div class="item">
+                        <div class="item-title-container">
+                            <i class="item-title fa-solid fa-user"></i>
+                            <h3 class="item-title">Jake Scott</h3>
+                        </div>
+                        <p class="item-description">
+                            Service Purchased: Standard Electricity
+                        </p>
+                        <p class="item-footer item-footer-button"><b>Review Contract</b></p>
+                    </div>
+                </div>
+
+            </div>
+
+            
             
         </main>
 

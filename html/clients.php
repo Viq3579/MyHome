@@ -15,7 +15,8 @@ $sql = sprintf("SELECT customer.name AS name, hasservice.owner_email AS email, h
                 FROM customer, hasservice, service
                 WHERE customer.email = hasservice.owner_email 
                 AND hasservice.provider_email = service.provider 
-                AND hasservice.service_name = service.name",
+                AND hasservice.service_name = service.name
+                AND hasservice.provider_email = '%s'",
                 $mysqli->real_escape_string($_SESSION["email"]));
 
 $result = $mysqli->query($sql);
