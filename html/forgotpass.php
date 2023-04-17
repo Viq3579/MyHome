@@ -43,7 +43,7 @@
     // $mail->SMTPDebug = 1;
     $mail->Host = 'smtp.gmail.com';  //gmail SMTP server
     $mail->Username = 'ian.m.finnigan@gmail.com';   //email
-    $mail->Password = 'bdxqzraatkmlotpu' ;   //16 character obtained from app password created
+    $mail->Password = '' ;   //16 character obtained from app password created
     $mail->Port = 465;                    //SMTP port
     $mail->SMTPSecure = "ssl";
 
