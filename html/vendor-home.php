@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <title>MyHome</title>
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/home.css">
+        <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
@@ -98,72 +98,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <main class="main-content">
 
-            <div class="user-information">
+            <div class="container">
 
-                <h1 class="title">Services</h1>
-                
-                <div class="user-information-container">
+                <div class="center-content">
+                    
+                    <h1 class="title">Services</h1>
                         
                     <?php
                     while($service = $result->fetch_assoc()) {
-                        echo "<div class=\"service-detail\">";
-                        echo    "<div class=\"service-title-container\">";
-                        echo        "<i class=\"service-title fa-solid fa-bolt\"></i>";
-                        echo        "<h3 class=\"service-title\">" . $service["name"] . "</h3>";
+                        echo "<div class=\"item\">";
+                        echo    "<div class=\"item-title-container\">";
+                        echo        "<i class=\"item-title fa-solid fa-bolt\"></i>";
+                        echo        "<h3 class=\"item-title\">" . $service["name"] . "</h3>";
                         echo    "</div>";
-                        echo    "<p class=\"service-description\">";
+                        echo    "<p class=\"item-description\">";
                         echo        $service["description"];
                         echo    "</p>";
-                        echo    "<p class=\"service-cost\"><b>$" . $service["cost"] . "</b> per Month</p>";
+                        echo    "<p class=\"item-footer\"><b>$" . $service["cost"] . "</b> per Month</p>";
                         echo "</div>";
                     }
                     ?>
 
                 </div>
 
-            </div>
+                <div class="right-content">
 
-            <div class="advertised-services">
-                
-                <h1 class="title">Register a Service</h1>
+                    <h1 class="title">Register a Service</h1>
 
-                <form class="form" method="post">
-    
-                    <div class="input">
-                        <label class="input-header" for="name">Name of Service:</label>
-                        <input class="input-field" type="text" id="name" name="name">
-                    </div>
-                    
-                    <div class="input">
-                        <label class="input-header" for="type">Type of Service:</label>
-                        <input class="input-field" type="text" id="type" name="type">
-                    </div>
-    
-                    <div class="input">
-                        <label class="input-header" for="cost">Monthly Cost:</label>
-                        <input class="input-field" type="text" id="cost" name="cost">
-                    </div>
-    
-                    <div class="input">
-                        <label class="input-header" for="description">Description:</label>
-                        <input class="input-field" type="text" id="description" name="description">
-                    </div>
+                    <form class="form" method="post">
+        
+                        <div class="input">
+                            <label class="input-header" for="name">Name of Service:</label>
+                            <input class="input-field" type="text" id="name" name="name">
+                        </div>
+                        
+                        <div class="input">
+                            <label class="input-header" for="type">Type of Service:</label>
+                            <input class="input-field" type="text" id="type" name="type">
+                        </div>
+        
+                        <div class="input">
+                            <label class="input-header" for="cost">Monthly Cost:</label>
+                            <input class="input-field" type="text" id="cost" name="cost">
+                        </div>
+        
+                        <div class="input">
+                            <label class="input-header" for="description">Description:</label>
+                            <input class="input-field" type="text" id="description" name="description">
+                        </div>
 
-                    <div class="input">
-                        <label class="input-header" for="terms">Terms of Service:</label>
-                        <input class="input-field" type="text" id="terms" name="terms">
-                    </div>
+                        <div class="input">
+                            <label class="input-header" for="terms">Terms of Service:</label>
+                            <input class="input-field" type="text" id="terms" name="terms">
+                        </div>
 
-                    <div class="input">
-                        <label class="input-header" for="penalty">Penalty:</label>
-                        <input class="input-field" type="text" id="penalty" name="penalty">
-                    </div>
-    
-                    <div class="submit-container">
-                        <button class="submit-button">Register Service</button>
-                    </div>
-    
-                </form>
+                        <div class="input">
+                            <label class="input-header" for="penalty">Penalty:</label>
+                            <input class="input-field" type="text" id="penalty" name="penalty">
+                        </div>
+        
+                        <div class="submit-container">
+                            <button class="submit-button">Register Service</button>
+                        </div>
+        
+                    </form>
+
+                </div>
 
             </div>
 
