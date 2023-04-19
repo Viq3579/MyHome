@@ -138,7 +138,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <option class="dropdown-option" value="Electricity">Electricity</option>
                                 <option class="dropdown-option" value="Security">Security</option>
                                 <option class="dropdown-option" value="Internet">Internet</option>
-                                <option class="dropdown-option" value="Insurance">Insurance</option>
+                                <option class="dropdown-option" value="Insurance">Home Insurance</option>
+                                <option class="dropdown-option" value="Insurance">Car Insurance</option>
+                                <option class="dropdown-option" value="Insurance">Transport</option>
                                 <option class="dropdown-option" value="Cable">Cable</option>
                                 <option class="dropdown-option" value="Cellular">Cellular</option>
                             </select>

@@ -20,6 +20,13 @@ $sql = sprintf("SELECT customer.name AS name, hasservice.address as address, has
                 $mysqli->real_escape_string($_SESSION["email"]));
 
 $result = $mysqli->query($sql);
+
+$sql = require __DIR__ . "/../php/service-calculator.php";
+
+$sql = $sql . sprintf("AND s.provider = '%s'", $mysqli->real_escape_string($_SESSION["email"]));
+
+$client_result = $mysqli->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -101,13 +108,18 @@ $result = $mysqli->query($sql);
                     
                     <h1 class="title">Potential Clients</h1>
 
-                    <div class="item highlighted-item">
-                        <div class="item-title-container">
-                            <i class="item-title fa-solid fa-user"></i>
-                            <h3 class="item-title">John Swift</h3>
-                        </div>
-                        <button class="item-footer item-footer-button"><b>Contact</b></button>
-                    </div>
+                    <?php
+                    while ($potential_client = $client_result->fetch_assoc()) {
+
+                        echo "<div class=\"item highlighted-item\">";
+                        echo    "<div class=\"item-title-container\">";
+                        echo        "<i class=\"item-title fa-solid fa-user\"></i>";
+                        echo        "<h3 class=\"item-title\">" . $potential_client["c_name"] . "</h3>";
+                        echo    "</div>";
+                        echo    "<button class=\"item-footer item-footer-button\"><b>Contact</b></button>";
+                        echo "</div>";
+                    }
+                    ?>
 
                 </div>
 
