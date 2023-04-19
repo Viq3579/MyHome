@@ -129,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
                         <div class="input">
                             <label class="input-header" for="name">Name of Service:</label>
-                            <input class="input-field" type="text" id="name" name="name">
+                            <input class="input-field" type="text" id="name" name="name" required>
                         </div>
                         
                         <div class="input">
@@ -146,22 +146,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
                         <div class="input">
                             <label class="input-header" for="cost">Monthly Cost:</label>
-                            <input class="input-field" type="text" id="cost" name="cost">
+                            <input class="input-field" type="text" id="cost" name="cost" required>
                         </div>
         
                         <div class="input">
                             <label class="input-header" for="description">Description:</label>
-                            <input class="input-field" type="text" id="description" name="description">
+                            <input class="input-field" type="text" id="description" name="description" required>
                         </div>
 
                         <div class="input">
                             <label class="input-header" for="terms">Terms of Service:</label>
-                            <input class="input-field" type="text" id="terms" name="terms">
+                            <input class="input-field" type="text" id="terms" name="terms" required>
                         </div>
 
                         <div class="input">
                             <label class="input-header" for="penalty">Penalty:</label>
-                            <input class="input-field" type="text" id="penalty" name="penalty">
+                            <input class="input-field" type="text" id="penalty" name="penalty" required>
                         </div>
         
                         <div class="submit-container">

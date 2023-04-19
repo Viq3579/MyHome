@@ -70,8 +70,11 @@
     justify-self: end;
     padding: 10px 20px;
 
-    transition: background-color 100ms;
+    transition: 100ms;
 }
 .submit-button:hover {
     background-color: #BF4C0A;
+}
+.submit-button:active {
+    transform: translate(0px, 1px);
 }

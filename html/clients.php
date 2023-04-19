@@ -106,7 +106,7 @@ $result = $mysqli->query($sql);
                             <i class="item-title fa-solid fa-user"></i>
                             <h3 class="item-title">John Swift</h3>
                         </div>
-                        <p class="item-footer item-footer-button"><b>$100</b> per Month</p>
+                        <button class="item-footer item-footer-button"><b>Contact</b></button>
                     </div>
 
                 </div>

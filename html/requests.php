@@ -101,7 +101,7 @@ $other_result = $mysqli->query($sql);
                         echo    "<p class=\"item-description\">";
                         echo        $quote_requests["service"];
                         echo    "</p>";
-                        echo    "<p class=\"item-footer item-footer-button\"><b>Send Quote</b></p>";
+                        echo    "<button class=\"item-footer item-footer-button\" id=\"quoteButton\"><b>Send Quote</b></button>";
                         echo "</div>";
                     }
                     ?>
@@ -123,7 +123,7 @@ $other_result = $mysqli->query($sql);
                         echo    "<p class=\"item-subtitle\">Offered Terms:</p>";
                         echo    "<p class=\"item-description\">" . $negotiations["terms"] . "</p>";
                         echo    "<p class=\"item-description\">Wanted Price: <b>$" . $negotiations["cost"] . "</b></p>";
-                        echo    "<p class=\"item-footer item-footer-button\"><b>Review Offer</b></p>";
+                        echo    "<button class=\"item-footer item-footer-button\"><b>Review Offer</b></button>";
                         echo"</div>";
                     }
                     ?>
@@ -141,7 +141,7 @@ $other_result = $mysqli->query($sql);
                         echo    "</div>";
                         echo    "<p class=\"item-subtitle\">Service Purchased:</p>";
                         echo    "<p class=\"item-description\">" . $other["service"] . "</p>";
-                        echo    "<p class=\"item-footer item-footer-button\"><b>Review Contract</b></p>";
+                        echo    "<button class=\"item-footer item-footer-button\"><b>Review Contract</b></button>";
                         echo "</div>";
                     }
                     ?>
@@ -149,6 +149,29 @@ $other_result = $mysqli->query($sql);
 
             </div>
 
+            <div class="item popup" id="quotePopup">
+
+                <h3 class="item-title">Quote Sent</h3>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea aut qui pariatur temporibus veritatis provident laboriosam veniam? Iure, tempora beatae!
+                </p>
+                <button class="item-footer item-footer-button" id="closePopup"><b>Okay</b></button>
+
+            </div>
+
+
+            <script>
+                var quoteButton = document.getElementById("quoteButton");
+                var quotePopup = document.getElementById("quotePopup");
+                var closeButton = document.getElementById("closePopup")
+
+                quoteButton.addEventListener("click", function() {
+                    quotePopup.style.display = "block";
+                });
+                closeButton.addEventListener("click", function() {
+                    quotePopup.style.display = "none";
+                });
+            </script>
             
             
         </main>

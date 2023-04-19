@@ -96,16 +96,20 @@ b {
     color: #f7f2ef;
     background-color: #F2620F;
     width: fit-content;
+    border: none;
     justify-self: right;
     border-radius: 15px;
     text-align: end;
     margin: 10px;
     padding: 5px 15px;
 
-    transition: background-color 100ms;
+    transition: 100ms;
 }
 .item-footer-button:hover {
     background-color: #BF4C0A;
+}
+.item-footer-button:active {
+    transform: translate(0px, 1px);
 }
 
 
@@ -128,6 +132,16 @@ b {
     font-size: 10px;
     padding: 10px 5px;
 }
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
 
 
 @media screen and (max-width: 1700px) {
