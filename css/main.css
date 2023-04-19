@@ -25,6 +25,12 @@
     align-items: center;
 
 }
+.left-empty {
+    grid-column: 1 / 3;
+}
+.right-empty {
+    grid-column: 2 / 4;
+}
 .right-content {
     grid-column: 3 / 4;
     display: flex;

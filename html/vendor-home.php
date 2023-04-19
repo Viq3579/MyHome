@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="container">
 
-                <div class="center-content">
+                <div class="center-content left-empty">
                     
                     <h1 class="title">Services</h1>
                         
@@ -134,7 +134,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         
                         <div class="input">
                             <label class="input-header" for="type">Type of Service:</label>
-                            <input class="input-field" type="text" id="type" name="type">
+                            <select class="dropdown" name="type" id="type">
+                                <option class="dropdown-option" value="Electricity">Electricity</option>
+                                <option class="dropdown-option" value="Security">Security</option>
+                                <option class="dropdown-option" value="Internet">Internet</option>
+                                <option class="dropdown-option" value="Insurance">Insurance</option>
+                                <option class="dropdown-option" value="Cable">Cable</option>
+                                <option class="dropdown-option" value="Cellular">Cellular</option>
+                            </select>
                         </div>
         
                         <div class="input">

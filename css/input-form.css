@@ -38,6 +38,20 @@
     width: 25px;
     background-color: #eee;
 }
+.dropdown {
+    background: #f7f2ef;
+    color: #19222e;
+    width: 350px;
+    font-size: 24px;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+}
+.dropdown-option {
+    background: #162840;
+    color: #f7f2ef;
+    height: 500px;
+}
 .submit-container {
     display: flex;
     justify-content: space-between;

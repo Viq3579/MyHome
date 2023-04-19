@@ -67,7 +67,7 @@ $result = $mysqli->query($sql);
 
             <div class="container">
 
-                <div class="center-content">
+                <div class="center-content left-empty">
 
                     <h1 class="title">Clients</h1>
 
