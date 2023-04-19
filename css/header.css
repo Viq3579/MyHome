@@ -101,3 +101,15 @@ body {
 .signup:hover {
     background-color: #BF4C0A;
 }
+
+@media screen and (max-width: 900px) {
+
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .header-logo {
+        margin-bottom: 20px;
+    }
+
+}

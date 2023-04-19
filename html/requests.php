@@ -10,6 +10,36 @@ if ( !isset($_SESSION["email"]) ) {
 }
 
 $mysqli = require __DIR__ . "/../php/database.php";
+
+// Finds all the Quote Requests
+$sql = sprintf("SELECT q.cname as name, q.sname as service
+                FROM quoterequest as q, provider as p
+                where q.pname = p.name
+                AND p.email = '%s'",
+                $mysqli->real_escape_string($_SESSION["email"]));
+
+$quote_result = $mysqli->query($sql);
+
+// Finds all the Negotiations
+$sql = sprintf("SELECT c.name as name, o.sname as service, o.cost as cost, o.terms as terms
+                FROM customer as c, offers as o, provider as p
+                WHERE c.email = o.cemail
+                AND p.email = o.pemail
+                AND o.pemail = '%s'",
+                $mysqli->real_escape_string($_SESSION["email"]));
+        
+$negotiation_result = $mysqli->query($sql);
+
+// Finds all Payments and Service Requests
+$sql = sprintf("SELECT c.name as name, u.name as service
+                FROM customer as c, unverifiedservice as u, provider as p
+                WHERE c.email = u.cemail
+                AND u.provider = p.name
+                AND p.email = '%s'",
+                $mysqli->real_escape_string($_SESSION["email"]));
+
+$other_result = $mysqli->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -61,36 +91,61 @@ $mysqli = require __DIR__ . "/../php/database.php";
                 <div class="left-content">
                     <h1 class="title">Send Quotes</h1>
 
-                    <div class="item highlighted-item">
-                        <div class="item-title-container">
-                            <i class="item-title fa-solid fa-user"></i>
-                            <h3 class="item-title">Victor Vargas</h3>
-                        </div>
-                        <p class="item-description">
-                            Service: Standard Electricity
-                        </p>
-                        <p class="item-footer item-footer-button"><b>Send Quote</b></p>
-                    </div>
+                    <?php
+                    while ($quote_requests = $quote_result->fetch_assoc()) {
+                        echo "<div class=\"item highlighted-item\">";
+                        echo    "<div class=\"item-title-container\">";
+                        echo        "<i class=\"item-title fa-solid fa-user\"></i>";
+                        echo        "<h3 class=\"item-title\">" . $quote_requests["name"] . "</h3>";
+                        echo    "</div>";
+                        echo    "<p class=\"item-subtitle\">Quote on:</p>";
+                        echo    "<p class=\"item-description\">";
+                        echo        $quote_requests["service"];
+                        echo    "</p>";
+                        echo    "<p class=\"item-footer item-footer-button\"><b>Send Quote</b></p>";
+                        echo "</div>";
+                    }
+                    ?>
 
                 </div>
 
                 <div class="center-content">
                     <h1 class="title">Negotiations</h1>
+
+                    <?php
+                    while ($negotiations = $negotiation_result->fetch_assoc()) {
+                        echo"<div class=\"item important-item\">";
+                        echo    "<div class=\"item-title-container\">";
+                        echo        "<i class=\"item-title fa-solid fa-user\"></i>";
+                        echo        "<h3 class=\"item-title\">" . $negotiations["name"] . "</h3>";
+                        echo    "</div>";
+                        echo    "<p class=\"item-subtitle\">Service Negotiating:</p>";
+                        echo    "<p class=\"item-description\">" . $negotiations["service"] . "</p>";
+                        echo    "<p class=\"item-subtitle\">Offered Terms:</p>";
+                        echo    "<p class=\"item-description\">" . $negotiations["terms"] . "</p>";
+                        echo    "<p class=\"item-description\">Wanted Price: <b>$" . $negotiations["cost"] . "</b></p>";
+                        echo    "<p class=\"item-footer item-footer-button\"><b>Review Offer</b></p>";
+                        echo"</div>";
+                    }
+                    ?>
                 </div>
 
                 <div class="right-content">
                     <h1 class="title">Sign Customers</h1>
 
-                    <div class="item">
-                        <div class="item-title-container">
-                            <i class="item-title fa-solid fa-user"></i>
-                            <h3 class="item-title">Jake Scott</h3>
-                        </div>
-                        <p class="item-description">
-                            Service Purchased: Standard Electricity
-                        </p>
-                        <p class="item-footer item-footer-button"><b>Review Contract</b></p>
-                    </div>
+                    <?php
+                    while ($other = $other_result->fetch_assoc()) {
+                        echo "<div class=\"item\">";
+                        echo    "<div class=\"item-title-container\">";
+                        echo        "<i class=\"item-title fa-solid fa-user\"></i>";
+                        echo        "<h3 class=\"item-title\">" . $other["name"] . "</h3>";
+                        echo    "</div>";
+                        echo    "<p class=\"item-subtitle\">Service Purchased:</p>";
+                        echo    "<p class=\"item-description\">" . $other["service"] . "</p>";
+                        echo    "<p class=\"item-footer item-footer-button\"><b>Review Contract</b></p>";
+                        echo "</div>";
+                    }
+                    ?>
                 </div>
 
             </div>

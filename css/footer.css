@@ -34,8 +34,8 @@ body {
 footer {
     background: #19222e;
     color: #f7f2ef;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 1vw;
+    padding-right: 1vw;
     display: flex;
     justify-content: center;
 }
@@ -53,4 +53,13 @@ footer {
     margin: 10px;
     font-size: 14px;
     line-height: 22px;
+}
+
+@media screen and (max-width: 900px) {
+
+    footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
 }
