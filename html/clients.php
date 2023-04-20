@@ -115,12 +115,12 @@ $client_result = $mysqli->query($sql);
                     $i = 0;
                     while ( ($potential_client = $client_result->fetch_assoc()) && ($i < 25) ) {
 
-                        echo "<div class=\"item highlighted-item\">";
+                        echo "<div class=\"item small-item\">";
                         echo    "<div class=\"item-title-container\">";
                         echo        "<i class=\"item-title fa-solid fa-user\"></i>";
                         echo        "<h3 class=\"item-title\">" . $potential_client["c_name"] . "</h3>";
+                        echo        "<button class=\"item-footer item-footer-button\" id=\"popupButton\" data-name=\"" . $potential_client["c_name"] . "\" data-email=\"" . $potential_client["c_email"] . "\"><b>Contact</b></button>";
                         echo    "</div>";
-                        echo    "<button class=\"item-footer item-footer-button\"><b>Contact</b></button>";
                         echo "</div>";
 
                         $i++;
@@ -130,6 +130,39 @@ $client_result = $mysqli->query($sql);
                 </div>
 
             </div>
+
+            <div class="item highlighted-item popup" id="popup">
+
+                <h3 class="item-title">Contact Information: </h3>
+                <p class="item-subtitle">Name: </p>
+                <p class="item-description" id="popupNameArea">Name</p>
+                <p class="item-subtitle">Email: </p>
+                <p class="item-description" id="popupEmailArea">Email</p>
+                <button class="item-footer item-footer-button" id="closePopup"><b>Okay</b></button>
+
+            </div>
+
+            <script>
+                const popupButtons = document.querySelectorAll("#popupButton");
+                
+                var popup = document.getElementById("popup");
+                var popupNameArea = document.getElementById("popupNameArea");
+                var popupEmailArea = document.getElementById("popupEmailArea");
+                var closeButton = document.getElementById("closePopup");
+
+                popupButtons.forEach(popupButton => {
+                    var name = popupButton.dataset.name;
+                    var email = popupButton.dataset.email;
+                    popupButton.addEventListener("click", function() {
+                        popup.style.display = "grid";
+                        popupNameArea.textContent = name;
+                        popupEmailArea.textContent = email;
+                    });
+                });
+                closeButton.addEventListener("click", function() {
+                    popup.style.display = "none";
+                });
+            </script>
 
         </main>
 
