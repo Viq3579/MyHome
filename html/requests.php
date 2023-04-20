@@ -21,7 +21,7 @@ $sql = sprintf("SELECT q.cname as name, q.sname as service
 $quote_result = $mysqli->query($sql);
 
 // Finds all the Negotiations
-$sql = sprintf("SELECT c.name as name, o.sname as service, o.cost as cost, o.terms as terms
+$sql = sprintf("SELECT c.name as name, o.cemail as customer, o.pemail as vendor, o.sname as service, o.cost as cost, o.terms as terms, o.address as address
                 FROM customer as c, offers as o, provider as p
                 WHERE c.email = o.cemail
                 AND p.email = o.pemail
@@ -123,7 +123,13 @@ $other_result = $mysqli->query($sql);
                         echo    "<p class=\"item-subtitle\">Offered Terms:</p>";
                         echo    "<p class=\"item-description\">" . $negotiations["terms"] . "</p>";
                         echo    "<p class=\"item-description\">Wanted Price: <b>$" . $negotiations["cost"] . "</b></p>";
-                        echo    "<button class=\"item-footer item-footer-button\"><b>Review Offer</b></button>";
+                        echo    "<a class=\"item-footer item-footer-button\"";
+                        echo        "href=\"vendor-negotiate.php";
+                        echo            "?customer_email=" . $negotiations["customer"];
+                        echo            "&provider_email=" . $negotiations["vendor"];
+                        echo            "&service_name=" . $negotiations["service"];
+                        echo            "&address=" . $negotiations["address"];
+                        echo    "\"><b>Review Offer</b></a>";
                         echo"</div>";
                     }
                     ?>
