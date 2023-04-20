@@ -239,39 +239,40 @@ include("../php/auth_session.php");
             <div class="advertised-services">
                 
                 <h1 class="title">Recommended Services</h1>
-
-                <div class="service-detail recommended-service">
-                    <div class="service-title-container">
-                        <i class="service-title fa-solid fa-bolt"></i>
-                        <h3 class="service-title">Service Name</h3>
-                    </div>
-                    <p class="service-description">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                    </p>
-                    <p class="service-cost recommended-service-button"><b>$100</b> per Month</p>
-                </div>
-
-                <div class="service-detail recommended-service">
-                    <div class="service-title-container">
-                        <i class="service-title fa-solid fa-bolt"></i>
-                        <h3 class="service-title">Lorem Ipsum Dolor Sit</h3>
-                    </div>
-                    <p class="service-description">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                    </p>
-                    <p class="service-cost recommended-service-button"><b>$100</b> per Month</p>
-                </div>
-
-                <div class="service-detail recommended-service">
-                    <div class="service-title-container">
-                        <i class="service-title fa-solid fa-bolt"></i>
-                        <h3 class="service-title">Lorem</h3>
-                    </div>
-                    <p class="service-description">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae voluptatum optio sapiente minus non odio. Ducimus repellendus at temporibus aut.
-                    </p>
-                    <p class="service-cost recommended-service-button"><b>$100</b> per Month</p>
-                </div>
+                <?php
+                    $sql = require __DIR__ . "/../php/service-calculator.php";
+                    $sql = $sql . sprintf("AND c.email = '%s'", $mysqli->real_escape_string($_SESSION["email"]));
+                    $client_result = $mysqli->query($sql);
+                    while ($row = mysqli_fetch_array($client_result)){
+                        ?>
+                        <div class="service-detail recommended-service">
+                            <form action="negotiate.php" method="post">
+                                <div class="service-title-container">
+                                    <i class="service-title fa-solid fa-bolt"></i>
+                                    <h3 class="service-title"><?php echo $row['s_name'];?></h3>
+                                    <input type="hidden" name="servicename" value="<?php echo $row['s_name'];?>">
+                                    <input type="hidden" name="servicename" value="<?php echo $row['s_type'];?>">
+                                </div>
+                                <p class="service-description">
+                                    Provided By: <?php echo $row['p_name'];?><br><br>
+                                    <input type="hidden" name="providername" value="<?php echo $row['p_name'];?>">
+                                </p>
+                                <p class="service-description">
+                                    Description: <?php echo $row['s_description'];?><br><br>
+                                    <input type="hidden" name="desc" value="<?php echo $row['s_description'];?>">
+                                </p>
+                                <p class="service-description">
+                                    Terms: <?php echo $row['s_terms'];?><br><br>
+                                    <input type="hidden" name="terms" value="<?php echo $row['s_terms'];?>">
+                                </p>
+                                <input type="hidden" name="cost" value="<?php echo $row['s_cost'];?>">
+                                <input type="hidden" name="pemail" value="<?php echo $row['p_email'];?>">
+                                <button class="service-cost recommended-service-button"><b>$<?php echo $row['s_cost'];?></b> per Month</button>
+                            </form>
+                        </div>
+                        <?php
+                    }
+                ?>
 
             </div>
 
