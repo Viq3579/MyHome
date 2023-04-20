@@ -20,7 +20,7 @@
     c_name: Customer's Name
  -->
 <?php
-$sql = "SELECT p.name as p_name, s.provider as p_email, s.name as s_name, d.description as s_description, d.terms as s_terms, d.cost as s_cost, c.email as c_email, o.name as c_name
+$sql = "SELECT p.name as p_name, s.provider as p_email, s.name as s_name, d.type as s_type, d.description as s_description, d.terms as s_terms, d.cost as s_cost, c.email as c_email, o.name as c_name
         FROM provider as p, service as d, customer as o, (
             SELECT s.name, s.provider, s.type
             FROM service as s,(	

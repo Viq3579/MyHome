@@ -251,7 +251,7 @@ include("../php/auth_session.php");
                                     <i class="service-title fa-solid fa-bolt"></i>
                                     <h3 class="service-title"><?php echo $row['s_name'];?></h3>
                                     <input type="hidden" name="servicename" value="<?php echo $row['s_name'];?>">
-                                    <input type="hidden" name="servicename" value="<?php echo $row['s_type'];?>">
+                                    <input type="hidden" name="type" value="<?php echo $row['s_type'];?>">
                                 </div>
                                 <p class="service-description">
                                     Provided By: <?php echo $row['p_name'];?><br><br>

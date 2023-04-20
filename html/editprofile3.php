@@ -13,8 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $mysqli = require __DIR__ . "/../php/database.php";
 
-    $sql = "INSERT INTO provider (email, name, type)
-            VALUES (?, ?, ?)";
+    $sql = "INSERT INTO provider (email, name, type, pay_link)
+            VALUES (?, ?, ?, ?)";
 
     $stmt = $mysqli->stmt_init();
 
@@ -22,10 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die ("SQL Error: " . $mysqli->error);
     }
 
-    $stmt->bind_param("sss", 
+    $stmt->bind_param("ssss", 
         $_SESSION["email"],
         $_POST["name"], 
-        $_POST["type"]
+        $_POST["type"],
+        $_POST["pay_link"]
     );
 
     if ($stmt->execute()) {
@@ -87,12 +88,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
                 <div class="input">
                     <label class="input-header" for="name">Name of Company:</label>
-                    <input class="input-field" type="text" id="name" name="name">
+                    <input class="input-field" type="text" id="name" name="name" require>
                 </div>
     
                 <div class="input">
                     <label class="input-header" for="type">Type of Company:</label>
-                    <input class="input-field" type="text" id="type" name="type">
+                    <input class="input-field" type="text" id="type" name="type" require>
+                </div>
+
+                <div class="input">
+                    <label class="input-header" for="pay_link">Payment Link:</label>
+                    <input class="input-field" type="text" id="pay_link" name="pay_link" placeholder="Format: www.examplelink.com/details" require>
                 </div>
     
                 <div class="submit-container">

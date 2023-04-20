@@ -32,6 +32,7 @@ include("../php/auth_session.php");
             $terms = $_POST["terms"];
             $cost = $_POST["cost"];
             $description = $_POST["desc"];
+            $type = $_POST["type"];
 
 
             if (isset($_POST["address"]))
@@ -47,7 +48,7 @@ include("../php/auth_session.php");
             $result = mysqli_query($mysqli, "SELECT name FROM customer WHERE email='$sanemail'");
             $displayname = mysqli_fetch_array($result);
 
-            $result = mysqli_query($mysqli, "SELECT penalty FROM service AS S, provider AS P WHERE S.provider = P.email AND P.name = '$providername' AND S.name = '$servicename'");
+            $result = mysqli_query($mysqli, "SELECT S.penalty FROM service AS S, provider AS P WHERE S.provider = P.email AND P.name = '$providername' AND S.name = '$servicename'");
             $penalty = mysqli_fetch_array($result);
 
             $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
@@ -85,7 +86,9 @@ include("../php/auth_session.php");
                 <h1 class="login-title"><b>Negotiate</b></h1>
                 <p><b>Service Name:</b> <?php echo $servicename?></p>
                 <input type="hidden" name="servicename" value="<?php echo $servicename;?>">
+                <input type="hidden" name="type" value="<?php echo $type;?>">
                 <p><b>Service Provider:</b> <?php echo $providername?></p>
+                <input type="hidden" name="pname" value="<?php echo $providername;?>">
                 <p><b>Customer Name:</b> <?php echo $displayname[0]?></p>
                 <p><b>Address:</b> <?php echo $address?></p>
                 <input type="hidden" name="setaddress" value="<?php echo $address;?>">
@@ -102,7 +105,7 @@ include("../php/auth_session.php");
                 <input class="input-checkbox" type="checkbox" name="accept" value="Yes" id="afford"> 
                 <h1 class="login-title">--------------OR--------------</h1><br>
                 <h1 class="login-title">Response:</h1>
-                <input type="number" class="login-input" name="price" placeholder="Price"/>
+                <input type="number" class="login-input" name="newcost" placeholder="Price"/>
                 <input type="text" class="login-input" name="address" placeholder="For Address:"/>
                 <textarea rows="4" cols="40" name="newterms" placeholder="Service Terms"></textarea>
                 <br>

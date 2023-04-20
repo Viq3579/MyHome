@@ -28,8 +28,10 @@ include("../php/auth_session.php");
             $custom = 0;
             $cemail = ($_SESSION['email']);
             $description = $_POST["description"];
+            $type = $_POST["type"];
             $sname = stripslashes($_REQUEST['servicename']);
             $pemail = stripslashes($_REQUEST['pemail']);
+            $pname = stripslashes($_REQUEST['pname']);
             if (isset($_POST["accept"]))
             {
                 $accept = $_POST["accept"];
@@ -44,10 +46,12 @@ include("../php/auth_session.php");
                 $terms = $_POST["setterms"];
                 $penalty = $_POST["setpenalty"];
                             //Verify you own the house
-                if ($address != "Not Specified"){
+                if ($address != "Not Specified") {
+                    //echo "this is the one we ran";
                     $query = "SELECT * FROM home WHERE owner_email = '$cemail' AND address = '$address'";
-                } else{
-                    $query = "SELECT * FROM home WHERE owner_email = '$cemail'";
+                } else {
+                    //echo "no this is the one we actually ran";
+                    $query = "SELECT * FROM customer WHERE email = '$cemail'";
                 }
                 $result = $mysqli->query($query);
                 $owns = $result->fetch_assoc();
@@ -77,18 +81,24 @@ include("../php/auth_session.php");
                             $custom = 0;
                         }
 
-                        $query = "INSERT into `hasservice` (service_name, provider_email, owner_email, address, custom)
-                        VALUES ('$sname', '$pemail', '$cemail', '$address', '$custom')";
+                        $query = "INSERT into `unverifiedservice` (name, provider, cemail, address, type, description, terms, penalty, custom, cost)
+                        VALUES ('$sname', '$pname', '$cemail', '$address', '$type', '$description', '$terms', '$penalty', '$custom', '$cost')";
                         $result   = mysqli_query($mysqli, $query);
-                        if ($custom == 1){
-                            $query = "INSERT into `customservice` (sname, pemail, cemail, address, cost, terms, penalty, description)
-                            VALUES ('$sname', '$pemail', '$cemail', '$address', '$cost', '$terms', '$penalty', '$description')";
-                            $result   = mysqli_query($mysqli, $query);
-                        }
+                        
+                        // if ($custom == 1){
+                        //     $query = "INSERT into `customservice` (sname, pemail, cemail, address, cost, terms, penalty, description)
+                        //     VALUES ('$sname', '$pemail', '$cemail', '$address', '$cost', '$terms', '$penalty', '$description')";
+                        //     $result   = mysqli_query($mysqli, $query);
+                        // }
                         if ($result) {
+                            $query = "SELECT pay_link FROM provider WHERE email = '$pemail'";
+                            $result = mysqli_query($mysqli, $query);
+                            $temp = mysqli_fetch_array($result);
+                            $pay_link = $temp[0];
+
                             echo "<div class='form'>
                                 <h3></h3><br/>
-                                <p class='link'>Click here to <a href='paymentform.html?provider='$pemail'>Fill out payment information</a></p>
+                                <p class='link'>Click here to <a href='https://$pay_link'>Fill out payment information</a></p>
                                 </div>";
                         } else {
                             echo "<div class='form'>
@@ -193,8 +203,9 @@ include("../php/auth_session.php");
                     }
 
                 } else {
+                    echo $address;
                     echo "<div class='form'>
-                        <h3>We have no record of you in that address.</h3><br/>
+                        <h3> :We have no record of you in that address.</h3><br/>
                         <p class='link'>Click here to return to<a href='profile.php'>Dashboard</a></p>
                         </div>";
                 }
