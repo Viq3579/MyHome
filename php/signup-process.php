@@ -21,6 +21,7 @@ if (!preg_match("/[0-9]/i", $_POST["password"])) {
 if($_POST["password"] != $_POST["password_confirmation"]) {
     die("Passwords must match.");
 }
+$hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 $captcha;
 if(isset($_POST['g-recaptcha-response'])){
      $captcha=$_POST['g-recaptcha-response'];
