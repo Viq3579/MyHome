@@ -149,12 +149,9 @@ $other_result = $mysqli->query($sql);
 
             </div>
 
-            <div class="item popup" id="quotePopup">
+            <div class="item highlighted-item popup" id="quotePopup">
 
                 <h3 class="item-title">Quote Sent</h3>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea aut qui pariatur temporibus veritatis provident laboriosam veniam? Iure, tempora beatae!
-                </p>
                 <button class="item-footer item-footer-button" id="closePopup"><b>Okay</b></button>
 
             </div>
@@ -166,7 +163,7 @@ $other_result = $mysqli->query($sql);
                 var closeButton = document.getElementById("closePopup")
 
                 quoteButton.addEventListener("click", function() {
-                    quotePopup.style.display = "block";
+                    quotePopup.style.display = "grid";
                 });
                 closeButton.addEventListener("click", function() {
                     quotePopup.style.display = "none";
