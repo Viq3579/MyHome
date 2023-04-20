@@ -11,11 +11,87 @@ if ( !isset($_SESSION["email"]) ) {
 
 $mysqli = require __DIR__ . "/../php/database.php";
 
+// Gets the Negotiation Information
 $customer_email = $_GET["customer_email"];
 $provider_email = $_GET["provider_email"];
 $service_name = $_GET["service_name"];
 $address = $_GET["address"];
 
+$sql = sprintf("SELECT c.name as cname, o.cemail as cemail, p.name as pname, o.pemail as pemail, o.sname as sname, o.type as type, o.cost as cost, s.description as description, o.terms as terms, o.penalty as penalty, o.address as address
+                FROM offers as o, customer as c, provider as p, service as s
+                WHERE o.cemail = c.email
+                AND o.pemail = p.email
+                AND o.sname = s.name
+                AND o.pemail = s.provider
+                AND o.cemail = '%s'
+                AND o.pemail = '%s'
+                AND o.sname = '%s'
+                AND o.address = '%s'",
+                $mysqli->real_escape_string($customer_email),
+                $mysqli->real_escape_string($provider_email),
+                $mysqli->real_escape_string($service_name),
+                $mysqli->real_escape_string($address));
+                
+$result = $mysqli->query($sql);                
+$negotiation = $result->fetch_assoc();
+
+
+// Accepts or Rejects the Negotiation
+if (isset($_POST["acceptButton"])) {
+    $sql = "INSERT INTO customservice (name, cemail, address, type, cost, description, terms, penalty, provider)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $mysqli->stmt_init();
+
+    if (!$stmt->prepare($sql)) {
+        die ("SQL Error: " . $mysqli->error);
+    }
+
+    $stmt->bind_param("sssssssss", 
+        $negotiation["sname"],
+        $negotiation["cemail"],
+        $negotiation["address"],
+        $negotiation["type"],
+        $negotiation["cost"],
+        $negotiation["description"],
+        $negotiation["terms"],
+        $negotiation["penalty"],
+        $negotiation["pemail"],
+    );
+
+    $stmt->execute();
+
+
+    $sql = sprintf("DELETE FROM offers
+                        WHERE cemail = '%s'
+                        AND pemail = '%s'
+                        AND sname = '%s'
+                        AND address = '%s'",
+                        $mysqli->real_escape_string($customer_email),
+                        $mysqli->real_escape_string($provider_email),
+                        $mysqli->real_escape_string($service_name),
+                        $mysqli->real_escape_string($address));
+        
+    $result = $mysqli->query($sql);
+
+    header("Location: requests.php");
+}     
+else if (isset($_POST["rejectButton"])) {
+    $sql = sprintf("DELETE FROM offers
+                    WHERE cemail = '%s'
+                    AND pemail = '%s'
+                    AND sname = '%s'
+                    AND address = '%s'",
+                    $mysqli->real_escape_string($customer_email),
+                    $mysqli->real_escape_string($provider_email),
+                    $mysqli->real_escape_string($service_name),
+                    $mysqli->real_escape_string($address));
+    
+    $result = $mysqli->query($sql);
+
+
+    header("Location: requests.php");
+}    
 
 ?>
 
@@ -66,7 +142,42 @@ $address = $_GET["address"];
 
                 <div class="center-content">
 
-                    <h1 class="title">Negotiation</h1>
+                    <h1 class="title">
+                        <?php echo $negotiation["cname"] ?>'s Negotiation
+                    </h1>
+
+                    <form class="item important-item clear" method="post">
+                        
+                        <p class="item-subtitle">Customer's Address:</p>
+                        <p class="item-description">
+                            <?php echo $negotiation["address"] ?>
+                        </p>
+
+                        <p class="item-subtitle">Service Name:</p>
+                        <p class="item-description">
+                            <?php echo $negotiation["sname"] ?>
+                        </p>
+
+                        <p class="item-subtitle">Negotiating Terms:</p>
+                        <p class="item-description">
+                            <?php echo $negotiation["terms"] ?>
+                        </p>
+
+                        <p class="item-subtitle">Negotiating Penalty:</p>
+                        <p class="item-description">
+                            <?php echo $negotiation["penalty"] ?>
+                        </p>
+
+                        <p class="item-subtitle">Negotiating Cost</p>
+                        <p class="item-description"><b>$
+                            <?php echo $negotiation["cost"] ?>
+                        </b></p>
+
+                        <button class="item-footer item-footer-button" name="acceptButton" value="accept"><b>Accept</b></button>
+                        <button class="item-footer item-footer-button red" name="rejectButton" value="reject"><b>Reject</b></button>
+                        <a href="requests.php" class="item-footer item-footer-button blue"><b>Cancel</b></a>
+
+                    </div>
 
                 </div>
 
