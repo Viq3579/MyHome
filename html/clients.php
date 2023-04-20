@@ -11,6 +11,7 @@ if ( !isset($_SESSION["email"]) ) {
 
 $mysqli = require __DIR__ . "/../php/database.php";
 
+// Client Table
 $sql = sprintf("SELECT customer.name AS name, hasservice.address as address, hasservice.owner_email AS email, hasservice.service_name AS service, service.cost AS cost
                 FROM customer, hasservice, service
                 WHERE customer.email = hasservice.owner_email 
@@ -21,6 +22,8 @@ $sql = sprintf("SELECT customer.name AS name, hasservice.address as address, has
 
 $result = $mysqli->query($sql);
 
+
+// Service Calculator
 $sql = require __DIR__ . "/../php/service-calculator.php";
 
 $sql = $sql . sprintf("AND s.provider = '%s'", $mysqli->real_escape_string($_SESSION["email"]));
@@ -109,7 +112,8 @@ $client_result = $mysqli->query($sql);
                     <h1 class="title">Potential Clients</h1>
 
                     <?php
-                    while ($potential_client = $client_result->fetch_assoc()) {
+                    $i = 0;
+                    while ( ($potential_client = $client_result->fetch_assoc()) && ($i < 25) ) {
 
                         echo "<div class=\"item highlighted-item\">";
                         echo    "<div class=\"item-title-container\">";
@@ -118,6 +122,8 @@ $client_result = $mysqli->query($sql);
                         echo    "</div>";
                         echo    "<button class=\"item-footer item-footer-button\"><b>Contact</b></button>";
                         echo "</div>";
+
+                        $i++;
                     }
                     ?>
 
