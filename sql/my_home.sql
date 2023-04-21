@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2023 at 06:48 AM
+-- Generation Time: Apr 20, 2023 at 09:44 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -67,6 +67,13 @@ CREATE TABLE `customservice` (
   `penalty` varchar(1028) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `provider` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customservice`
+--
+
+INSERT INTO `customservice` (`name`, `cemail`, `address`, `type`, `cost`, `description`, `terms`, `penalty`, `provider`) VALUES
+('Standard Electricity', 'pleasework@gmail.com', 'Not Specified', 'Electricity', 200, 'The basic electricity plan designed for common users.', 'Lorem ipsum.', 'Electricity will be shut down', 'jamesp@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -139,6 +146,7 @@ CREATE TABLE `offers` (
   `cemail` varchar(100) NOT NULL,
   `pemail` varchar(100) NOT NULL,
   `sname` varchar(100) NOT NULL,
+  `type` varchar(128) NOT NULL,
   `cost` float NOT NULL,
   `terms` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `penalty` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -150,13 +158,10 @@ CREATE TABLE `offers` (
 -- Dumping data for table `offers`
 --
 
-INSERT INTO `offers` (`cemail`, `pemail`, `sname`, `cost`, `terms`, `penalty`, `address`, `custom`) VALUES
-('pleasework@gmail.com', 'jamesp@gmail.com', 'Standard Electricity', 0, '', '', '', 0),
-('pleasework@gmail.com', 'jamesp@gmail.com', 'Standard Electricity', 200, 'sdghfsdgh', 'gfdhdfgh', '615 12th street', 0),
-('pleasework@gmail.com', 'jamesp@gmail.com', 'Standard Electricity', 200, 'Lorem ipsum.', 'Electricity will be shut down', 'Not Specified', 0),
-('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 55550, 'lorem ipsum', 'Termination of service', '444 4th Street', 0),
-('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 90, 'payment on the 15th of every month, free car air freshener on signup', 'service never gets cut off unless i skip payments for a whole year', '615 12th street', 0),
-('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 3.40282e38, 'lorem ipsum', 'Termination of service', 'Not Specified', 0);
+INSERT INTO `offers` (`cemail`, `pemail`, `sname`, `type`, `cost`, `terms`, `penalty`, `address`, `custom`) VALUES
+('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 'Electricity', 55550, 'lorem ipsum', 'Termination of service', '444 4th Street', 0),
+('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 'Electricity', 90, 'payment on the 15th of every month, free car air freshener on signup', 'service never gets cut off unless i skip payments for a whole year', '615 12th street', 0),
+('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 'Electricity', 3.40282e38, 'lorem ipsum', 'Termination of service', 'Not Specified', 0);
 
 -- --------------------------------------------------------
 
@@ -351,6 +356,12 @@ INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`email`) USING BTREE,
   ADD UNIQUE KEY `phone_num` (`phone_num`);
+
+--
+-- Indexes for table `customservice`
+--
+ALTER TABLE `customservice`
+  ADD PRIMARY KEY (`name`,`cemail`,`address`,`provider`);
 
 --
 -- Indexes for table `hasservice`
