@@ -137,7 +137,7 @@ include("../php/auth_session.php");
                                 while($row = mysqli_fetch_array($result))
                                 {
                                     ?>
-                                    <form action="negotiate.php" method="post">
+                                    <form action="negotiate.php" target="_blank" method="post">
                                         <div class="service-detail recommended-service">
                                             <div class="service-title-container">
                                                 <i class="service-title fa-solid fa-bolt"></i>
@@ -182,7 +182,7 @@ include("../php/auth_session.php");
                                 while($row = mysqli_fetch_array($result))
                                 {
                                     ?>
-                                    <form action="negotiate.php" method="post">
+                                    <form action="negotiate.php" target="_blank" method="post">
                                         <div class="service-detail recommended-service">
                                             <div class="service-title-container">
                                                 <i class="service-title fa-solid fa-bolt"></i>
@@ -226,7 +226,7 @@ include("../php/auth_session.php");
                                 while($row = mysqli_fetch_array($result))
                                 {
                                     ?>
-                                    <form action="negotiate.php" method="post">
+                                    <form action="negotiate.php" target="_blank" method="post">
                                         <div class="service-detail recommended-service">
                                             <div class="service-title-container">
                                                 <i class="service-title fa-solid fa-bolt"></i>
@@ -270,7 +270,7 @@ include("../php/auth_session.php");
                                 while($row = mysqli_fetch_array($result))
                                 {
                                     ?>
-                                    <form action="negotiate.php" method="post">
+                                    <form action="negotiate.php" target="_blank" method="post">
                                         <div class="service-detail recommended-service">
                                             <div class="service-title-container">
                                                 <i class="service-title fa-solid fa-bolt"></i>
@@ -325,7 +325,7 @@ include("../php/auth_session.php");
                             while ($row = mysqli_fetch_array($client_result)){
                                 ?>
                                 <div class="service-detail recommended-service">
-                                    <form action="negotiate.php" method="post">
+                                    <form action="negotiate.php" target="_blank" method="post">
                                         <div class="service-title-container">
                                             <i class="service-title fa-solid fa-bolt"></i>
                                             <h3 class="service-title"><?php echo $row['s_name'];?></h3>
