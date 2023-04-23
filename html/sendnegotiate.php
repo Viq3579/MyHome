@@ -72,6 +72,47 @@ include("../php/auth_session.php");
                         <p class='link'>Click here to <a href='profile.php'>Return to Profile</a></p>
                         </div>";
                     } else {
+                        $sql = sprintf("SELECT *
+                        FROM unverifiedservice
+                        WHERE cemail = '$cemail' AND name = '$sname' AND address = '$address' AND provider = '$pname'",
+                        $mysqli->real_escape_string($_POST["address"]));
+
+                        $result = $mysqli->query($sql);
+                        $user = $result->fetch_assoc();
+                        if ($user) {
+                            echo "<div class='form'>
+                            <h3>Our records show you already have an active request for this service. If you believe this to be an error, please contact the site administrator.</h3><br/>
+                            <p class='link'>Click here to <a href='profile.php'>Return to Profile</a></p>
+                            </div>";
+                        } else {
+                            
+                            $query = "INSERT into `unverifiedservice` (name, provider, cemail, address, type, description, terms, penalty, custom, cost)
+                            VALUES ('$sname', '$pname', '$cemail', '$address', '$type', '$description', '$terms', '$penalty', '$custom', '$cost')";
+                            $result   = mysqli_query($mysqli, $query);
+                            
+                            // if ($custom == 1){
+                            //     $query = "INSERT into `customservice` (sname, pemail, cemail, address, cost, terms, penalty, description)
+                            //     VALUES ('$sname', '$pemail', '$cemail', '$address', '$cost', '$terms', '$penalty', '$description')";
+                            //     $result   = mysqli_query($mysqli, $query);
+                            // }
+                            if ($result) {
+                                $query = "SELECT pay_link FROM provider WHERE email = '$pemail'";
+                                $result = mysqli_query($mysqli, $query);
+                                $temp = mysqli_fetch_array($result);
+                                $pay_link = $temp[0];
+
+                                echo "<div class='form'>
+                                    <h3></h3><br/>
+                                    <p class='link'>Click here to <a href='https://$pay_link'>Fill out payment information</a></p>
+                                    </div>";
+                            } else {
+                                echo "<div class='form'>
+                                    <h3>Required fields are missing.</h3><br/>
+                                    <p class='link'>Click here to <a href='negotiate.php'>Try Again</a> again.</p>
+                                    </div>";
+                            }
+                        }
+
                         $query = "SELECT custom FROM offers WHERE sname = '$sname' AND pemail = '$pemail' AND cemail = '$cemail' AND cost = '$cost' AND terms = '$terms' AND penalty = '$penalty' AND address = '$address'";
                         $result = mysqli_query($mysqli, $query);
                         $temp = mysqli_fetch_array($result);
@@ -81,31 +122,6 @@ include("../php/auth_session.php");
                             $custom = 0;
                         }
 
-                        $query = "INSERT into `unverifiedservice` (name, provider, cemail, address, type, description, terms, penalty, custom, cost)
-                        VALUES ('$sname', '$pname', '$cemail', '$address', '$type', '$description', '$terms', '$penalty', '$custom', '$cost')";
-                        $result   = mysqli_query($mysqli, $query);
-                        
-                        // if ($custom == 1){
-                        //     $query = "INSERT into `customservice` (sname, pemail, cemail, address, cost, terms, penalty, description)
-                        //     VALUES ('$sname', '$pemail', '$cemail', '$address', '$cost', '$terms', '$penalty', '$description')";
-                        //     $result   = mysqli_query($mysqli, $query);
-                        // }
-                        if ($result) {
-                            $query = "SELECT pay_link FROM provider WHERE email = '$pemail'";
-                            $result = mysqli_query($mysqli, $query);
-                            $temp = mysqli_fetch_array($result);
-                            $pay_link = $temp[0];
-
-                            echo "<div class='form'>
-                                <h3></h3><br/>
-                                <p class='link'>Click here to <a href='https://$pay_link'>Fill out payment information</a></p>
-                                </div>";
-                        } else {
-                            echo "<div class='form'>
-                                <h3>Required fields are missing.</h3><br/>
-                                <p class='link'>Click here to <a href='negotiate.php'>Try Again</a> again.</p>
-                                </div>";
-                        }
                     }
                 } else {
                     echo "<div class='form'>
