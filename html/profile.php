@@ -59,82 +59,84 @@ include("../php/auth_session.php");
                     while($row = mysqli_fetch_array($result))
                     {
                     ?>
-                        <img class="image" height="200px" src="https://cdn.houseplansservices.com/product/dt0biqq4ga38s7rdm8tjnbglkp/w800x533.jpg?v=2" alt="A Picture of Your House.">
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-location-dot"></i>
-                            <p class="image-description"><?php echo $row['address'];?></p>
-                        </div>
+                        <div class="image-container">
+                            <img class="image" height="200px" src="https://cdn.houseplansservices.com/product/dt0biqq4ga38s7rdm8tjnbglkp/w800x533.jpg?v=2" alt="A Picture of Your House.">
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-location-dot"></i>
+                                <p class="image-description"><?php echo $row['address'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-bed"></i>
-                            <p class="image-description"><?php echo $row['bedrooms'];?> Bedrooms</p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-bed"></i>
+                                <p class="image-description"><?php echo $row['bedrooms'];?> Bedrooms</p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-shower"></i>
-                            <p class="image-description"><?php echo $row['bathrooms'];?> Bathrooms</p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-shower"></i>
+                                <p class="image-description"><?php echo $row['bathrooms'];?> Bathrooms</p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Construction Type: <?php echo $row['construction_type'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Construction Type: <?php echo $row['construction_type'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Cooling Type: <?php echo $row['cooling_type'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Cooling Type: <?php echo $row['cooling_type'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Floor Space: <?php echo $row['floor_space'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Floor Space: <?php echo $row['floor_space'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Foundation Type: <?php echo $row['foundation'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Foundation Type: <?php echo $row['foundation'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Garage Size: <?php echo $row['garage_size'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Garage Size: <?php echo $row['garage_size'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Heating Time: <?php echo $row['heating_time'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Heating Time: <?php echo $row['heating_time'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Heating Type: <?php echo $row['heating_type'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Heating Type: <?php echo $row['heating_type'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Lot Size: <?php echo $row['lot_size'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Lot Size: <?php echo $row['lot_size'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Number of Floors: <?php echo $row['num_floors'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Number of Floors: <?php echo $row['num_floors'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Property Type: <?php echo $row['property_type'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Property Type: <?php echo $row['property_type'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Roof Style: <?php echo $row['roof'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Roof Style: <?php echo $row['roof'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-square"></i>
-                            <p class="image-description">Year Built: <?php echo $row['year_built'];?></p>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-square"></i>
+                                <p class="image-description">Year Built: <?php echo $row['year_built'];?></p>
+                            </div>
+                            <a href="edithome.php" class="item-footer item-footer-button"><b>Edit Property Details</b></a>
                         </div>
-                        <a href="edithome.php" class="item-footer item-footer-button"><b>Edit Property Details</b></a>
                     <?php
                     }
                     ?>
@@ -152,30 +154,31 @@ include("../php/auth_session.php");
                     while($row = mysqli_fetch_array($result))
                     {
                     ?>
+                        <div class="image-container">
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-envelope"></i>
+                                <p class="image-description"><?php echo $row['email'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-envelope"></i>
-                            <p class="image-description"><?php echo $row['email'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-phone"></i>
+                                <p class="image-description"><?php echo $row['phone_num'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-phone"></i>
-                            <p class="image-description"><?php echo $row['phone_num'];?></p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-car"></i>
+                                <p class="image-description"><?php echo $row['num_cars'];?> Cars</p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-car"></i>
-                            <p class="image-description"><?php echo $row['num_cars'];?> Cars</p>
-                        </div>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-bank"></i>
+                                <p class="image-description">Annual Income: $ <?php echo $row['family_income'];?></p>
+                            </div>
 
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-bank"></i>
-                            <p class="image-description">Annual Income: $ <?php echo $row['family_income'];?></p>
-                        </div>
-
-                        <div class="image-detail">
-                            <i class="image-description fa-solid fa-balance-scale"></i>
-                            <p class="image-description">Non-Service Expenses: $<?php echo $row['misc_expenses'];?></p>
+                            <div class="image-detail">
+                                <i class="image-description fa-solid fa-balance-scale"></i>
+                                <p class="image-description">Non-Service Expenses: $<?php echo $row['misc_expenses'];?></p>
+                            </div>
                         </div>
                     <?php
                     }
@@ -194,11 +197,6 @@ include("../php/auth_session.php");
 
                 </div>
 
-            </div>
-
-            <div class="advertised-services">
-                
-                
             </div>
 
         </main>
