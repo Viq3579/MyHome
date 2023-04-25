@@ -13,7 +13,7 @@ include("../php/auth_session.php");
 
         <title>MyHome</title>
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/home.css">
+        <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
 
@@ -45,234 +45,232 @@ include("../php/auth_session.php");
 
         <main class="main-content">
 
-            <div class="user-information">
+            <?php
+                require('../php/database.php');
+                $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
+                $result = mysqli_query($mysqli, "SELECT name FROM customer WHERE email='$sanemail'");
+                $displayname = mysqli_fetch_array($result);
+            ?>
+            <h1 class="subtitle">Welcome back <?php echo $displayname[0]; ?></h1>
 
-                <?php
+            <div class="container">
+
+                <div class="center-content">
+
+                    
+
+                    <h1 class="title">Services Subscribed To</h1>
+                        
+                    <?php
                     require('../php/database.php');
                     $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
-                    $result = mysqli_query($mysqli, "SELECT name FROM customer WHERE email='$sanemail'");
-                    $displayname = mysqli_fetch_array($result);
-                ?>
-                <h1 class="title">Welcome back <?php echo $displayname[0]; ?></h1>
-                
-                <div class="user-information-container">
+                    $result = mysqli_query($mysqli, "SELECT * FROM outsideservice WHERE customer_email='$sanemail'");
+                    while($row = mysqli_fetch_array($result))
+                    {
+                    ?>
 
-                    <div class="user-services">
-                        
-                        <h2 class="subtitle">Services Subscribed To</h2>
-                        
-                        <?php
-                        require('../php/database.php');
-                        $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
-                        $result = mysqli_query($mysqli, "SELECT * FROM outsideservice WHERE customer_email='$sanemail'");
-                        while($row = mysqli_fetch_array($result))
-                        {
-                        ?>
-
-                            <div class="service-detail">
-                                <div class="service-title-container">
-                                    <i class="service-title fa-solid fa-bolt"></i>
-                                    <h3 class="service-title"><?php echo $row['name'];?></h3>
-                                </div>
-                                <p class="service-description">
-                                    <?php echo $row['description'];?><br><br>
-                                    Type: <?php echo $row['type'];?><br><br>
-                                    Terms: <?php echo $row['terms'];?><br><br>
-                                    Address: <?php echo $row['address'];?>
-                                </p>
-                                <p class="service-cost"><b>$<?php echo $row['cost'];?></b> per Month</p>
+                        <div class="item">
+                            <div class="item-title-container">
+                                <i class="item-title fa-solid fa-bolt"></i>
+                                <h3 class="item-title"><?php echo $row['name'];?></h3>
                             </div>
+                            <p class="item-description">
+                                <?php echo $row['description'];?><br><br>
+                                Type: <?php echo $row['type'];?><br><br>
+                                Terms: <?php echo $row['terms'];?><br><br>
+                                Address: <?php echo $row['address'];?>
+                            </p>
+                            <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
+                        </div>
 
-                        <?php
-                        }
-                        ?>
+                    <?php
+                    }
+                    ?>
 
-                        <?php
-                        require('../php/database.php');
-                        $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, address, type FROM hasservice, service WHERE owner_email='$sanemail' and service_name = name and custom = 0");
-                        while($row = mysqli_fetch_array($result))
-                        {
-                        ?>
+                    <?php
+                    require('../php/database.php');
+                    $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, address, type FROM hasservice, service WHERE owner_email='$sanemail' and service_name = name and custom = 0");
+                    while($row = mysqli_fetch_array($result))
+                    {
+                    ?>
 
-                            <div class="service-detail">
-                                <div class="service-title-container">
-                                    <i class="service-title fa-solid fa-bolt"></i>
-                                    <h3 class="service-title"><?php echo $row['service_name'];?></h3>
-                                </div>
-                                <p class="service-description">
-                                    <?php echo $row['description'];?><br><br>
-                                    Type: <?php echo $row['type'];?><br><br>
-                                    Terms: <?php echo $row['terms'];?>
-                                    Address: <?php echo $row['address'];?>
-                                </p>
-                                <p class="service-cost"><b>$<?php echo $row['cost'];?></b> per Month</p>
+                        <div class="item">
+                            <div class="item-title-container">
+                                <i class="item-title fa-solid fa-bolt"></i>
+                                <h3 class="item-title"><?php echo $row['service_name'];?></h3>
                             </div>
+                            <p class="item-description">
+                                <?php echo $row['description'];?><br><br>
+                                Type: <?php echo $row['type'];?><br><br>
+                                Terms: <?php echo $row['terms'];?>
+                                Address: <?php echo $row['address'];?>
+                            </p>
+                            <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
+                        </div>
 
-                        <?php
-                        }
-                        ?>
-                        <?php
-                        require('../php/database.php');
-                        $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, hasservice.address, type FROM hasservice, customservice WHERE owner_email='$sanemail' and service_name = name and custom = 1");
-                        while($row = mysqli_fetch_array($result))
-                        {
-                        ?>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                    require('../php/database.php');
+                    $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, hasservice.address, type FROM hasservice, customservice WHERE owner_email='$sanemail' and service_name = name and custom = 1");
+                    while($row = mysqli_fetch_array($result))
+                    {
+                    ?>
 
-                            <div class="service-detail">
-                                <div class="service-title-container">
-                                    <i class="service-title fa-solid fa-bolt"></i>
-                                    <h3 class="service-title"><?php echo $row['service_name'];?></h3>
-                                </div>
-                                <p class="service-description">
-                                    <?php echo $row['description'];?><br><br>
-                                    Type: <?php echo $row['type'];?><br><br>
-                                    Terms: <?php echo $row['terms'];?>
-                                    Address: <?php echo $row['address'];?>
-                                </p>
-                                <p class="service-cost"><b>$<?php echo $row['cost'];?></b> per Month</p>
+                        <div class="item">
+                            <div class="item-title-container">
+                                <i class="item-title fa-solid fa-bolt"></i>
+                                <h3 class="item-title"><?php echo $row['service_name'];?></h3>
                             </div>
+                            <p class="item-description">
+                                <?php echo $row['description'];?><br><br>
+                                Type: <?php echo $row['type'];?><br><br>
+                                Terms: <?php echo $row['terms'];?>
+                                Address: <?php echo $row['address'];?>
+                            </p>
+                            <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
+                        </div>
 
-                        <?php
-                        }
-                        ?>
-                        
-                        
-                    </div>
-                    
-                    <div class="home-information">
-                        
-                        <h2 class="subtitle">Your Home Information</h2>
-                        
-                        
-                        <?php
-                            require('../php/database.php');
-                            $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
-                            $result = mysqli_query($mysqli, "SELECT * FROM home WHERE owner_email='$sanemail'");
-                            while($row = mysqli_fetch_array($result))
-                            {
-                                ?>
-                                    <img class="house-image" height="200px" src="https://cdn.houseplansservices.com/product/dt0biqq4ga38s7rdm8tjnbglkp/w800x533.jpg?v=2" alt="A Picture of Your House.">
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-location-dot"></i>
-                                        <p class="house-description"><?php echo $row['address'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-bed"></i>
-                                        <p class="house-description"><?php echo $row['bedrooms'];?> Bedrooms</p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-shower"></i>
-                                        <p class="house-description"><?php echo $row['bathrooms'];?> Bathrooms</p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Construction Type: <?php echo $row['construction_type'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Cooling Type: <?php echo $row['cooling_type'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Floor Space: <?php echo $row['floor_space'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Foundation Type: <?php echo $row['foundation'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Garage Size: <?php echo $row['garage_size'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Heating Time: <?php echo $row['heating_time'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Heating Type: <?php echo $row['heating_type'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Lot Size: <?php echo $row['lot_size'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Number of Floors: <?php echo $row['num_floors'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Property Type: <?php echo $row['property_type'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Roof Style: <?php echo $row['roof'];?></p>
-                                    </div>
-
-                                    <div class="house-detail">
-                                        <i class="house-description fa-solid fa-square"></i>
-                                        <p class="house-description">Year Built: <?php echo $row['year_built'];?></p>
-                                    </div>
-                                <?php
-                            }
-                        ?>
-                        
-                    </div>
+                    <?php
+                    }
+                    ?>
 
                 </div>
 
-            </div>
+                <div class="left-content">
 
-            <div class="advertised-services">
-                
-                <h1 class="title">Recommended Services</h1>
-                <?php
-                    $sql = require __DIR__ . "/../php/service-calculator.php";
-                    $sql = $sql . sprintf("AND c.email = '%s'", $mysqli->real_escape_string($_SESSION["email"]));
-                    $client_result = $mysqli->query($sql);
-                    while ($row = mysqli_fetch_array($client_result)){
-                        ?>
-                        <div class="service-detail recommended-service">
-                            <form action="negotiate.php" target="_blank" method="post">
-                                <div class="service-title-container">
-                                    <i class="service-title fa-solid fa-bolt"></i>
-                                    <h3 class="service-title"><?php echo $row['s_name'];?></h3>
+                    <h1 class="title">Your Home Information</h1>
+                        
+                        
+                    <?php
+                        require('../php/database.php');
+                        $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
+                        $result = mysqli_query($mysqli, "SELECT * FROM home WHERE owner_email='$sanemail'");
+                        while($row = mysqli_fetch_array($result))
+                        {
+                            ?>
+                                <img class="image" height="200px" src="https://cdn.houseplansservices.com/product/dt0biqq4ga38s7rdm8tjnbglkp/w800x533.jpg?v=2" alt="A Picture of Your House.">
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-location-dot"></i>
+                                    <p class="image-description"><?php echo $row['address'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-bed"></i>
+                                    <p class="image-description"><?php echo $row['bedrooms'];?> Bedrooms</p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-shower"></i>
+                                    <p class="image-description"><?php echo $row['bathrooms'];?> Bathrooms</p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Construction Type: <?php echo $row['construction_type'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Cooling Type: <?php echo $row['cooling_type'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Floor Space: <?php echo $row['floor_space'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Foundation Type: <?php echo $row['foundation'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Garage Size: <?php echo $row['garage_size'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Heating Time: <?php echo $row['heating_time'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Heating Type: <?php echo $row['heating_type'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Lot Size: <?php echo $row['lot_size'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Number of Floors: <?php echo $row['num_floors'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Property Type: <?php echo $row['property_type'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Roof Style: <?php echo $row['roof'];?></p>
+                                </div>
+
+                                <div class="image-detail">
+                                    <i class="image-description fa-solid fa-square"></i>
+                                    <p class="image-description">Year Built: <?php echo $row['year_built'];?></p>
+                                </div>
+                            <?php
+                        }
+                    ?>
+
+                </div>
+
+                <div class="right-content">
+
+                    <h1 class="title">Recommended Services</h1>
+                    <?php
+                        $sql = require __DIR__ . "/../php/service-calculator.php";
+                        $sql = $sql . sprintf("AND c.email = '%s'", $mysqli->real_escape_string($_SESSION["email"]));
+                        $client_result = $mysqli->query($sql);
+                        while ($row = mysqli_fetch_array($client_result)){
+                            ?>
+                            <form class="item highlighted-item" action="negotiate.php" target="_blank" method="post">
+                                <div class="item-title-container">
+                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <h3 class="item-title"><?php echo $row['s_name'];?></h3>
                                     <input type="hidden" name="servicename" value="<?php echo $row['s_name'];?>">
                                     <input type="hidden" name="type" value="<?php echo $row['s_type'];?>">
                                 </div>
-                                <p class="service-description">
-                                    Provided By: <?php echo $row['p_name'];?><br><br>
+                                <p class="item-subtitle">Provided By: </p>
+                                <p class="item-description">
+                                    <?php echo $row['p_name'];?><br><br>
                                     <input type="hidden" name="providername" value="<?php echo $row['p_name'];?>">
                                 </p>
-                                <p class="service-description">
-                                    Description: <?php echo $row['s_description'];?><br><br>
+                                <p class="item-subtitle">Description: </p>
+                                <p class="item-description">
+                                    <?php echo $row['s_description'];?><br><br>
                                     <input type="hidden" name="desc" value="<?php echo $row['s_description'];?>">
                                 </p>
-                                <p class="service-description">
-                                    Terms: <?php echo $row['s_terms'];?><br><br>
+                                <p class="item-subtitle">Terms: </p>
+                                <p class="item-description">
+                                    <?php echo $row['s_terms'];?><br><br>
                                     <input type="hidden" name="terms" value="<?php echo $row['s_terms'];?>">
                                 </p>
                                 <input type="hidden" name="cost" value="<?php echo $row['s_cost'];?>">
                                 <input type="hidden" name="pemail" value="<?php echo $row['p_email'];?>">
-                                <button class="service-cost recommended-service-button"><b>$<?php echo $row['s_cost'];?></b> per Month</button>
+                                <button class="item-footer item-footer-button"><b>$<?php echo $row['s_cost'];?></b> per Month</button>
                             </form>
-                        </div>
-                        <?php
-                    }
-                ?>
+                            <?php
+                        }
+                    ?>
+
+                </div>
 
             </div>
 

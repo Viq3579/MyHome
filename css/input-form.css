@@ -70,7 +70,8 @@ COLORS:
 .input-checkbox {
     height: 1.5rem;
     width: 1.5rem;
-    background-color: #eee;
+    margin-top: .5rem;
+    background-color: #f7f2ef;
 }
 .dropdown {
     background: #f7f2ef;

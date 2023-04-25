@@ -58,10 +58,13 @@ COLORS:
 .title {
     text-align: center;
     font-size: var(--font-size-xl);
-    margin: 2rem 0px;
+    margin: 2rem .5rem;
 }
 .subtitle {
-    margin-bottom: 2rem;
+    text-align: center;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin: 2rem 1rem;
 }
 
 .item {
@@ -143,6 +146,22 @@ b {
 }
 .item-footer-button:active {
     transform: translate(0px, 1px);
+}
+
+.image {
+    width: min(calc(100% - 2rem), 25rem);
+    height: auto;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+.image-detail {
+    display: flex;
+    align-items: center;
+    margin: .25rem;
+}
+.image-description {
+    font-size: var(--font-size-base);
+    margin-inline: .25rem;
 }
 
 .table {

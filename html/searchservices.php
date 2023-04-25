@@ -13,14 +13,15 @@ include("../php/auth_session.php");
 
         <title>MyHome</title>
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/search.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
 
 
     <body>
 
-    <?php
+        <?php
         require('../php/database.php');
         
         if (isset($_REQUEST['name']))
@@ -89,8 +90,12 @@ include("../php/auth_session.php");
 
         <main class="main-content">
 
-            <div>
-                <h1 class="title">Search Services</h1>
+
+            <div class="container">
+
+                <div class="center-content">
+
+                    <h1 class="title">Search Services</h1>
 
                     <form class="form" method="post">
                         <div class="input">
@@ -113,254 +118,217 @@ include("../php/auth_session.php");
                             <input class="input-field" type="text" id="stype" name="stype">
                         </div> --> 
 
-                       
-                        <label class="input-header" for="afford">Filter By Affordability?</label>
-                        <input class="input-checkbox" type="checkbox" name="afford" value="Yes" id="afford">               
-
+                        <div class="input inline-input">
+                            <input class="input-checkbox" type="checkbox" name="afford" value="Yes" id="afford">
+                            <label class="input-header" for="afford">Filter By Affordability?</label>
+                        </div>
                         <div class="submit-container">
                             <button class="submit-button" href="searchservices.php">Search</button>
                         </div>
                     </form>
 
-                    <div class="user-information-container">
+                    <h1 class="subtitle">Results</h1>
 
-                        <div class="user-services">
-                            
-                            <h1 class="title">Results</h1>
+                    <?php
+                    require('../php/database.php');
 
-                            <?php
-                            require('../php/database.php');
-
-                            if ($name != NULL)
-                            {
-                                $result = mysqli_query($mysqli, $stypequery);
-                                while($row = mysqli_fetch_array($result))
-                                {
-                                    ?>
-                                    <form action="negotiate.php" target="_blank" method="post">
-                                        <div class="service-detail recommended-service">
-                                            <div class="service-title-container">
-                                                <i class="service-title fa-solid fa-bolt"></i>
-                                                <h3 class="service-title"><?php echo $row['sname'];?></h3>
-                                                <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
-                                            </div>
-                                            <p class="service-description" name="provider">
-                                                Provider Name: <?php echo $row['pname'];?>
-                                                <input type="hidden" name="providername" value="<?php echo $row['pname'];?>">
-                                            </p>
-                                            <p class="service-description">
-                                                Type: <?php echo $row['type'];?>
-                                                <input type="hidden" name="type" value="<?php echo $row['type'];?>">
-                                            </p>
-                                            <br>
-                                            <p class="service-description">
-                                                Description: <?php echo $row['description'];?>
-                                                <input type="hidden" name="desc" value="<?php echo $row['description'];?>">
-                                            </p>
-                                            <br>
-                                            <br>
-                                            <p class="service-description">
-                                                Terms: <?php echo $row['terms'];?>
-                                                <input type="hidden" name="terms" value="<?php echo $row['terms'];?>">
-                                            </p>
-                                            <div class="submit-container">
-                                                <input type="hidden" name="cost" value="<?php echo $row['cost'];?>">
-                                                <input type="hidden" name="pemail" value="<?php echo $row['pemail'];?>">
-                                                <button class="service-cost submit-button"><b>$<?php echo $row['cost'];?></b> per Month</button>
-                                            </div> 
-                                            <a class="service-cost recommended-service-button" href="requestquote.php"><b>Request Quote</b></a>
-                                        </div>
-                                    </form>
-                                    <?php
-                                }
-    
-                            } 
-
-                            if ($name != NULL)
-                            {
-                                $result = mysqli_query($mysqli, $snamequery);
-                                while($row = mysqli_fetch_array($result))
-                                {
-                                    ?>
-                                    <form action="negotiate.php" target="_blank" method="post">
-                                        <div class="service-detail recommended-service">
-                                            <div class="service-title-container">
-                                                <i class="service-title fa-solid fa-bolt"></i>
-                                                <h3 class="service-title"><?php echo $row['sname'];?></h3>
-                                                <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
-                                            </div>
-                                            <p class="service-description" name="provider">
-                                                Provider Name: <?php echo $row['pname'];?>
-                                                <input type="hidden" name="providername" value="<?php echo $row['pname'];?>">
-                                            </p>
-                                            <p class="service-description">
-                                                Type: <?php echo $row['type'];?>
-                                                <input type="hidden" name="type" value="<?php echo $row['type'];?>">
-                                            </p>
-                                            <br>
-                                            <p class="service-description">
-                                                Description: <?php echo $row['description'];?>
-                                                <input type="hidden" name="desc" value="<?php echo $row['description'];?>">
-                                            </p>
-                                            <br>
-                                            <br>
-                                            <p class="service-description">
-                                                Terms: <?php echo $row['terms'];?>
-                                                <input type="hidden" name="terms" value="<?php echo $row['terms'];?>">
-                                            </p>
-                                            <div class="submit-container">
-                                                <input type="hidden" name="cost" value="<?php echo $row['cost'];?>">
-                                                <input type="hidden" name="pemail" value="<?php echo $row['pemail'];?>">
-                                                <button class="service-cost submit-button"><b>$<?php echo $row['cost'];?></b> per Month</button>
-                                            </div> 
-                                            <a class="service-cost recommended-service-button" href="requestquote.php"><b>Request Quote</b></a>
-                                        </div>
-                                    </form>
-                                    <?php
-                                }
-                            } 
-
-                            if ($name != NULL)
-                            {
-                                $result = mysqli_query($mysqli, $namequery);
-                                while($row = mysqli_fetch_array($result))
-                                {
-                                    ?>
-                                    <form action="negotiate.php" target="_blank" method="post">
-                                        <div class="service-detail recommended-service">
-                                            <div class="service-title-container">
-                                                <i class="service-title fa-solid fa-bolt"></i>
-                                                <h3 class="service-title"><?php echo $row['sname'];?></h3>
-                                                <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
-                                            </div>
-                                            <p class="service-description" name="provider">
-                                                Provider Name: <?php echo $row['pname'];?>
-                                                <input type="hidden" name="providername" value="<?php echo $row['pname'];?>">
-                                            </p>
-                                            <p class="service-description">
-                                                Type: <?php echo $row['type'];?>
-                                                <input type="hidden" name="type" value="<?php echo $row['type'];?>">
-                                            </p>
-                                            <br>
-                                            <p class="service-description">
-                                                Description: <?php echo $row['description'];?>
-                                                <input type="hidden" name="desc" value="<?php echo $row['description'];?>">
-                                            </p>
-                                            <br>
-                                            <br>
-                                            <p class="service-description">
-                                                Terms: <?php echo $row['terms'];?>
-                                                <input type="hidden" name="terms" value="<?php echo $row['terms'];?>">
-                                            </p>
-                                            <div class="submit-container">
-                                                <input type="hidden" name="cost" value="<?php echo $row['cost'];?>">
-                                                <input type="hidden" name="pemail" value="<?php echo $row['pemail'];?>">
-                                                <button class="service-cost submit-button"><b>$<?php echo $row['cost'];?></b> per Month</button>
-                                            </div> 
-                                            <a class="service-cost recommended-service-button" href="requestquote.php"><b>Request Quote</b></a>
-                                        </div>
-                                    </form>
-                                    <?php
-                                }
-    
-                            }
-                            if ($name != NULL)
-                            {
-                                $result = mysqli_query($mysqli, $typequery);
-                                while($row = mysqli_fetch_array($result))
-                                {
-                                    ?>
-                                    <form action="negotiate.php" target="_blank" method="post">
-                                        <div class="service-detail recommended-service">
-                                            <div class="service-title-container">
-                                                <i class="service-title fa-solid fa-bolt"></i>
-                                                <h3 class="service-title"><?php echo $row['sname'];?></h3>
-                                                <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
-                                            </div>
-                                            <p class="service-description" name="provider">
-                                                Provider Name: <?php echo $row['pname'];?>
-                                                <input type="hidden" name="providername" value="<?php echo $row['pname'];?>">
-                                            </p>
-                                            <p class="service-description">
-                                                Type: <?php echo $row['type'];?>
-                                                <input type="hidden" name="type" value="<?php echo $row['type'];?>">
-                                            </p>
-                                            <br>
-                                            <p class="service-description">
-                                                Description: <?php echo $row['description'];?>
-                                                <input type="hidden" name="desc" value="<?php echo $row['description'];?>">
-                                            </p>
-                                            <br>
-                                            <br>
-                                            <p class="service-description">
-                                                Terms: <?php echo $row['terms'];?>
-                                                <input type="hidden" name="terms" value="<?php echo $row['terms'];?>">
-                                            </p>
-                                            <div class="submit-container">
-                                                <input type="hidden" name="cost" value="<?php echo $row['cost'];?>">
-                                                <input type="hidden" name="pemail" value="<?php echo $row['pemail'];?>">
-                                                <button class="service-cost submit-button"><b>$<?php echo $row['cost'];?></b> per Month</button>
-                                            </div> 
-                                            <a class="service-cost recommended-service-button" href="requestquote.php"><b>Request Quote</b></a>
-                                        </div>
-                                    </form>
-                                    <?php
-                                }
-    
-                            }
-                            ?>
-                        
-                            
-                        </div>
-
-                        <div class="home-information">
-                            <br><br><br>
-                            <h1 class="subtitle">Services Needed</h1>
-                            <!-- <a href="#" class="service-cost recommended-service-button"><b>Calculate Needs</b><br></b></a><br>-->
-                        
-                            <?php
-                            $sql = require __DIR__ . "/../php/service-calculator.php";
-                            $sql = $sql . sprintf("AND c.email = '%s'", $mysqli->real_escape_string($_SESSION["email"]));
-                            $client_result = $mysqli->query($sql);
-                            while ($row = mysqli_fetch_array($client_result)){
-                                ?>
-                                <div class="service-detail recommended-service">
-                                    <form action="negotiate.php" target="_blank" method="post">
-                                        <div class="service-title-container">
-                                            <i class="service-title fa-solid fa-bolt"></i>
-                                            <h3 class="service-title"><?php echo $row['s_name'];?></h3>
-                                            <input type="hidden" name="servicename" value="<?php echo $row['s_name'];?>">
-                                            <input type="hidden" name="type" value="<?php echo $row['s_type'];?>">
-                                        </div>
-                                        <p class="service-description">
-                                            Provided By: <?php echo $row['p_name'];?><br><br>
-                                            <input type="hidden" name="providername" value="<?php echo $row['p_name'];?>">
-                                        </p>
-                                        <p class="service-description">
-                                            Description: <?php echo $row['s_description'];?><br><br>
-                                            <input type="hidden" name="desc" value="<?php echo $row['s_description'];?>">
-                                        </p>
-                                        <p class="service-description">
-                                            Terms: <?php echo $row['s_terms'];?><br><br>
-                                            <input type="hidden" name="terms" value="<?php echo $row['s_terms'];?>">
-                                        </p>
-                                        <input type="hidden" name="cost" value="<?php echo $row['s_cost'];?>">
-                                        <input type="hidden" name="pemail" value="<?php echo $row['p_email'];?>">
-                                        <button class="service-cost recommended-service-button"><b>$<?php echo $row['s_cost'];?></b> per Month</button>
-                                    </form>
-                                </div>
-                                <?php
-                            }
+                    if ($name != NULL)
+                    {
+                        $result = mysqli_query($mysqli, $stypequery);
+                        while($row = mysqli_fetch_array($result))
+                        {
                         ?>
+                            <form class="item highlighted-item" action="negotiate.php" target="_blank" method="post">
+                                <div class="item-title-container">
+                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <h3 class="item-title"><?php echo $row['sname'];?></h3>
+                                    <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
+                                </div>
+                                
+                                <p class="item-subtitle">Provider Name: </p>
+                                <p class="item-description" name="provider">
+                                    <?php echo $row['pname'];?>
+                                    <input type="hidden" name="providername" value="<?php echo $row['pname'];?>">
+                                </p>
 
-                        </div>
-    
-                    </div>
-    
+                                <p class="item-subtitle">Type: </p>
+                                <p class="item-description">
+                                    <?php echo $row['type'];?>
+                                    <input type="hidden" name="type" value="<?php echo $row['type'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Description: </p>
+                                <p class="item-description">
+                                    <?php echo $row['description'];?>
+                                    <input type="hidden" name="desc" value="<?php echo $row['description'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Terms: </p>
+                                <p class="item-description">
+                                    <?php echo $row['terms'];?>
+                                    <input type="hidden" name="terms" value="<?php echo $row['terms'];?>">
+                                </p>
+
+                                <div class="submit-container">
+                                    <input type="hidden" name="cost" value="<?php echo $row['cost'];?>">
+                                    <input type="hidden" name="pemail" value="<?php echo $row['pemail'];?>">
+                                    <button class="item-footer item-footer-button"><b>$<?php echo $row['cost'];?></b> per Month</button>
+                                </div> 
+                                <a class="item-footer item-footer-button" href="requestquote.php"><b>Request Quote</b></a>
+                            </form>
+                        <?php
+                        }
+
+                    } 
+
+                    if ($name != NULL)
+                    {
+                        $result = mysqli_query($mysqli, $snamequery);
+                        while($row = mysqli_fetch_array($result))
+                        {
+                        ?>
+                            <form class="item highlighted-item" action="negotiate.php" target="_blank" method="post">
+                                <div class="item-title-container">
+                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <h3 class="item-title"><?php echo $row['sname'];?></h3>
+                                    <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
+                                </div>
+
+                                <p class="item-subtitle">Provider Name: </p>
+                                <p class="item-description" name="provider">
+                                    <?php echo $row['pname'];?>
+                                    <input type="hidden" name="providername" value="<?php echo $row['pname'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Type: </p>
+                                <p class="item-description">
+                                    <?php echo $row['type'];?>
+                                    <input type="hidden" name="type" value="<?php echo $row['type'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Description: </p>
+                                <p class="item-description">
+                                    <?php echo $row['description'];?>
+                                    <input type="hidden" name="desc" value="<?php echo $row['description'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Terms: </p>
+                                <p class="item-description">
+                                    <?php echo $row['terms'];?>
+                                    <input type="hidden" name="terms" value="<?php echo $row['terms'];?>">
+                                </p>
+
+                                <div class="submit-container">
+                                    <input type="hidden" name="cost" value="<?php echo $row['cost'];?>">
+                                    <input type="hidden" name="pemail" value="<?php echo $row['pemail'];?>">
+                                    <button class="item-footer submit-button"><b>$<?php echo $row['cost'];?></b> per Month</button>
+                                </div> 
+                                <a class="item-footer item-footer-button" href="requestquote.php"><b>Request Quote</b></a>
+                            </form>
+                        <?php
+                        }
+                    } 
+
+                    if ($name != NULL)
+                    {
+                        $result = mysqli_query($mysqli, $namequery);
+                        while($row = mysqli_fetch_array($result))
+                        {
+                        ?>
+                            <form class="item highlighted-item" action="negotiate.php" target="_blank" method="post">
+                                <div class="item-title-container">
+                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <h3 class="item-title"><?php echo $row['sname'];?></h3>
+                                    <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
+                                </div>
+
+                                <p class="item-subtitle">Provider Name: </p>
+                                <p class="item-description" name="provider">
+                                    <?php echo $row['pname'];?>
+                                    <input type="hidden" name="providername" value="<?php echo $row['pname'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Type: </p>
+                                <p class="item-description">
+                                    <?php echo $row['type'];?>
+                                    <input type="hidden" name="type" value="<?php echo $row['type'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Description: </p>
+                                <p class="item-description">
+                                    <?php echo $row['description'];?>
+                                    <input type="hidden" name="desc" value="<?php echo $row['description'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Terms: </p>
+                                <p class="item-description">
+                                    <?php echo $row['terms'];?>
+                                    <input type="hidden" name="terms" value="<?php echo $row['terms'];?>">
+                                </p>
+                                <div class="submit-container">
+                                    <input type="hidden" name="cost" value="<?php echo $row['cost'];?>">
+                                    <input type="hidden" name="pemail" value="<?php echo $row['pemail'];?>">
+                                    <button class="item-footer item-footer-button"><b>$<?php echo $row['cost'];?></b> per Month</button>
+                                </div> 
+                                <a class="item-footer item-footer-button" href="requestquote.php"><b>Request Quote</b></a>
+                            </form>
+                        <?php
+                        }
+
+                    }
+                    if ($name != NULL)
+                    {
+                        $result = mysqli_query($mysqli, $typequery);
+                        while($row = mysqli_fetch_array($result))
+                        {
+                        ?>
+                            <form class="item highlighted-item" action="negotiate.php" target="_blank" method="post">
+                                <div class="item-title-container">
+                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <h3 class="item-title"><?php echo $row['sname'];?></h3>
+                                    <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
+                                </div>
+
+                                <p class="item-subtitle">Provider Name: </p>
+                                <p class="item-description" name="provider">
+                                    <?php echo $row['pname'];?>
+                                    <input type="hidden" name="providername" value="<?php echo $row['pname'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Type: </p>
+                                <p class="item-description">
+                                    <?php echo $row['type'];?>
+                                    <input type="hidden" name="type" value="<?php echo $row['type'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Description: </p>
+                                <p class="item-description">
+                                    <?php echo $row['description'];?>
+                                    <input type="hidden" name="desc" value="<?php echo $row['description'];?>">
+                                </p>
+
+                                <p class="item-subtitle">Terms: </p>
+                                <p class="item-description">
+                                    <?php echo $row['terms'];?>
+                                    <input type="hidden" name="terms" value="<?php echo $row['terms'];?>">
+                                </p>
+
+                                <div class="submit-container">
+                                    <input type="hidden" name="cost" value="<?php echo $row['cost'];?>">
+                                    <input type="hidden" name="pemail" value="<?php echo $row['pemail'];?>">
+                                    <button class="item-footer item-footer-button"><b>$<?php echo $row['cost'];?></b> per Month</button>
+                                </div> 
+                                <a class="item-footer item-footer-button" href="requestquote.php"><b>Request Quote</b></a>
+                            </form>
+                        <?php
+                        }
+
+                    }
+                    ?>
+
                 </div>
-    
-                <div class="advertised-services">
-                    
+
+                <div class="left-content">
 
                     <h2 class="subtitle">Services Subscribed To</h2>
                     
@@ -372,18 +340,18 @@ include("../php/auth_session.php");
                     {
                     ?>
 
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title"><?php echo $row['name'];?></h3>
+                        <div class="item">
+                            <div class="item-title-container">
+                                <i class="item-title fa-solid fa-bolt"></i>
+                                <h3 class="item-title"><?php echo $row['name'];?></h3>
                             </div>
-                            <p class="service-description">
+                            <p class="item-description">
                                 <?php echo $row['description'];?><br><br>
                                 Type: <?php echo $row['type'];?><br><br>
                                 Terms: <?php echo $row['terms'];?><br><br>
                                 Address: <?php echo $row['address'];?>
                             </p>
-                            <p class="service-cost"><b>$<?php echo $row['cost'];?></b> per Month</p>
+                            <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
                         </div>
 
                     <?php
@@ -397,30 +365,80 @@ include("../php/auth_session.php");
                     {
                     ?>
 
-                        <div class="service-detail">
-                            <div class="service-title-container">
-                                <i class="service-title fa-solid fa-bolt"></i>
-                                <h3 class="service-title"><?php echo $row['service_name'];?></h3>
+                        <div class="item">
+                            <div class="item-title-container">
+                                <i class="item-title fa-solid fa-bolt"></i>
+                                <h3 class="item-title"><?php echo $row['service_name'];?></h3>
                             </div>
-                            <p class="service-description">
+                            <p class="item-description">
                                 <?php echo $row['description'];?><br><br>
                                 Type: <?php echo $row['type'];?><br><br>
                                 Terms: <?php echo $row['terms'];?>
                                 Address: <?php echo $row['address'];?>
                             </p>
-                            <p class="service-cost"><b>$<?php echo $row['cost'];?></b> per Month</p>
+                            <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
                         </div>
 
                     <?php
                     }
                     ?>
+
                 </div>
+
+                <div class="right-content">
+
+                    <h1 class="subtitle">Services Needed</h1>
+                    <!-- <a href="#" class="service-cost recommended-service-button"><b>Calculate Needs</b><br></b></a><br>-->
+                
+                    <?php
+                    $sql = require __DIR__ . "/../php/service-calculator.php";
+                    $sql = $sql . sprintf("AND c.email = '%s'", $mysqli->real_escape_string($_SESSION["email"]));
+                    $client_result = $mysqli->query($sql);
+                    while ($row = mysqli_fetch_array($client_result)){
+                    ?>
+                        <div class="item highlighted-item">
+                            <form action="negotiate.php" target="_blank" method="post">
+                                <div class="item-title-container">
+                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <h3 class="item-title"><?php echo $row['s_name'];?></h3>
+                                    <input type="hidden" name="servicename" value="<?php echo $row['s_name'];?>">
+                                    <input type="hidden" name="type" value="<?php echo $row['s_type'];?>">
+                                </div>
+                                <p class="item-subtitle">Provided By: </p>
+                                <p class="item-description">
+                                    <?php echo $row['p_name'];?><br><br>
+                                    <input type="hidden" name="providername" value="<?php echo $row['p_name'];?>">
+                                </p>
+                                <p class="item-subtitle">Description: </p>
+                                <p class="item-description">
+                                    <?php echo $row['s_description'];?><br><br>
+                                    <input type="hidden" name="desc" value="<?php echo $row['s_description'];?>">
+                                </p>
+                                <p class="item-subtitle">Terms: </p>
+                                <p class="item-description">
+                                    <?php echo $row['s_terms'];?><br><br>
+                                    <input type="hidden" name="terms" value="<?php echo $row['s_terms'];?>">
+                                </p>
+                                <input type="hidden" name="cost" value="<?php echo $row['s_cost'];?>">
+                                <input type="hidden" name="pemail" value="<?php echo $row['p_email'];?>">
+                                <button class="item-footer item-footer-button"><b>$<?php echo $row['s_cost'];?></b> per Month</button>
+                            </form>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
+                </div>
+
+            </div>
+
+
         </main>
 
 
         <footer class="footer">
 
-        <div class="footer-container">
+            <div class="footer-container">
                 <p class="footer-subtitle">Terms and Conditions</p>
                 <p class="footer-content">
                     By using this site I consent to MyHome using my submitted data for calculations to determine services which I can afford or which I should be interested in. I also consent to MyHome providing my personal information to vendors in the event that I purchase a service from said vendor. I certify that all information submitted to this site is correct to the best of my knowledge. MyHome is not responsible for faulty results due to incorrect data. MyHome is also not responsible for difficulties in procuring an advertised service beyond the steps streamlined by our calculators. Although users should report fraudulent vendors to MyHome immediately, MyHome is not responsible for reimbursing any lost funds.
