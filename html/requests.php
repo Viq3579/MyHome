@@ -84,29 +84,9 @@ $other_result = $mysqli->query($sql);
 
 
         <main class="main-content">
+            
 
             <div class="container">
-
-                <div class="left-content">
-                    <h1 class="title">Send Quotes</h1>
-
-                    <?php
-                    while ($quote_requests = $quote_result->fetch_assoc()) {
-                        echo "<div class=\"item highlighted-item\">";
-                        echo    "<div class=\"item-title-container\">";
-                        echo        "<i class=\"item-title fa-solid fa-user\"></i>";
-                        echo        "<h3 class=\"item-title\">" . $quote_requests["name"] . "</h3>";
-                        echo    "</div>";
-                        echo    "<p class=\"item-subtitle\">Quote on:</p>";
-                        echo    "<p class=\"item-description\">";
-                        echo        $quote_requests["service"];
-                        echo    "</p>";
-                        echo    "<button class=\"item-footer item-footer-button\" id=\"quoteButton\"><b>Send Quote</b></button>";
-                        echo "</div>";
-                    }
-                    ?>
-
-                </div>
 
                 <div class="center-content">
                     <h1 class="title">Negotiations</h1>
@@ -135,6 +115,27 @@ $other_result = $mysqli->query($sql);
                     ?>
                 </div>
 
+                <div class="left-content">
+                    <h1 class="title">Send Quotes</h1>
+
+                    <?php
+                    while ($quote_requests = $quote_result->fetch_assoc()) {
+                        echo "<div class=\"item highlighted-item\">";
+                        echo    "<div class=\"item-title-container\">";
+                        echo        "<i class=\"item-title fa-solid fa-user\"></i>";
+                        echo        "<h3 class=\"item-title\">" . $quote_requests["name"] . "</h3>";
+                        echo    "</div>";
+                        echo    "<p class=\"item-subtitle\">Quote on:</p>";
+                        echo    "<p class=\"item-description\">";
+                        echo        $quote_requests["service"];
+                        echo    "</p>";
+                        echo    "<button class=\"item-footer item-footer-button\" id=\"quoteButton\"><b>Send Quote</b></button>";
+                        echo "</div>";
+                    }
+                    ?>
+
+                </div>
+
                 <div class="right-content">
                     <h1 class="title">Sign Customers</h1>
 
@@ -154,6 +155,7 @@ $other_result = $mysqli->query($sql);
                 </div>
 
             </div>
+
 
             <div class="item highlighted-item popup" id="quotePopup">
 

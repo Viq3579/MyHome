@@ -39,7 +39,7 @@ body {
     padding: 25px;
 }
 .header-container {
-    width: 75%;
+    width: max(75%, 45rem);
     display: flex;
     justify-content: space-between;
 }
@@ -102,7 +102,7 @@ body {
     background-color: #BF4C0A;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 800px) {
 
     .header-container {
         flex-direction: column;
@@ -110,6 +110,10 @@ body {
     }
     .header-logo {
         margin-bottom: 20px;
+        font-size: 2rem;
+    }
+    .header-links {
+        font-size: 1rem;
     }
 
 }

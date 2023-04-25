@@ -83,26 +83,34 @@ $client_result = $mysqli->query($sql);
 
                     <table class="table">
                         <tr class=" table-head">
+                            <th class="table-col-head">Actions</th>
                             <th class="table-col-head">Name</th>
                             <th class="table-col-head">Address</th>
                             <th class="table-col-head">Email</th>
                             <th class="table-col-head">Service</th>
                             <th class="table-col-head">Payments</th>
-                            <th class="table-col-head">Actions</th>
                         </tr>
 
                         <?php
                         while($client = $result->fetch_assoc()) {
                             echo "<tr class=\"table-row\">";
-                            echo    "<th class=\"table-col\">" . $client["name"] . "</th>";
-                            echo    "<th class=\"table-col\">" . $client["address"] . "</th>";
-                            echo    "<th class=\"table-col\">" . $client["email"] . "</th>";
-                            echo    "<th class=\"table-col\">" . $client["service"] . "</th>";
-                            echo    "<th class=\"table-col\">$" . $client["cost"] . "</th>";
-                            echo    "<th class=\"table-col\">Negotiate</th>";
+                            echo    "<td class=\"table-col\">Negotiate</td>";
+                            echo    "<td class=\"table-col\" data-cell=\"name\">" . $client["name"] . "</td>";
+                            echo    "<td class=\"table-col\" data-cell=\"address\">" . $client["address"] . "</td>";
+                            echo    "<td class=\"table-col\" data-cell=\"email\">" . $client["email"] . "</td>";
+                            echo    "<td class=\"table-col\" data-cell=\"service\">" . $client["service"] . "</td>";
+                            echo    "<td class=\"table-col\" data-cell=\"cost\">$" . $client["cost"] . "</td>";
                             echo "</tr>";
                         }
                         ?>
+                        <tr class=" table-row">
+                            <td class="table-col">Actions</td>
+                            <td class="table-col">Name</td>
+                            <td class="table-col">Address</td>
+                            <td class="table-col">Email</td>
+                            <td class="table-col">Service</td>
+                            <td class="table-col">Payments</td>
+                        </tr>
                     </table>
 
                 </div>
@@ -119,8 +127,8 @@ $client_result = $mysqli->query($sql);
                         echo    "<div class=\"item-title-container\">";
                         echo        "<i class=\"item-title fa-solid fa-user\"></i>";
                         echo        "<h3 class=\"item-title\">" . $potential_client["c_name"] . "</h3>";
-                        echo        "<button class=\"item-footer item-footer-button\" id=\"popupButton\" data-name=\"" . $potential_client["c_name"] . "\" data-email=\"" . $potential_client["c_email"] . "\"><b>Contact</b></button>";
                         echo    "</div>";
+                        echo    "<button class=\"item-footer item-footer-button\" id=\"popupButton\" data-name=\"" . $potential_client["c_name"] . "\" data-email=\"" . $potential_client["c_email"] . "\"><b>Contact</b></button>";
                         echo "</div>";
 
                         $i++;

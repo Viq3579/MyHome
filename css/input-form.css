@@ -1,75 +1,103 @@
+/* 
+COLORS:
+    Text:
+    #f7f2ef
+
+    Accent:
+    #F2620F
+    #BF4C0A
+
+    Background:
+    
+    #F2E3D5
+    #162840
+    #19222e
+
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+
+:root {
+    --font-size-xxs: clamp(0.51rem, 0.23vw + 0.45rem, 0.64rem);
+    --font-size-xs: clamp(0.64rem, 0.29vw + 0.57rem, 0.8rem);
+    --font-size-sm: clamp(0.8rem, 0.36vw + 0.71rem, 1rem);
+    --font-size-base: clamp(1rem, 0.45vw + 0.89rem, 1.25rem);
+    --font-size-md: clamp(1.25rem, 0.57vw + 1.11rem, 1.56rem);
+    --font-size-lg: clamp(1.56rem, 0.71vw + 1.38rem, 1.95rem);
+    --font-size-xl: clamp(1.95rem, 0.89vw + 1.73rem, 2.44rem);
+    --font-size-xxl: clamp(2.44rem, 1.11vw + 2.16rem, 3.05rem);
+    --font-size-xxxl: clamp(3.05rem, 1.39vw + 2.7rem, 3.81rem);
+}
+
+
 .form {
     background: linear-gradient(145deg, rgb(51, 97, 156) 0%, rgba(22,40,64,1) 100%);
     color: #f7f2ef;
     height: fit-content;
     width: fit-content;
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 1rem;
+    margin: 1rem;
+    padding: 1rem;
+    width: min(calc(100% - 4rem), 20rem);
 }
 .form-header {
-    font-size: 32px;
-    margin-bottom: 20px;
+    font-size: var(--font-size-lg);
+    margin-bottom: 1rem;
 }
 .input {
-    margin: 10px 0px;
     display: flex;
     flex-direction: column;
 }
 .inline-input {
     flex-direction: row;
-    margin: 20px 0px;
-    margin-left: 15px;
 }
 .input-header {
-    font-size: 14px;
-    margin-left: 15px;
+    font-size: var(--font-size-xs);
+    margin-left: .5rem;
+    margin-top: .5rem;
 }
 .input-field {
+    width: calc(100% - 1rem);
+    overflow: scroll;
     background: #f7f2ef;
     color: #19222e;
-    width: 330px;
-    font-size: 24px;
+    font-size: var(--font-size-md);
     border: none;
-    border-radius: 15px;
-    padding: 10px;
+    border-radius: 1rem;
+    padding: .5rem;
 }
 .input-checkbox {
-    height: 25px;
-    width: 25px;
+    height: 1.5rem;
+    width: 1.5rem;
     background-color: #eee;
 }
 .dropdown {
     background: #f7f2ef;
     color: #19222e;
-    width: 350px;
-    font-size: 24px;
+    font-size: var(--font-size-md);
     border: none;
-    border-radius: 15px;
-    padding: 10px;
+    border-radius: 1rem;
+    padding: .5rem;
 }
 .dropdown-option {
     background: #162840;
     color: #f7f2ef;
-    height: 500px;
 }
 .submit-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-.submit-container .input-header {
-    margin-top: 13px;
+    display: grid;
+    margin-top: 1rem;
 }
 .submit-button {
     background: #F2620F;
     color: #f7f2ef;
-    font-size: 20px;
+    font-size: var(--font-size-base);
     font-weight: 600;
     text-decoration: none;
     border: none;
-    border-radius: 15px;
+    border-radius: 1rem;
     justify-self: end;
-    padding: 10px 20px;
+    padding: .5rem 1.5rem;
 
     transition: 100ms;
 }
