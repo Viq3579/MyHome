@@ -23,18 +23,18 @@
             if (isset($_POST['email']))
             {
                 $email = $_POST['email'];
-                echo $email;
-                echo "posted";
+                //echo $email;
+                //echo "posted";
             } else {
                 $email = $_GET['email'];
-                echo $email;
-                echo "gotten";
+                //echo $email;
+                //echo "gotten";
             }
             if (isset($_REQUEST['password']))
             {
 
 
-                echo $email;
+                //echo $email;
                 $sanemail = mysqli_real_escape_string($mysqli, $email);
                 $timestamp = date("Y-m-d H:i:s");
                 $timestamp1 = date_create($timestamp);
@@ -42,8 +42,8 @@
                 $temp = $mysqli->query($query);
                 $result = mysqli_fetch_array($temp);
                 $result2 = $temp->fetch_assoc();
-                echo $result[0];
-                echo "We are here3";
+                //echo $result[0];
+                //echo "We are here3";
                 if ($result) {
                     echo "We are here2";
                     $requesttime = $result[0];
