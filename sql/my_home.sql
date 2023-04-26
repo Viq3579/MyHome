@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2023 at 09:44 AM
+-- Generation Time: Apr 26, 2023 at 06:39 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -41,6 +41,9 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`name`, `email`, `phone_num`, `family_income`, `num_cars`, `misc_expenses`) VALUES
+('Average Customer', 'cust1@gmail.com', 2223337777, 50000, 1, 10000),
+('John Smith', 'cust2@gmail.com', 1231231234, 60000, 2, 15000),
+('John Smith', 'cust4@gmail.com', 1234561234, 50000, 2, 15000),
 ('hello', 'doesisworkfromhere@gmail.com', 2147483647, 555, 5, 5555),
 ('Steve', 'gobledygook@gmail.com', 9098084040, 250000, 1, 50000),
 ('Ian', 'ianisawesome9@live.com', 4564568989, 100000, 2, 1000),
@@ -73,6 +76,7 @@ CREATE TABLE `customservice` (
 --
 
 INSERT INTO `customservice` (`name`, `cemail`, `address`, `type`, `cost`, `description`, `terms`, `penalty`, `provider`) VALUES
+('Premium Electricity', 'cust2@gmail.com', '3780 Elm Street', 'Electricity', 250, 'The premium electricity plan designed for power users or large families.', 'lorem ipsum', 'Termination of service', 'jamesp@gmail.com'),
 ('Standard Electricity', 'pleasework@gmail.com', 'Not Specified', 'Electricity', 200, 'The basic electricity plan designed for common users.', 'Lorem ipsum.', 'Electricity will be shut down', 'jamesp@gmail.com');
 
 -- --------------------------------------------------------
@@ -94,6 +98,9 @@ CREATE TABLE `hasservice` (
 --
 
 INSERT INTO `hasservice` (`owner_email`, `service_name`, `provider_email`, `address`, `custom`) VALUES
+('cust1@gmail.com', 'Standard Electricity', 'jamesp@gmail.com', 'Not Specified', 0),
+('cust2@gmail.com', 'Economy Electricity', 'jamesp@gmail.com', 'Not Specified', 0),
+('cust2@gmail.com', 'Premium Electricity', 'jamesp@gmail.com', 'Not Specified', 0),
 ('pleasework@gmail.com', 'Standard Electricity', 'jamesp@gmail.com', 'Not Specified', 0),
 ('pleasework@gmail.com', 'Super Insurance', 'vendortest@gmail.com', 'Not Specified', 0),
 ('pleasework@gmail.com', 'Ultra Power', 'samplevend@gmail.com', 'Not Specified', 0);
@@ -130,6 +137,9 @@ CREATE TABLE `home` (
 INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, `garage_size`, `year_built`, `property_type`, `heating_type`, `heating_time`, `num_floors`, `floor_space`, `roof`, `bathrooms`, `foundation`, `bedrooms`, `owner_email`) VALUES
 ('1010 10th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'sample@gmail.com'),
 ('123 Main Street', 123, 'There should only be one of these now', 'I think i fixed it', 5, 10101, 'Home', 'Fireplace', '00:00:04', 34, 5623550, 0, 1, 'please', 6, 'thirdtimesthecharm@yahoo.com'),
+('345 Birch Street', 5000, 'AC', 'Brick', 500, 2000, 'Home', 'Natural Gas', '00:00:00', 2, 4000, 0, 4, 'Concrete', 4, 'cust4@gmail.com'),
+('3780 Elm Street', 5000, 'AC', 'Brick', 800, 2002, 'Home', 'Natural Gas', '00:00:00', 3, 4000, 0, 2, 'Concrete', 4, 'cust2@gmail.com'),
+('380 Palm Street', 6000, 'AC', 'Brick', 600, 2000, 'Home', 'Natural Gas', '00:00:00', 3, 4000, 0, 3, 'Concrete', 4, 'cust1@gmail.com'),
 ('444 4th Street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'pleasework@gmail.com'),
 ('555 5th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'doesisworkfromhere@gmail.com'),
 ('616161 89th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com'),
@@ -159,6 +169,7 @@ CREATE TABLE `offers` (
 --
 
 INSERT INTO `offers` (`cemail`, `pemail`, `sname`, `type`, `cost`, `terms`, `penalty`, `address`, `custom`) VALUES
+('cust2@gmail.com', 'jamesp@gmail.com', 'Standard Electricity', 'Electricity', 150, 'lorem ipsum', 'Termination of service', '3780 Elm Street', 0),
 ('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 'Electricity', 55550, 'lorem ipsum', 'Termination of service', '444 4th Street', 0),
 ('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 'Electricity', 90, 'payment on the 15th of every month, free car air freshener on signup', 'service never gets cut off unless i skip payments for a whole year', '615 12th street', 0),
 ('pleasework@gmail.com', 'samplevend@gmail.com', 'Ultra Power', 'Electricity', 3.40282e38, 'lorem ipsum', 'Termination of service', 'Not Specified', 0);
@@ -246,6 +257,7 @@ CREATE TABLE `quoterequest` (
 --
 
 INSERT INTO `quoterequest` (`pname`, `cname`, `address`, `sname`, `email`) VALUES
+('James P. Electricity', 'John Smith', '345 Birch Street', 'Economy Electricity', 'cust4@gmail.com'),
 ('James P. Electricity', 'Ian Finnigan', '615 12th street', 'Standard Electricity', 'pleasework@gmail.com');
 
 -- --------------------------------------------------------
@@ -270,9 +282,11 @@ CREATE TABLE `service` (
 
 INSERT INTO `service` (`name`, `type`, `provider`, `cost`, `description`, `terms`, `penalty`) VALUES
 ('Collision Insurance', 'Insurance', 'thisguyhaspaylink@gmail.com', 100, 'Basic collision insuruance', 'insert terms here', 'service will be terminated upon failure to pay'),
+('Economy Electricity', 'Electricity', 'jamesp@gmail.com', 150, 'A bare-bones electricity plan designed for those who do not use much electricity.', 'Lorem ipsum.', 'Electricity will be shut down'),
+('Premium Electricity', 'Electricity', 'jamesp@gmail.com', 300, 'The premium electricity plan designed for power users or large families.', 'Lorem ipsum.', 'Electricity will be shut down'),
 ('Standard Electricity', 'Electricity', 'jamesp@gmail.com', 200, 'The basic electricity plan designed for common users.', 'Lorem ipsum.', 'Electricity will be shut down'),
 ('Super Insurance', 'Car Insurance', 'vendortest@gmail.com', 100, 'the best insurance money can buy, lorem ipsum etc etc', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-('Ultra Power', 'Electricity', 'samplevend@gmail.com', 3.40282e38, 'The most expensive electricity ever', 'lorem ipsum', 'Termination of service');
+('Ultra Power', 'Electricity', 'samplevend@gmail.com', 600, 'The most expensive electricity ever', 'lorem ipsum', 'Termination of service');
 
 -- --------------------------------------------------------
 
@@ -298,9 +312,15 @@ CREATE TABLE `unverifiedservice` (
 --
 
 INSERT INTO `unverifiedservice` (`name`, `cemail`, `address`, `type`, `cost`, `description`, `terms`, `penalty`, `provider`, `custom`) VALUES
+('Collision Insurance', 'cust1@gmail.com', 'Not Specified', 'Insurance', 100, 'Basic collision insuruance', 'insert terms here', 'service will be terminated upon failure to pay', 'Pay Us Money', 0),
+('Collision Insurance', 'cust2@gmail.com', 'Not Specified', 'Insurance', 100, 'Basic collision insuruance', 'insert terms here', 'service will be terminated upon failure to pay', 'Pay Us Money', 0),
+('Collision Insurance', 'cust4@gmail.com', 'Not Specified', 'Insurance', 100, 'Basic collision insuruance', 'insert terms here', 'service will be terminated upon failure to pay', 'Pay Us Money', 0),
 ('Collision Insurance', 'ianisawesome9@live.com', 'Not Specified', 'Insurance', 100, 'Basic collision insuruance', 'insert terms here', 'service will be terminated upon failure to pay', 'Pay Us Money', 0),
 ('Collision Insurance', 'pleasework@gmail.com', 'Not Specified', 'Insurance', 100, 'Basic collision insuruance', 'insert terms here', 'service will be terminated upon failure to pay', 'Pay Us Money', 0),
-('Ultra Power', 'gobledygook@gmail.com', 'Not Specified', '<br />\r\n<b>Warning</b>:  Undefined array key ', 3.40282e38, 'The most expensive electricity ever', 'lorem ipsum', 'Termination of service', 'ElectriCorp', 0);
+('Standard Electricity', 'cust2@gmail.com', '3780 Elm Street', 'Electricity', 200, 'The basic electricity plan designed for common users.', 'Lorem ipsum.', 'Electricity will be shut down', 'James P. Electricity', 0),
+('Super Insurance', 'cust1@gmail.com', 'Not Specified', 'Car Insurance', 100, 'the best insurance money can buy, lorem ipsum etc etc', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Progressive', 0),
+('Super Insurance', 'cust4@gmail.com', 'Not Specified', 'Car Insurance', 100, 'the best insurance money can buy, lorem ipsum etc etc', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Progressive', 0),
+('Ultra Power', 'cust2@gmail.com', 'Not Specified', 'Electricity', 600, 'The most expensive electricity ever', 'lorem ipsum', 'Termination of service', 'ElectriCorp', 0);
 
 -- --------------------------------------------------------
 
@@ -321,6 +341,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 ('asftgsdafgdrs@gmail.com', '$2y$10$Crzcxa4QPiZI4dGtp3uBduG8xDdjFHZo3G9Z8Yh937pvmjvLA4pp6', 'Client'),
 ('asftgsdafgds@gmail.com', '$2y$10$t2CX7jV/pEcxYRapBxj4keLbWZhzX2mmi8QaFDEwbsbwovgm0qMES', 'Client'),
+('cust1@gmail.com', '$2y$10$2rfLO20EKkFYW9m1ilFSzOELPxYrjCt/nD9d7pNtlF1yPtvLF.J/u', 'Client'),
+('cust2@gmail.com', '$2y$10$LyG.A97xkHODQiA.VhunheGlbNnDUjXiJMlBK2.Rw0sMRE99JhBU2', 'Client'),
+('cust4@gmail.com', '$2y$10$ZS7XcYIQ7VIunUszDeB0WejX9V6TqFODdJNBPEruL4eLqugCzCPrq', 'Client'),
 ('definitelynotvendor@live.com', '$2y$10$GwFcSISDBfLqSn7YIv5/gerf8XPvgg0L70lF54a6m/VjOWDFPlC6u', 'Vendor'),
 ('doesisworkfromhere@gmail.com', '$2y$10$mG8uWRR53zg.AUP/c9lkLuWB0lHkXfvt1FpQwBmzoVBxMc1kQz.4e', 'Client'),
 ('doublecheck@hotmail.com', '$2y$10$A5/TC4vH1hmm34gNZ5eIQOSpudxh3YPx8rdbPw06w5WxVBGMyP5gG', 'Vendor'),
