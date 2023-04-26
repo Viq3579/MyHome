@@ -31,7 +31,7 @@ $sql = sprintf("SELECT c.name as name, o.cemail as customer, o.pemail as vendor,
 $negotiation_result = $mysqli->query($sql);
 
 // Finds all Payments and Service Requests
-$sql = sprintf("SELECT c.name as name, u.name as service
+$sql = sprintf("SELECT c.name as name, u.name as service, u.cemail as cemail, u.address as address, u.cost as cost, u.provider as pname, u.custom as custom
                 FROM customer as c, unverifiedservice as u, provider as p
                 WHERE c.email = u.cemail
                 AND u.provider = p.name
@@ -191,7 +191,11 @@ if (isset($_POST["email"])) {
                             <p class="item-description">
                                 <?php echo $other["service"]?>
                             </p>
-                            <button class="item-footer item-footer-button"><b>Review Contract</b></button>
+                            <a 
+                            class="item-footer item-footer-button"
+                            href="vendor-review.php?name=<?php echo $other["service"] ?>&cemail=<?php echo $other["cemail"] ?>&address=<?php echo $other["address"] ?>&cost=<?php echo $other["cost"] ?>&provider=<?php echo $other["pname"] ?>&custom=<?php echo $other["custom"] ?>">
+                                <b>Review Contract</b>
+                            </a>
                         </div>
                     <?php
                     }

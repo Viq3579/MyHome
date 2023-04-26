@@ -103,14 +103,6 @@ $client_result = $mysqli->query($sql);
                             echo "</tr>";
                         }
                         ?>
-                        <tr class=" table-row">
-                            <td class="table-col">Actions</td>
-                            <td class="table-col">Name</td>
-                            <td class="table-col">Address</td>
-                            <td class="table-col">Email</td>
-                            <td class="table-col">Service</td>
-                            <td class="table-col">Payments</td>
-                        </tr>
                     </table>
 
                 </div>

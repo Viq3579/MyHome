@@ -11,87 +11,136 @@ if ( !isset($_SESSION["email"]) ) {
 
 $mysqli = require __DIR__ . "/../php/database.php";
 
-// Gets the Negotiation Information
-$customer_email = $_GET["customer_email"];
-$provider_email = $_GET["provider_email"];
-$service_name = $_GET["service_name"];
-$address = $_GET["address"];
+// Gets the Information
+$service_name = $mysqli->real_escape_string($_GET["name"]);
+$customer_email = $mysqli->real_escape_string($_GET["cemail"]);
+$address = $mysqli->real_escape_string($_GET["address"]);
+$cost = $mysqli->real_escape_string($_GET["cost"]);
+$provider_name = $mysqli->real_escape_string($_GET["provider"]);
+$custom = $mysqli->real_escape_string($_GET["custom"]);
 
-$sql = sprintf("SELECT c.name as cname, o.cemail as cemail, p.name as pname, o.pemail as pemail, o.sname as sname, o.type as type, o.cost as cost, s.description as description, o.terms as terms, o.penalty as penalty, o.address as address
-                FROM offers as o, customer as c, provider as p, service as s
-                WHERE o.cemail = c.email
-                AND o.pemail = p.email
-                AND o.sname = s.name
-                AND o.pemail = s.provider
-                AND o.cemail = '%s'
-                AND o.pemail = '%s'
-                AND o.sname = '%s'
-                AND o.address = '%s'",
-                $mysqli->real_escape_string($customer_email),
-                $mysqli->real_escape_string($provider_email),
-                $mysqli->real_escape_string($service_name),
-                $mysqli->real_escape_string($address));
-                
-$result = $mysqli->query($sql);                
-$negotiation = $result->fetch_assoc();
+$sql = "SELECT c.name as name, 
+            u.name as service, 
+            u.address as address, 
+            u.type as type, 
+            u.cost as cost, 
+            u.description as description, 
+            u.terms as terms,
+            u.penalty as penalty,
+            u.provider as provider,
+            u.custom as custom
+        FROM unverifiedservice as u, customer as c, provider as p
+        WHERE u.cemail = c.email
+        AND u.provider = p.name
+        AND u.name = '$service_name'
+        AND u.cemail = '$customer_email'
+        AND u.address = '$address'
+        AND u.cost = '$cost'
+        AND u.provider = '$provider_name'
+        and u.custom = '$custom'";
 
+$result = $mysqli->query($sql);
+$service_info = $result->fetch_assoc();
 
-// Accepts or Rejects the Negotiation
 if (isset($_POST["acceptButton"])) {
-    $sql = "INSERT INTO customservice (name, cemail, address, type, cost, description, terms, penalty, provider)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    $stmt = $mysqli->stmt_init();
+    // Finds out if Service is Custom
+    $sql = sprintf("SELECT name
+                    FROM service
+                    WHERE name = '%s'
+                    AND provider = '%s'
+                    AND cost = '%s'
+                    AND terms = '%s'
+                    AND penalty = '%s'",
+                    $service_name,
+                    $_SESSION["email"],
+                    $cost,
+                    $service_info["terms"],
+                    $service_info["penalty"]);
 
-    if (!$stmt->prepare($sql)) {
-        die ("SQL Error: " . $mysqli->error);
+    $result = $mysqli->query($sql);
+    $is_service = $result->fetch_assoc();
+
+    // Adds service to 'hasservice' table or 'customservice' table
+    if (isset($is_service["name"])) {
+
+        // Adds service to 'hasservice' table
+        $sql = "INSERT INTO hasservice (owner_email, service_name, provider_email, address, custom)
+                VALUES (?, ?, ?, ?, ?)";
+
+        $stmt = $mysqli->stmt_init();
+
+        if (!$stmt->prepare($sql)) {
+            die ("SQL Error: " . $mysqli->error);
+        }
+
+        $stmt->bind_param("sssss", 
+            $customer_email,
+            $service_name,
+            $mysqli->real_escape_string($_SESSION["email"]),
+            $address,
+            $custom
+        );
+
+        $stmt->execute();
+
+    } else {
+
+        // Adds service to 'customservice' table
+        $sql = "INSERT INTO customservice (name, cemail, address, type, cost, description, terms, penalty, provider)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = $mysqli->stmt_init();
+
+        if (!$stmt->prepare($sql)) {
+            die ("SQL Error: " . $mysqli->error);
+        }
+
+        $stmt->bind_param("sssssssss", 
+            $service_name,
+            $customer_email,
+            $address,
+            $service_info["type"],
+            $cost,
+            $service_info["cost"],
+            $service_info["description"],
+            $service_info["penalty"],
+            $mysqli->real_escape_string($_SESSION["email"])
+        );
+
+        $stmt->execute();
+
     }
 
-    $stmt->bind_param("sssssssss", 
-        $negotiation["sname"],
-        $negotiation["cemail"],
-        $negotiation["address"],
-        $negotiation["type"],
-        $negotiation["cost"],
-        $negotiation["description"],
-        $negotiation["terms"],
-        $negotiation["penalty"],
-        $negotiation["pemail"],
-    );
 
-    $stmt->execute();
+    // Deletes entry in 'unverifiedservice' table
+    $sql = "DELETE FROM unverifiedservice
+            WHERE name = '$service_name'
+            AND cemail = '$customer_email'
+            AND address = '$address'
+            AND cost = '$cost'
+            AND provider = '$provider_name'
+            and custom = '$custom'";
 
-
-    $sql = sprintf("DELETE FROM offers
-                    WHERE cemail = '%s'
-                    AND pemail = '%s'
-                    AND sname = '%s'
-                    AND address = '%s'",
-                    $mysqli->real_escape_string($customer_email),
-                    $mysqli->real_escape_string($provider_email),
-                    $mysqli->real_escape_string($service_name),
-                    $mysqli->real_escape_string($address));
-        
     $result = $mysqli->query($sql);
 
     header("Location: requests.php");
-}     
-else if (isset($_POST["rejectButton"])) {
-    $sql = sprintf("DELETE FROM offers
-                    WHERE cemail = '%s'
-                    AND pemail = '%s'
-                    AND sname = '%s'
-                    AND address = '%s'",
-                    $mysqli->real_escape_string($customer_email),
-                    $mysqli->real_escape_string($provider_email),
-                    $mysqli->real_escape_string($service_name),
-                    $mysqli->real_escape_string($address));
-    
+
+} else if (isset($_POST["rejectButton"])) {
+
+    // Deletes entry in 'unverifiedservice' table
+    $sql = "DELETE FROM unverifiedservice
+            WHERE name = '$service_name'
+            AND cemail = '$customer_email'
+            AND address = '$address'
+            AND cost = '$cost'
+            AND provider = '$provider_name'
+            and custom = '$custom'";
+
     $result = $mysqli->query($sql);
 
-
     header("Location: requests.php");
-}    
+}
 
 ?>
 
@@ -107,6 +156,7 @@ else if (isset($_POST["rejectButton"])) {
         <title>MyHome</title>
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
 
@@ -143,37 +193,47 @@ else if (isset($_POST["rejectButton"])) {
                 <div class="center-content">
 
                     <h1 class="title">
-                        <?php echo $negotiation["cname"] ?>'s Negotiation
+                        <?php echo $service_info["name"] ?>'s Request
                     </h1>
 
                     <form class="item important-item clear" method="post">
                         
                         <p class="item-subtitle">Customer's Address:</p>
                         <p class="item-description">
-                            <?php echo $negotiation["address"] ?>
+                            <?php echo $service_info["address"] ?>
                         </p>
 
                         <p class="item-subtitle">Service Name:</p>
                         <p class="item-description">
-                            <?php echo $negotiation["sname"] ?>
+                            <?php echo $service_info["service"] ?>
                         </p>
 
-                        <p class="item-subtitle">Negotiating Terms:</p>
+                        <p class="item-subtitle">Review Description:</p>
                         <p class="item-description">
-                            <?php echo $negotiation["terms"] ?>
+                            <?php echo $service_info["description"] ?>
                         </p>
 
-                        <p class="item-subtitle">Negotiating Penalty:</p>
+                        <p class="item-subtitle">Review Terms:</p>
                         <p class="item-description">
-                            <?php echo $negotiation["penalty"] ?>
+                            <?php echo $service_info["terms"] ?>
                         </p>
 
-                        <p class="item-subtitle">Negotiating Cost</p>
+                        <p class="item-subtitle">Review Penalty:</p>
+                        <p class="item-description">
+                            <?php echo $service_info["penalty"] ?>
+                        </p>
+
+                        <p class="item-subtitle">Subscribed Cost:</p>
                         <p class="item-description"><b>$
-                            <?php echo $negotiation["cost"] ?>
+                            <?php echo $service_info["cost"] ?>
                         </b></p>
 
-                        <button class="item-footer item-footer-button" name="acceptButton" value="accept"><b>Accept</b></button>
+                        <div class="input">
+                            <label class="input-header" for="provider_signature">Signature:</label>
+                            <input class="input-field white" type="text" id="provider_signature" name="provider_signature" required>
+                        </div>
+
+                        <button class="item-footer item-footer-button" style="margin-bottom: 2rem;" name="acceptButton" value="accept"><b>Sign</b></button>
                         <button class="item-footer item-footer-button red" name="rejectButton" value="reject"><b>Reject</b></button>
                         <a class="item-footer item-footer-button blue" href="requests.php"><b>Cancel</b></a>
 
