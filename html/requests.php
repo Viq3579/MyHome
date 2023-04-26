@@ -12,7 +12,7 @@ if ( !isset($_SESSION["email"]) ) {
 $mysqli = require __DIR__ . "/../php/database.php";
 
 // Finds all the Quote Requests
-$sql = sprintf("SELECT q.cname as name, q.sname as service
+$sql = sprintf("SELECT q.cname as name, q.sname as service, q.email as email
                 FROM quoterequest as q, provider as p
                 where q.pname = p.name
                 AND p.email = '%s'",
@@ -39,6 +39,29 @@ $sql = sprintf("SELECT c.name as name, u.name as service
                 $mysqli->real_escape_string($_SESSION["email"]));
 
 $other_result = $mysqli->query($sql);
+
+
+if (isset($_POST["email"])) {
+    $sql = sprintf("SELECT name
+                    FROM provider
+                    WHERE email = '%s'",
+                    $mysqli->real_escape_string($_SESSION["email"]));
+        
+    $result = $mysqli->query($sql);
+    $pname = $result->fetch_assoc();
+
+    $sql = sprintf("DELETE FROM quoterequest
+                    WHERE pname = '%s'
+                    AND sname = '%s'
+                    AND email = '%s'",
+                    $pname["name"],
+                    $_POST["service"],
+                    $mysqli->real_escape_string($_POST["email"]));
+    
+    $result = $mysqli->query($sql);
+    
+    header("Location: requests.php");
+}
 
 ?>
 
@@ -93,24 +116,32 @@ $other_result = $mysqli->query($sql);
 
                     <?php
                     while ($negotiations = $negotiation_result->fetch_assoc()) {
-                        echo"<div class=\"item important-item\">";
-                        echo    "<div class=\"item-title-container\">";
-                        echo        "<i class=\"item-title fa-solid fa-user\"></i>";
-                        echo        "<h3 class=\"item-title\">" . $negotiations["name"] . "</h3>";
-                        echo    "</div>";
-                        echo    "<p class=\"item-subtitle\">Service Negotiating:</p>";
-                        echo    "<p class=\"item-description\">" . $negotiations["service"] . "</p>";
-                        echo    "<p class=\"item-subtitle\">Offered Terms:</p>";
-                        echo    "<p class=\"item-description\">" . $negotiations["terms"] . "</p>";
-                        echo    "<p class=\"item-description\">Wanted Price: <b>$" . $negotiations["cost"] . "</b></p>";
-                        echo    "<a class=\"item-footer item-footer-button\"";
-                        echo        "href=\"vendor-negotiate.php";
-                        echo            "?customer_email=" . $negotiations["customer"];
-                        echo            "&provider_email=" . $negotiations["vendor"];
-                        echo            "&service_name=" . $negotiations["service"];
-                        echo            "&address=" . $negotiations["address"];
-                        echo    "\"><b>Review Offer</b></a>";
-                        echo"</div>";
+                    ?>
+                        <div class="item important-item">
+                            <div class="item-title-container">
+                                <i class="item-title fa-solid fa-user"></i>
+                                <h3 class="item-title">
+                                    <?php echo $negotiations["name"] ?>
+                                </h3>
+                            </div>
+                            <p class="item-subtitle">Service Negotiating:</p>
+                            <p class="item-description">
+                                <?php echo $negotiations["service"] ?>
+                            </p>
+                            <p class="item-subtitle">Offered Terms:</p>
+                            <p class="item-description">
+                                <?php echo $negotiations["terms"] ?>
+                            </p>
+                            <p class="item-description">Wanted Price: <b>
+                                $<?php echo $negotiations["cost"] ?>
+                            </b></p>
+                            <a 
+                            class="item-footer item-footer-button"
+                            href="vendor-negotiate.php?customer_email=<?php echo $negotiations["customer"] ?>&provider_email=<?php echo $negotiations["vendor"] ?>&service_name=<?php echo $negotiations["service"] ?>&address=<?php echo $negotiations["address"] ?>">
+                                <b>Review Offer</b>
+                            </a>
+                        </div>
+                    <?php
                     }
                     ?>
                 </div>
@@ -120,17 +151,24 @@ $other_result = $mysqli->query($sql);
 
                     <?php
                     while ($quote_requests = $quote_result->fetch_assoc()) {
-                        echo "<div class=\"item highlighted-item\">";
-                        echo    "<div class=\"item-title-container\">";
-                        echo        "<i class=\"item-title fa-solid fa-user\"></i>";
-                        echo        "<h3 class=\"item-title\">" . $quote_requests["name"] . "</h3>";
-                        echo    "</div>";
-                        echo    "<p class=\"item-subtitle\">Quote on:</p>";
-                        echo    "<p class=\"item-description\">";
-                        echo        $quote_requests["service"];
-                        echo    "</p>";
-                        echo    "<button class=\"item-footer item-footer-button\" id=\"quoteButton\"><b>Send Quote</b></button>";
-                        echo "</div>";
+                    ?>
+                        <div class="item highlighted-item">
+                            <div class="item-title-container">
+                                <i class="item-title fa-solid fa-user"></i>
+                                <h3 class="item-title">
+                                    <?php echo $quote_requests["name"] ?>
+                                </h3>
+                            </div>
+                            <p class="item-subtitle">Quote on:</p>
+                            <p class="item-description">
+                                <?php echo $quote_requests["service"] ?>
+                            </p>
+                            <button class="item-footer item-footer-button" id="quoteButton" 
+                            data-name="<?php echo $quote_requests["name"] ?>" 
+                            data-email="<?php echo $quote_requests["email"] ?>" 
+                            data-service="<?php echo $quote_requests["service"] ?>"><b>Send Quote</b></button>
+                        </div>
+                    <?php
                     }
                     ?>
 
@@ -141,15 +179,21 @@ $other_result = $mysqli->query($sql);
 
                     <?php
                     while ($other = $other_result->fetch_assoc()) {
-                        echo "<div class=\"item\">";
-                        echo    "<div class=\"item-title-container\">";
-                        echo        "<i class=\"item-title fa-solid fa-user\"></i>";
-                        echo        "<h3 class=\"item-title\">" . $other["name"] . "</h3>";
-                        echo    "</div>";
-                        echo    "<p class=\"item-subtitle\">Service Purchased:</p>";
-                        echo    "<p class=\"item-description\">" . $other["service"] . "</p>";
-                        echo    "<button class=\"item-footer item-footer-button\"><b>Review Contract</b></button>";
-                        echo "</div>";
+                    ?>
+                        <div class="item">
+                            <div class="item-title-container">
+                                <i class="item-title fa-solid fa-user"></i>
+                                <h3 class="item-title">
+                                    <?php echo $other["name"] ?>
+                                </h3>
+                            </div>
+                            <p class="item-subtitle">Service Purchased:</p>
+                            <p class="item-description">
+                                <?php echo $other["service"]?>
+                            </p>
+                            <button class="item-footer item-footer-button"><b>Review Contract</b></button>
+                        </div>
+                    <?php
                     }
                     ?>
                 </div>
@@ -157,24 +201,49 @@ $other_result = $mysqli->query($sql);
             </div>
 
 
-            <div class="item highlighted-item popup" id="quotePopup">
+            <form class="item highlighted-item popup" id="popup" method="post">
 
                 <h3 class="item-title">Quote Sent</h3>
+                <p class="item-subtitle" id="popupSubtitle">
+                    A quote has been to [NAME] for the following service:
+                </p>
+                <p class="item-description" id="popupDescription">
+                    [SERVICE]
+                </p>
+
+                <input id="emailPopupInput" type="hidden" name="email" value="">
+                <input id="servicePopupInput" type="hidden" name="service" value="">
+
                 <button class="item-footer item-footer-button" id="closePopup"><b>Okay</b></button>
 
             </div>
 
 
             <script>
-                var quoteButton = document.getElementById("quoteButton");
-                var quotePopup = document.getElementById("quotePopup");
-                var closeButton = document.getElementById("closePopup")
+                const quoteButtons = document.querySelectorAll("#quoteButton");
 
-                quoteButton.addEventListener("click", function() {
-                    quotePopup.style.display = "grid";
+                var popup = document.getElementById("popup");
+                var popupSubtitle = document.getElementById("popupSubtitle");
+                var popupDescription = document.getElementById("popupDescription");
+                var emailPopupInput = document.getElementById("emailPopupInput");
+                var servicePopupInput = document.getElementById("servicePopupInput");
+                var closeButton = document.getElementById("closePopup");
+
+                quoteButtons.forEach(quoteButton => {
+                    var name = quoteButton.dataset.name;
+                    var email = quoteButton.dataset.email;
+                    var service = quoteButton.dataset.service;
+                    quoteButton.addEventListener("click", function() {
+                        popup.style.display = "grid";
+                        popupSubtitle.textContent = "A quote has been to " + name + " for the following service:";
+                        popupDescription.textContent = service;
+                        emailPopupInput.value = email;
+                        servicePopupInput.value = service;
+                    });
                 });
+                
                 closeButton.addEventListener("click", function() {
-                    quotePopup.style.display = "none";
+                    popup.style.display = "none";
                 });
             </script>
             

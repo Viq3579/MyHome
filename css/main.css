@@ -58,7 +58,7 @@ COLORS:
 .title {
     text-align: center;
     font-size: var(--font-size-xl);
-    margin: 2rem .5rem;
+    margin: 2rem 2rem;
 }
 .subtitle {
     text-align: center;

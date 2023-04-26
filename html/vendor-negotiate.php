@@ -63,14 +63,14 @@ if (isset($_POST["acceptButton"])) {
 
 
     $sql = sprintf("DELETE FROM offers
-                        WHERE cemail = '%s'
-                        AND pemail = '%s'
-                        AND sname = '%s'
-                        AND address = '%s'",
-                        $mysqli->real_escape_string($customer_email),
-                        $mysqli->real_escape_string($provider_email),
-                        $mysqli->real_escape_string($service_name),
-                        $mysqli->real_escape_string($address));
+                    WHERE cemail = '%s'
+                    AND pemail = '%s'
+                    AND sname = '%s'
+                    AND address = '%s'",
+                    $mysqli->real_escape_string($customer_email),
+                    $mysqli->real_escape_string($provider_email),
+                    $mysqli->real_escape_string($service_name),
+                    $mysqli->real_escape_string($address));
         
     $result = $mysqli->query($sql);
 
