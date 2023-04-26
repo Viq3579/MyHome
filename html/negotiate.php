@@ -13,11 +13,9 @@ include("../php/auth_session.php");
 
         <title>Negotiate</title>
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/home.css">
-        <!-- <link rel="stylesheet" href="../css/input-form.css"/> -->
-        <link rel="stylesheet" href="../css/adddhome.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
-        <link rel="stylesheet" href="../css/input-form.css"/>
     </head>
 
 
@@ -80,50 +78,95 @@ include("../php/auth_session.php");
         </header>
 
 
-        <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
+        <main class="main-content">
 
-            <form class="form" action="sendnegotiate.php" method="post">
-                <h1 class="login-title"><b>Negotiate</b></h1>
-                <p><b>Service Name:</b> <?php echo $servicename?></p>
-                <input type="hidden" name="servicename" value="<?php echo $servicename;?>">
-                <input type="hidden" name="type" value="<?php echo $type;?>">
-                <p><b>Service Provider:</b> <?php echo $providername?></p>
-                <input type="hidden" name="pname" value="<?php echo $providername;?>">
-                <p><b>Customer Name:</b> <?php echo $displayname[0]?></p>
-                <p><b>Address:</b> <?php echo $address?></p>
-                <input type="hidden" name="setaddress" value="<?php echo $address;?>">
-                <h1 class="login-title">Current Offer:</h1>
-                <p><b>Price:</b> $<?php echo $cost?> per month</p>
-                <input type="hidden" name="setcost" value="<?php echo $cost;?>">
-                <input type="hidden" name="description" value="<?php echo $description;?>">
-                <p><b>Terms:</b> <?php echo $terms?></p>
-                <input type="hidden" name="setterms" value="<?php echo $terms;?>">
-                <input type="hidden" name="pemail" value="<?php echo $pemail;?>">
-                <p><b>Penalty:</b> <?php echo $penalty[0]?></p>
-                <input type="hidden" name="setpenalty" value="<?php echo $penalty[0];?>">
-                <label class="input-header" for="afford"><b>Accept Current Offer?  </b></label>
-                <input class="input-checkbox" type="checkbox" name="accept" value="Yes" id="afford"> 
-                <h1 class="login-title">--------------OR--------------</h1><br>
-                <h1 class="login-title">Response:</h1>
-                <input type="number" class="login-input" name="newcost" placeholder="Price"/>
-                <input type="text" class="login-input" name="address" placeholder="For Address:"/>
-                <textarea rows="4" cols="40" name="newterms" placeholder="Service Terms"></textarea>
-                <br>
-                <br>
-                <textarea rows="4" cols="40" name="newpenalty" placeholder="Service Penalty"></textarea>
-                <br>
-                <br>
-                <button class="login-button">Submit</button>
-                <br><br>
-                <a class="login-button" href="home.php">Return to Dashboard</a>
-            </form>
+            
+            <div class="container">
+
+                <div class="center-content">
+
+                    <h1 class="title">Negotiate</h1>
+                    
+                    <form class="item important-item clear" action="sendnegotiate.php" method="post">
+
+                        <p class="item-subtitle">Service Name:</p>
+                        <p class="item-description"><?php echo $servicename?></p>
+                        <input type="hidden" name="servicename" value="<?php echo $servicename;?>">
+                        <input type="hidden" name="type" value="<?php echo $type;?>">
+
+                        <p class="item-subtitle">Service Provider:</p>
+                        <p class="item-description"><?php echo $providername?></p>
+                        <input type="hidden" name="pname" value="<?php echo $providername;?>">
+
+                        <p class="item-subtitle">Customer Name:</p>
+                        <p class="item-description"><?php echo $displayname[0]?></p>
+
+                        <p class="item-subtitle">Address:</p>
+                        <p class="item-description"><?php echo $address?></p>
+                        <input type="hidden" name="setaddress" value="<?php echo $address;?>">
+
+
+                        <h1 class="subtitle">Current Offer:</h1>
+
+                        <p class="item-subtitle">Price:</p>
+                        <p class="item-description">$<?php echo $cost?> per month</p>
+                        <input type="hidden" name="setcost" value="<?php echo $cost;?>">
+                        <input type="hidden" name="description" value="<?php echo $description;?>">
+
+                        <p class="item-subtitle">Terms:</p>
+                        <p class="item-description"><?php echo $terms?></p>
+                        <input type="hidden" name="setterms" value="<?php echo $terms;?>">
+                        <input type="hidden" name="pemail" value="<?php echo $pemail;?>">
+
+                        <p class="item-subtitle">Penalty:</p>
+                        <p class="item-description"><?php echo $penalty[0]?></p>
+                        <input type="hidden" name="setpenalty" value="<?php echo $penalty[0];?>">
+
+                        <div class="input inline-input" style="padding-left: 2rem;">
+                            <input class="input-checkbox" type="checkbox" name="accept" value="Yes" id="afford"> 
+                            <label class="input-header" for="afford">Accept Current Offer?</label>
+                        </div>
+
+
+                        <h1 class="title">--------------OR--------------</h1>
+
+                        <h1 class="subtitle">Response:</h1>
+
+                        <div class="input">
+                            <label for="newcost">New Price:</label>
+                            <input class="input-field white" type="number" name="newcost"/>
+                        </div>
+
+                        <div class="input">
+                            <label for="address">For Address:</label>
+                            <input class="input-field white" type="text" name="address"/>
+                        </div>
+
+                        <div class="input">
+                            <label for="newterms">New Service Terms:</label>
+                            <textarea class="input-field white" rows="4" cols="40" name="newterms"></textarea>
+                        </div>
+
+                        <div class="input">
+                            <label for="newpenalty">New Service Penalty:</label>
+                            <textarea class="input-field white" rows="4" cols="40" name="newpenalty"></textarea>
+                        </div>
+
+
+                        <button class="item-footer item-footer-button">Submit</button>
+                        <a class="item-footer item-footer-button" href="home.php">Return to Dashboard</a>
+                    </form>
+
+                </div>
+
+            </div>
 
         </main>
 
 
         <footer class="footer">
 
-        <div class="footer-container">
+            <div class="footer-container">
                 <p class="footer-subtitle">Terms and Conditions</p>
                 <p class="footer-content">
                     By using this site I consent to MyHome using my submitted data for calculations to determine services which I can afford or which I should be interested in. I also consent to MyHome providing my personal information to vendors in the event that I purchase a service from said vendor. I certify that all information submitted to this site is correct to the best of my knowledge. MyHome is not responsible for faulty results due to incorrect data. MyHome is also not responsible for difficulties in procuring an advertised service beyond the steps streamlined by our calculators. Although users should report fraudulent vendors to MyHome immediately, MyHome is not responsible for reimbursing any lost funds.

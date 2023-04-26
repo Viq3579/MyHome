@@ -66,6 +66,8 @@ COLORS:
     border: none;
     border-radius: 1rem;
     padding: .5rem;
+    resize: none;
+    overflow: hidden;
 }
 .input-checkbox {
     height: 1.5rem;
@@ -107,4 +109,8 @@ COLORS:
 }
 .submit-button:active {
     transform: translate(0px, 1px);
+}
+
+.white {
+    background: #fff;
 }
