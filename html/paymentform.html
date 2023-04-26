@@ -10,11 +10,9 @@
 
         <title>Negotiate</title>
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/home.css">
-        <!-- <link rel="stylesheet" href="../css/input-form.css"/> -->
-        <link rel="stylesheet" href="../css/adddhome.css">
-        <link rel="stylesheet" href="../css/footer.css">
+        <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/input-form.css"/>
+        <link rel="stylesheet" href="../css/footer.css">
     </head>
 
 
@@ -46,40 +44,50 @@
 
         <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
 
-            <form class="form" action="profile.php" method="post">
-                <h1 class="login-title">Payment Information</h1>
+            <div class="container">
 
-                <div class="input">
-                    <label class="input-header" for="address">Card Number:</label>
-                    <input class="input-field" type="number" id="card_number" name="card_number" required>
+                <div class="center-content">
+
+                    <form class="item important-item clear" action="profile.php" method="post">
+                        <h1 class="login-title">Payment Information</h1>
+
+                        <div class="input">
+                            <label class="input-header" for="address">Card Number:</label>
+                            <input class="input-field white" type="number" id="card_number" name="card_number" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="year_built">Expiration Month:</label>
+                            <input class="input-field white" type="month" id="exp_date" name="exp_date" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="year_built">Expiration Year:</label>
+                            <input class="input-field white" type="year" id="exp_date" name="exp_date" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="lot_size">Name On Card:</label>
+                            <input class="input-field white" type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="contype">Security Code:</label>
+                            <input class="input-field white" type="password" id="sec_code" name="sec_code" required>
+                        </div>
+
+                        <div class="g-recaptcha" style="margin-top: 1rem" data-sitekey="6Le5aJMlAAAAAAfVkQn_W8IOvOVIJOkQ7WeNgfe1"></div>
+
+                        <div class="submit-container">
+                            <button class="submit-button">Send Info</button>
+                        </div>
+                    </form>
+
                 </div>
 
-                <div class="input">
-                    <label class="input-header" for="year_built">Expiration Month:</label>
-                    <input class="input-field" type="month" id="exp_date" name="exp_date" required>
-                </div>
+            </div>
 
-                <div class="input">
-                    <label class="input-header" for="year_built">Expiration Year:</label>
-                    <input class="input-field" type="year" id="exp_date" name="exp_date" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="lot_size">Name On Card:</label>
-                    <input class="input-field" type="text" id="name" name="name" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="contype">Security Code:</label>
-                    <input class="input-field" type="password" id="sec_code" name="sec_code" required>
-                </div>
-
-                <div class="g-recaptcha" data-sitekey="6Le5aJMlAAAAAAfVkQn_W8IOvOVIJOkQ7WeNgfe1"></div>
-
-                <div class="submit-container">
-                    <button class="submit-button">Send Info</button>
-                </div>
-            </form>
+            
 
         </main>
 

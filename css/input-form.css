@@ -113,4 +113,5 @@ COLORS:
 
 .white {
     background: #fff;
+    box-shadow: 0 0 10px #16284005;
 }

@@ -88,39 +88,40 @@ include("../php/auth_session.php");
                     <h1 class="title">Negotiate</h1>
                     
                     <form class="item important-item clear" action="sendnegotiate.php" method="post">
-
-                        <p class="item-subtitle">Service Name:</p>
-                        <p class="item-description"><?php echo $servicename?></p>
                         <input type="hidden" name="servicename" value="<?php echo $servicename;?>">
                         <input type="hidden" name="type" value="<?php echo $type;?>">
+                        <input type="hidden" name="pname" value="<?php echo $providername;?>">
+                        <input type="hidden" name="setaddress" value="<?php echo $address;?>">
+                        <input type="hidden" name="setcost" value="<?php echo $cost;?>">
+                        <input type="hidden" name="description" value="<?php echo $description;?>">
+                        <input type="hidden" name="setterms" value="<?php echo $terms;?>">
+                        <input type="hidden" name="pemail" value="<?php echo $pemail;?>">
+                        <input type="hidden" name="setpenalty" value="<?php echo $penalty[0];?>">
+
+                        
+                        <p class="item-subtitle">Service Name:</p>
+                        <p class="item-description"><?php echo $servicename?></p>
 
                         <p class="item-subtitle">Service Provider:</p>
                         <p class="item-description"><?php echo $providername?></p>
-                        <input type="hidden" name="pname" value="<?php echo $providername;?>">
 
                         <p class="item-subtitle">Customer Name:</p>
                         <p class="item-description"><?php echo $displayname[0]?></p>
 
                         <p class="item-subtitle">Address:</p>
                         <p class="item-description"><?php echo $address?></p>
-                        <input type="hidden" name="setaddress" value="<?php echo $address;?>">
 
 
                         <h1 class="subtitle">Current Offer:</h1>
 
                         <p class="item-subtitle">Price:</p>
                         <p class="item-description">$<?php echo $cost?> per month</p>
-                        <input type="hidden" name="setcost" value="<?php echo $cost;?>">
-                        <input type="hidden" name="description" value="<?php echo $description;?>">
 
                         <p class="item-subtitle">Terms:</p>
                         <p class="item-description"><?php echo $terms?></p>
-                        <input type="hidden" name="setterms" value="<?php echo $terms;?>">
-                        <input type="hidden" name="pemail" value="<?php echo $pemail;?>">
 
                         <p class="item-subtitle">Penalty:</p>
                         <p class="item-description"><?php echo $penalty[0]?></p>
-                        <input type="hidden" name="setpenalty" value="<?php echo $penalty[0];?>">
 
                         <div class="input inline-input" style="padding-left: 2rem;">
                             <input class="input-checkbox" type="checkbox" name="accept" value="Yes" id="afford"> 
@@ -151,7 +152,6 @@ include("../php/auth_session.php");
                             <label for="newpenalty">New Service Penalty:</label>
                             <textarea class="input-field white" rows="4" cols="40" name="newpenalty"></textarea>
                         </div>
-
 
                         <button class="item-footer item-footer-button">Submit</button>
                         <a class="item-footer item-footer-button" href="home.php">Return to Dashboard</a>

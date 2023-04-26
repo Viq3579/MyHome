@@ -12,7 +12,7 @@ include("../php/auth_session.php");
 
         <title>Add Home</title>
         <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/home.css">
+        <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
@@ -114,98 +114,108 @@ include("../php/auth_session.php");
             </div>
 
         </header>
+        
 
         <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
+
+            <div class="container">
+
+                <div class="center-content">
     
-            <form class="form" action="" method="post">
+                    <form class="item important-item clear" action="" method="post">
 
-                <h1 class="login-title">Add Home</h1>
+                        <h1 class="login-title">Add Home</h1>
 
-                <div class="input">
-                    <label class="input-header" for="address">Address:</label>
-                    <input class="input-field" type="text" id="address" name="address" required>
+                        <div class="input">
+                            <label class="input-header" for="address">Address:</label>
+                            <input class="input-field white" type="text" id="address" name="address" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="year_built">Year Built:</label>
+                            <input class="input-field white" type="text" id="year_built" name="year_built" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="lot_size">Lot Size (square feet):</label>
+                            <input class="input-field white" type="number" id="lot_size" name="lot_size" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="contype">Construction Type:</label>
+                            <input class="input-field white" type="text" id="contype" name="contype" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="garage">Garage Size:</label>
+                            <input class="input-field white" type="number" id="garage" name="garage" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="floors">Floors:</label>
+                            <input class="input-field white" type="number" id="floors" name="floors" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="cooltype">Cooling Type:</label>
+                            <input class="input-field white" type="text" id="cooltype" name="cooltype" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="floorspace">Floor Space (square feet):</label>
+                            <input class="input-field white" type="number" id="floorspace" name="floorspace" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="bathrooms">Bathrooms:</label>
+                            <input class="input-field white" type="number" id="bathrooms" name="bathrooms" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="heattype">Heating Type:</label>
+                            <input class="input-field white" type="text" id="heattype" name="heattype" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="heattime">Heating Time (minutes):</label>
+                            <input class="input-field white" type="number" id="heattime" name="heattime" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="bedrooms">Bedrooms:</label>
+                            <input class="input-field white" type="number" id="bedrooms" name="bedrooms" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="proptype">Property Type:</label>
+                            <input class="input-field white" type="text" id="proptype" name="proptype" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="rooftype">Roof Design:</label>
+                            <input class="input-field white" type="text" id="rooftype" name="rooftype" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="foundation">Foundation Type:</label>
+                            <input class="input-field white" type="text" id="foundation" name="foundation" required>
+                        </div>
+
+                        <div class="submit-container">
+                            <button class="submit-button">Update Account</button>
+                        </div>
+                    </form>
+
                 </div>
 
-                <div class="input">
-                    <label class="input-header" for="year_built">Year Built:</label>
-                    <input class="input-field" type="text" id="year_built" name="year_built" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="lot_size">Lot Size (square feet):</label>
-                    <input class="input-field" type="number" id="lot_size" name="lot_size" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="contype">Construction Type:</label>
-                    <input class="input-field" type="text" id="contype" name="contype" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="garage">Garage Size:</label>
-                    <input class="input-field" type="number" id="garage" name="garage" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="floors">Floors:</label>
-                    <input class="input-field" type="number" id="floors" name="floors" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="cooltype">Cooling Type:</label>
-                    <input class="input-field" type="text" id="cooltype" name="cooltype" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="floorspace">Floor Space (square feet):</label>
-                    <input class="input-field" type="number" id="floorspace" name="floorspace" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="bathrooms">Bathrooms:</label>
-                    <input class="input-field" type="number" id="bathrooms" name="bathrooms" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="heattype">Heating Type:</label>
-                    <input class="input-field" type="text" id="heattype" name="heattype" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="heattime">Heating Time (minutes):</label>
-                    <input class="input-field" type="number" id="heattime" name="heattime" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="bedrooms">Bedrooms:</label>
-                    <input class="input-field" type="number" id="bedrooms" name="bedrooms" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="proptype">Property Type:</label>
-                    <input class="input-field" type="text" id="proptype" name="proptype" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="rooftype">Roof Design:</label>
-                    <input class="input-field" type="text" id="rooftype" name="rooftype" required>
-                </div>
-
-                <div class="input">
-                    <label class="input-header" for="foundation">Foundation Type:</label>
-                    <input class="input-field" type="text" id="foundation" name="foundation" required>
-                </div>
-
-                <div class="submit-container">
-                    <button class="submit-button">Update Account</button>
-                </div>
-            </form>
+            </div>
         
         </main>
 
+
         <footer class="footer">
 
-        <div class="footer-container">
+            <div class="footer-container">
                 <p class="footer-subtitle">Terms and Conditions</p>
                 <p class="footer-content">
                     By using this site I consent to MyHome using my submitted data for calculations to determine services which I can afford or which I should be interested in. I also consent to MyHome providing my personal information to vendors in the event that I purchase a service from said vendor. I certify that all information submitted to this site is correct to the best of my knowledge. MyHome is not responsible for faulty results due to incorrect data. MyHome is also not responsible for difficulties in procuring an advertised service beyond the steps streamlined by our calculators. Although users should report fraudulent vendors to MyHome immediately, MyHome is not responsible for reimbursing any lost funds.
