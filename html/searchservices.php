@@ -382,6 +382,29 @@ include("../php/auth_session.php");
                     <?php
                     }
                     ?>
+                    <?php
+                    $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, address, type FROM customservice WHERE cemail='$sanemail'");
+                    while($row = mysqli_fetch_array($result))
+                    {
+                    ?>
+
+                        <div class="item">
+                            <div class="item-title-container">
+                                <i class="item-title fa-solid fa-bolt"></i>
+                                <h3 class="item-title"><?php echo $row['service_name'];?></h3>
+                            </div>
+                            <p class="item-description">
+                                <?php echo $row['description'];?><br><br>
+                                Type: <?php echo $row['type'];?><br><br>
+                                Terms: <?php echo $row['terms'];?>
+                                Address: <?php echo $row['address'];?>
+                            </p>
+                            <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
+                        </div>
+
+                    <?php
+                    }
+                    ?>
 
                 </div>
 

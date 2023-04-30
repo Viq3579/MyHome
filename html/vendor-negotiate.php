@@ -60,28 +60,7 @@ if (isset($_POST["acceptButton"])) {
     );
 
     $stmt->execute();
-
-    $sql = "INSERT INTO hasservice (owner_email, service_name, provider_email, address, custom)
-    VALUES (?, ?, ?, ?, ?)";
-
-    $stmt = $mysqli->stmt_init();
-
-    $custom = 1;
-
-    if (!$stmt->prepare($sql)) {
-    die ("SQL Error: " . $mysqli->error);
-    }
-
-        $stmt->bind_param("sssss", 
-        $negotiation["cemail"],
-        $negotiation["sname"],
-        $mysqli->real_escape_string($_SESSION["email"]),
-        $negotiation["address"],
-        $custom
-    );
-
-$stmt->execute();
-
+    
     $sql = sprintf("DELETE FROM offers
                     WHERE cemail = '%s'
                     AND pemail = '%s'
