@@ -30,6 +30,46 @@ $sql = $sql . sprintf("AND s.provider = '%s'", $mysqli->real_escape_string($_SES
 
 $client_result = $mysqli->query($sql);
 
+
+// Contract Dishonor Penalty
+if (isset($_POST["customer_email"])) {
+
+    $sql = "INSERT INTO customservice (name, cemail, address, type, cost, description, terms, penalty, provider)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $mysqli->stmt_init();
+
+    if (!$stmt->prepare($sql)) {
+        die ("SQL Error: " . $mysqli->error);
+    }
+
+    $contract_penalty = "Contract Dishonor Penalty Fee";
+    $contract_penalty_cemail = $mysqli->real_escape_string($_POST["customer_email"]);
+    $contract_penalty_type = "Contract Penalty";
+    $contract_penalty_cost = "50";
+    $contract_penalty_description = "Contract dishonor penalty for " . $_POST["service"] . ". Payment will be taken from your next monthly payment.";
+    $contract_penalty_terms = "Penalty fee for " . $_POST["service"] . ". Penalty Fee cost: "  . $contract_penalty_cost;
+    $contract_penalty_penalty = "Failure to provide payment will terminate the service subscribed to.";
+    $contract_penalty_pemail = $mysqli->real_escape_string($_SESSION["email"]);
+
+    $stmt->bind_param("sssssssss", 
+        $contract_penalty, 
+        $contract_penalty_cemail, 
+        $_POST["address"], 
+        $contract_penalty_type, 
+        $contract_penalty_cost, 
+        $contract_penalty_description,
+        $contract_penalty_terms,
+        $contract_penalty_penalty,
+        $contract_penalty_pemail
+    );
+
+    $stmt->execute();
+
+    header("Location: #");
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +123,7 @@ $client_result = $mysqli->query($sql);
 
                     <table class="table">
                         <tr class=" table-head">
-                            <th class="table-col-head">Actions</th>
+                            <th class="table-col-head">Contract <br> Dishonor</th>
                             <th class="table-col-head">Name</th>
                             <th class="table-col-head">Address</th>
                             <th class="table-col-head">Email</th>
@@ -93,14 +133,36 @@ $client_result = $mysqli->query($sql);
 
                         <?php
                         while($client = $result->fetch_assoc()) {
-                            echo "<tr class=\"table-row\">";
-                            echo    "<td class=\"table-col\">Negotiate</td>";
-                            echo    "<td class=\"table-col\" data-cell=\"name\">" . $client["name"] . "</td>";
-                            echo    "<td class=\"table-col\" data-cell=\"address\">" . $client["address"] . "</td>";
-                            echo    "<td class=\"table-col\" data-cell=\"email\">" . $client["email"] . "</td>";
-                            echo    "<td class=\"table-col\" data-cell=\"service\">" . $client["service"] . "</td>";
-                            echo    "<td class=\"table-col\" data-cell=\"cost\">$" . $client["cost"] . "</td>";
-                            echo "</tr>";
+                        ?>
+                            <tr class="table-row">
+                                <td class="table-col">
+                                    <form method="post">
+                                        <input type="hidden" id="customer_email" name="customer_email" value="<?php echo $client["email"] ?>">
+                                        <input type="hidden" id="service" name="service" value="<?php echo $client["service"] ?>">
+                                        <input type="hidden" id="address" name="address" value="<?php echo $client["address"] ?>">
+                                        <button class="table-action">
+                                            <i class="fa-solid fa-ban"></i>
+                                            <p class="table-action-description">Contract Dishonor</p>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td class="table-col" data-cell="name">
+                                    <?php echo $client["name"] ?>
+                                </td>
+                                <td class="table-col" data-cell="address">
+                                    <?php echo $client["address"] ?>
+                                </td>
+                                <td class="table-col" data-cell="email">
+                                    <?php echo $client["email"] ?>
+                                </td>
+                                <td class="table-col" data-cell="service">
+                                    <?php echo $client["service"] ?>
+                                </td>
+                                <td class="table-col" data-cell="cost">
+                                    $<?php echo $client["cost"] ?>
+                                </td>
+                            </tr>
+                        <?php
                         }
                         ?>
                     </table>
@@ -114,16 +176,24 @@ $client_result = $mysqli->query($sql);
                     <?php
                     $i = 0;
                     while ( ($potential_client = $client_result->fetch_assoc()) && ($i < 25) ) {
+                    ?>
+                        <div class="item small-item">
+                            <div class="item-title-container">
+                                <i class="item-title fa-solid fa-user"></i>
+                                <h3 class="item-title">
+                                    <?php echo $potential_client["c_name"] ?>
+                                </h3>
+                            </div>
+                            <button class="item-footer item-footer-button" 
+                                    id="popupButton" 
+                                    data-name="<?php echo $potential_client["c_name"] ?>"
+                                    data-email="<?php echo $potential_client["c_email"] ?>">
+                                <b>Contact</b>
+                            </button>
+                        </div>
 
-                        echo "<div class=\"item small-item\">";
-                        echo    "<div class=\"item-title-container\">";
-                        echo        "<i class=\"item-title fa-solid fa-user\"></i>";
-                        echo        "<h3 class=\"item-title\">" . $potential_client["c_name"] . "</h3>";
-                        echo    "</div>";
-                        echo    "<button class=\"item-footer item-footer-button\" id=\"popupButton\" data-name=\"" . $potential_client["c_name"] . "\" data-email=\"" . $potential_client["c_email"] . "\"><b>Contact</b></button>";
-                        echo "</div>";
-
-                        $i++;
+                    <?php
+                    $i++;
                     }
                     ?>
 
