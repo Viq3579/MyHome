@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $mysqli = require __DIR__ . "/../php/database.php";
 
-    $sql = "DELETE FROM outsideservice WHERE ((name=? and customer_email=?) and (address=? or address is NULL))";
+    $sql = "DELETE FROM outsideservice WHERE ((name=? and customer_email=?) and (address=? or address='NOT APPLICABLE'))";
 
     $stmt = $mysqli->stmt_init();
 

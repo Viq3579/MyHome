@@ -52,15 +52,17 @@ include("../php/auth_session.php");
                         $sname = stripslashes($_REQUEST['servicename']);
                         $pemail = stripslashes($_REQUEST['pemail']);
                         $pname = stripslashes($_REQUEST['pname']);
-                        if (isset($_POST["accept"]))
+                        if (isset($_POST["accept"]) && $_POST["type"] == 'Yes')
                         {
-                            $accept = $_POST["accept"];
+                            $accept = "Yes";
+                            //echo "actually this guy ran";
                         } else {
                             $accept = "NO";
+                            //echo "this guy ran";
                         }
 
 
-                        if ($accept = "Yes"){
+                        if ($accept == "Yes"){
                             $address = $_POST["setaddress"];
                             $cost = $_POST["setcost"];
                             $terms = $_POST["setterms"];
@@ -158,8 +160,8 @@ include("../php/auth_session.php");
                                 $address = $_POST["setaddress"];
                             }
                             
-                            if ($_POST["price"] != NULL){
-                                $cost = $_POST["price"];
+                            if ($_POST["newcost"] != NULL){
+                                $cost = $_POST["newcost"];
                                 $custom = 1;
                             } else {
                                 $cost = $_POST["setcost"];

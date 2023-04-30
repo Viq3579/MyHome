@@ -110,6 +110,25 @@ if (isset($_POST["acceptButton"])) {
 
         $stmt->execute();
 
+        $sql = "INSERT INTO hasservice (owner_email, service_name, provider_email, address, custom)
+        VALUES (?, ?, ?, ?, ?)";
+
+        $stmt = $mysqli->stmt_init();
+
+        if (!$stmt->prepare($sql)) {
+            die ("SQL Error: " . $mysqli->error);
+        }
+
+        $stmt->bind_param("sssss", 
+            $customer_email,
+            $service_name,
+            $mysqli->real_escape_string($_SESSION["email"]),
+            $address,
+            $custom
+        );
+
+        $stmt->execute();
+
     }
 
 

@@ -13,49 +13,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $mysqli = require __DIR__ . "/../php/database.php";
 
-    $name = stripslashes($_REQUEST['name']);
+    $name = stripslashes($_POST["name"]);
     //escapes special characters in a string
     $name = mysqli_real_escape_string($mysqli, $name);
-    $provider = stripslashes($_REQUEST['provider']);
+    $provider = stripslashes($_POST["provider"]);
     $provider = mysqli_real_escape_string($mysqli, $provider);
     $email = $_SESSION["email"];
-    $address = $_POST["provider"];
+    $address = $_POST["address"];
     $cost = $_POST["cost"];
     $type = $_POST["type"];
     $desc = $_POST["description"]; 
     $terms = $_POST["terms"];
     $penalty = $_POST["penalty"];
-
-
     
     $query = "SELECT email FROM provider WHERE name = '$provider'";
     $result = mysqli_query($mysqli, $query);
     $temp = mysqli_fetch_array($result);
-    $pemail = $temp[0];
+    if ($temp){
+        $pemail = $temp[0];
 
-    $query = "SELECT * FROM service WHERE provider = '$pemail' AND name = '$name'";
+    } else {
+        $pemail = "Not Applicable";
+    }
+    //$pemail = $temp[0];
+
+    $query = "SELECT name FROM service WHERE provider = '$pemail' AND name = '$name'";
     $result = mysqli_query($mysqli, $query);
-    if ($result){
+    $temp = mysqli_fetch_array($result);
+    //$wtf = $temp[0];
+    if ($temp[0]) {
         $query = "SELECT * FROM service WHERE provider = '$pemail' AND name = '$name' AND cost = '$cost' AND type = '$type' AND description = '$desc' AND penalty = '$penalty'";
         $result = mysqli_query($mysqli, $query);
-        if ($result){
+        if ($result) {
             $custom = 0;
         } else {
             $custom = 1;
         }
-        $sql = "INSERT INTO unverifiedservice (name, provider, type, cemail, cost, description, terms, penalty, address, custom)
+        $sql2 = "INSERT INTO unverifiedservice (name, provider, type, cemail, cost, description, terms, penalty, address, custom)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, $custom)";
+        $stmt = $mysqli->stmt_init();
+        
+        if (!$stmt->prepare($sql2)) {
+            die ("SQL Error: " . $mysqli->error);
+        }
     } else {
-        $sql = "INSERT INTO outsideservice (name, provider, type, customer_email, cost, description, terms, penalty, address)
+        $sql3 = "INSERT INTO outsideservice (name, provider, type, customer_email, cost, description, terms, penalty, address)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $mysqli->stmt_init();
+            
+        if (!$stmt->prepare($sql3)) {
+            die ("SQL Error: " . $mysqli->error);
+        }
     }
 
-
-    $stmt = $mysqli->stmt_init();
-
-    if (!$stmt->prepare($sql)) {
-        die ("SQL Error: " . $mysqli->error);
-    }
 
 
 
@@ -74,10 +84,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     else
     {
         if ($_POST["ownerorhome"] == 'Owner') {
-            $address = NULL;
+            $address = "NOT APPLICABLE";
             $stmt->bind_param("sssssssss", 
-            $_POST["name"], 
-            $_POST["provider"],
+            $name,
+            $provider,
             $_POST["type"], 
             $_SESSION["email"], 
             $_POST["cost"], 
@@ -88,8 +98,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             );
         } else if ($_POST["ownerorhome"] == 'Home') {
             $stmt->bind_param("sssssssss", 
-            $_POST["name"],
-            $_POST["provider"], 
+            $name,
+            $provider, 
             $_POST["type"], 
             $_SESSION["email"], 
             $_POST["cost"], 

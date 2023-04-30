@@ -124,8 +124,8 @@ include("../php/auth_session.php");
                         <p class="item-description"><?php echo $penalty[0]?></p>
 
                         <div class="input inline-input" style="padding-left: 2rem;">
-                            <input class="input-checkbox" type="checkbox" name="accept" value="Yes" id="afford"> 
-                            <label class="input-header" for="afford">Accept Current Offer?</label>
+                            <input class="input-checkbox" type="checkbox" name="accept" value="Yes" id="accept"> 
+                            <label class="input-header" for="accept">Accept Current Offer?</label>
                         </div>
 
 

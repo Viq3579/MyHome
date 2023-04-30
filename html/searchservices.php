@@ -56,8 +56,8 @@ include("../php/auth_session.php");
             $typequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$name' AND P.email=S.provider";
             $namequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider";
         } else {
-            $stypequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE type='$name' AND P.email=S.provider AND cost <= '$maxprice'";
-            $snamequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE name='$name' AND P.email=S.provider AND cost <= '$maxprice'";
+            $stypequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE S.type='$name' AND P.email=S.provider AND cost <= '$maxprice'";
+            $snamequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE S.name='$name' AND P.email=S.provider AND cost <= '$maxprice'";
             $typequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.type='$name' AND P.email=S.provider AND S.cost <= '$maxprice'";
             $namequery = "SELECT S.name AS sname, P.name AS pname, P.email AS pemail, S.type, S.description, S.terms, S.cost FROM service AS S, provider AS P WHERE P.name='$name' AND P.email=S.provider AND S.cost <= '$maxprice'";
     
