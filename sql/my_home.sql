@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2023 at 06:39 AM
+-- Generation Time: Apr 30, 2023 at 11:33 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -76,6 +76,7 @@ CREATE TABLE `customservice` (
 --
 
 INSERT INTO `customservice` (`name`, `cemail`, `address`, `type`, `cost`, `description`, `terms`, `penalty`, `provider`) VALUES
+('Contract Dishonor Penalty Fee', 'cust1@gmail.com', 'Not Specified', 'Contract Penalty', 50, 'Contract dishonor penalty for Standard Electricity. Payment will be taken from your next monthly payment.', 'Penalty fee for Standard Electricity. Penalty Fee cost: 50', 'Failure to provide payment will terminate the service subscribed to.', 'jamesp@gmail.com'),
 ('Premium Electricity', 'cust2@gmail.com', '3780 Elm Street', 'Electricity', 250, 'The premium electricity plan designed for power users or large families.', 'lorem ipsum', 'Termination of service', 'jamesp@gmail.com'),
 ('Standard Electricity', 'pleasework@gmail.com', 'Not Specified', 'Electricity', 200, 'The basic electricity plan designed for common users.', 'Lorem ipsum.', 'Electricity will be shut down', 'jamesp@gmail.com');
 

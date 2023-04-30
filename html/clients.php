@@ -181,7 +181,7 @@ if (isset($_POST["customer_email"])) {
                             <div class="item-title-container">
                                 <i class="item-title fa-solid fa-user"></i>
                                 <h3 class="item-title">
-                                    <?php $potential_client["c_name"] ?>
+                                    <?php echo $potential_client["c_name"] ?>
                                 </h3>
                             </div>
                             <button class="item-footer item-footer-button" 
