@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2023 at 11:33 AM
+-- Generation Time: May 02, 2023 at 12:08 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -31,6 +31,7 @@ CREATE TABLE `customer` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone_num` bigint(11) NOT NULL,
+  `family_size` int(11) NOT NULL,
   `family_income` float NOT NULL,
   `num_cars` int(11) NOT NULL,
   `misc_expenses` float NOT NULL
@@ -40,18 +41,18 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`name`, `email`, `phone_num`, `family_income`, `num_cars`, `misc_expenses`) VALUES
-('Average Customer', 'cust1@gmail.com', 2223337777, 50000, 1, 10000),
-('John Smith', 'cust2@gmail.com', 1231231234, 60000, 2, 15000),
-('John Smith', 'cust4@gmail.com', 1234561234, 50000, 2, 15000),
-('hello', 'doesisworkfromhere@gmail.com', 2147483647, 555, 5, 5555),
-('Steve', 'gobledygook@gmail.com', 9098084040, 250000, 1, 50000),
-('Ian', 'ianisawesome9@live.com', 4564568989, 100000, 2, 1000),
-('Ian Finnigan', 'pleasework@gmail.com', 2088814537, 1e26, 16, 10000),
-('Test McSample', 'sample@gmail.com', 5556667777, 10000, 1, 100),
-('test test', 'testingduplicatephone@gmail.com', 987654321, 123, 54, 12343),
-('try not same', 'thisiscompletelynew@gmail.com', 1234567890, 6, 6, 6),
-('youcanchangethemnow', 'thisshouldgoincustomertable@gmail.com', 8989898989, 88, 1000, 999);
+INSERT INTO `customer` (`name`, `email`, `phone_num`, `family_size`, `family_income`, `num_cars`, `misc_expenses`) VALUES
+('Average Customer', 'cust1@gmail.com', 2223337777, 5, 50000, 1, 10000),
+('John Smith', 'cust2@gmail.com', 1231231234, 3, 60000, 2, 15000),
+('John Smith', 'cust4@gmail.com', 1234561234, 4, 50000, 2, 15000),
+('hello', 'doesisworkfromhere@gmail.com', 2147483647, 1, 555, 5, 5555),
+('Steve', 'gobledygook@gmail.com', 9098084040, 2, 250000, 1, 50000),
+('Ian', 'ianisawesome9@live.com', 4564568989, 1, 100000, 2, 1000),
+('Ian Finnigan', 'pleasework@gmail.com', 2088814537, 1, 1e26, 16, 10000),
+('Test McSample', 'sample@gmail.com', 5556667777, 1, 10000, 1, 100),
+('test test', 'testingduplicatephone@gmail.com', 987654321, 1, 123, 54, 12343),
+('try not same', 'thisiscompletelynew@gmail.com', 1234567890, 1, 6, 6, 6),
+('youcanchangethemnow', 'thisshouldgoincustomertable@gmail.com', 8989898989, 1, 88, 1000, 999);
 
 -- --------------------------------------------------------
 
@@ -121,10 +122,9 @@ CREATE TABLE `home` (
   `year_built` int(11) NOT NULL,
   `property_type` varchar(128) NOT NULL,
   `heating_type` varchar(128) NOT NULL,
-  `heating_time` time NOT NULL,
   `num_floors` int(11) NOT NULL,
   `floor_space` float NOT NULL,
-  `roof` float NOT NULL,
+  `roof` varchar(128) NOT NULL,
   `bathrooms` int(11) NOT NULL,
   `foundation` varchar(128) NOT NULL,
   `bedrooms` int(11) NOT NULL,
@@ -135,17 +135,17 @@ CREATE TABLE `home` (
 -- Dumping data for table `home`
 --
 
-INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, `garage_size`, `year_built`, `property_type`, `heating_type`, `heating_time`, `num_floors`, `floor_space`, `roof`, `bathrooms`, `foundation`, `bedrooms`, `owner_email`) VALUES
-('1010 10th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'sample@gmail.com'),
-('123 Main Street', 123, 'There should only be one of these now', 'I think i fixed it', 5, 10101, 'Home', 'Fireplace', '00:00:04', 34, 5623550, 0, 1, 'please', 6, 'thirdtimesthecharm@yahoo.com'),
-('345 Birch Street', 5000, 'AC', 'Brick', 500, 2000, 'Home', 'Natural Gas', '00:00:00', 2, 4000, 0, 4, 'Concrete', 4, 'cust4@gmail.com'),
-('3780 Elm Street', 5000, 'AC', 'Brick', 800, 2002, 'Home', 'Natural Gas', '00:00:00', 3, 4000, 0, 2, 'Concrete', 4, 'cust2@gmail.com'),
-('380 Palm Street', 6000, 'AC', 'Brick', 600, 2000, 'Home', 'Natural Gas', '00:00:00', 3, 4000, 0, 3, 'Concrete', 4, 'cust1@gmail.com'),
-('444 4th Street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'pleasework@gmail.com'),
-('555 5th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'doesisworkfromhere@gmail.com'),
-('616161 89th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com'),
-('777 7th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com'),
-('888 9th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', '00:00:05', 45, 123344, 0, 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com');
+INSERT INTO `home` (`address`, `lot_size`, `cooling_type`, `construction_type`, `garage_size`, `year_built`, `property_type`, `heating_type`, `num_floors`, `floor_space`, `roof`, `bathrooms`, `foundation`, `bedrooms`, `owner_email`) VALUES
+('1010 10th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', 45, 123344, '0', 67, 'concrete', 5, 'sample@gmail.com'),
+('123 Main Street', 123, 'There should only be one of these now', 'I think i fixed it', 5, 10101, 'Home', 'Fireplace', 34, 5623550, '0', 1, 'please', 6, 'thirdtimesthecharm@yahoo.com'),
+('345 Birch Street', 5000, 'AC', 'Brick', 500, 2000, 'Home', 'Natural Gas', 2, 4000, '0', 4, 'Concrete', 4, 'cust4@gmail.com'),
+('3780 Elm Street', 5000, 'AC', 'Brick', 800, 2002, 'Home', 'Natural Gas', 3, 4000, '0', 2, 'Concrete', 4, 'cust2@gmail.com'),
+('380 Palm Street', 6000, 'AC', 'Brick', 600, 2000, 'Home', 'Natural Gas', 3, 4000, '0', 3, 'Concrete', 4, 'cust1@gmail.com'),
+('444 4th Street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', 45, 123344, '0', 67, 'concrete', 5, 'pleasework@gmail.com'),
+('555 5th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', 45, 123344, '0', 67, 'concrete', 5, 'doesisworkfromhere@gmail.com'),
+('616161 89th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', 45, 123344, '0', 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com'),
+('777 7th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', 45, 123344, '0', 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com'),
+('888 9th street', 0, 'if there\'smore than one of this i fucked up', 'this has been replaced.', 7, 1010, 'home', 'test test', 45, 123344, '0', 67, 'concrete', 5, 'thirdtimesthecharm@yahoo.com');
 
 -- --------------------------------------------------------
 
@@ -342,6 +342,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`email`, `password_hash`, `user_type`) VALUES
 ('asftgsdafgdrs@gmail.com', '$2y$10$Crzcxa4QPiZI4dGtp3uBduG8xDdjFHZo3G9Z8Yh937pvmjvLA4pp6', 'Client'),
 ('asftgsdafgds@gmail.com', '$2y$10$t2CX7jV/pEcxYRapBxj4keLbWZhzX2mmi8QaFDEwbsbwovgm0qMES', 'Client'),
+('cust10@gmail.com', '$2y$10$AwNZzzTvXMPUKZAR3EUaz.Jf8UprOBiLxjYWxIvYcXIxWZNtTr9m6', 'Client'),
 ('cust1@gmail.com', '$2y$10$2rfLO20EKkFYW9m1ilFSzOELPxYrjCt/nD9d7pNtlF1yPtvLF.J/u', 'Client'),
 ('cust2@gmail.com', '$2y$10$LyG.A97xkHODQiA.VhunheGlbNnDUjXiJMlBK2.Rw0sMRE99JhBU2', 'Client'),
 ('cust4@gmail.com', '$2y$10$ZS7XcYIQ7VIunUszDeB0WejX9V6TqFODdJNBPEruL4eLqugCzCPrq', 'Client'),
@@ -433,7 +434,7 @@ ALTER TABLE `quoterequest`
 -- Indexes for table `service`
 --
 ALTER TABLE `service`
-  ADD PRIMARY KEY (`name`);
+  ADD PRIMARY KEY (`name`,`provider`);
 
 --
 -- Indexes for table `unverifiedservice`
