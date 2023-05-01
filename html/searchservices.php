@@ -29,10 +29,11 @@ include("../php/service_icon.php");
         {
             $name = stripslashes($_REQUEST['name']);
             $name = mysqli_real_escape_string($mysqli, $name);
+            $name = trim($name, "\n");
         } else {
             $name = "NULL";
         }
-        
+        //echo "$name";
         $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
         $result = mysqli_query($mysqli, "SELECT family_income FROM customer WHERE email = '$sanemail'");
         $temp = mysqli_fetch_array($result);
@@ -184,6 +185,7 @@ include("../php/service_icon.php");
 
                     if ($name != NULL)
                     {
+                        //echo "we are here";
                         $result = mysqli_query($mysqli, $snamequery);
                         while($row = mysqli_fetch_array($result))
                         {
