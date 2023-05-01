@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2023 at 12:08 AM
+-- Generation Time: May 02, 2023 at 12:50 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -392,7 +392,7 @@ ALTER TABLE `customservice`
 -- Indexes for table `hasservice`
 --
 ALTER TABLE `hasservice`
-  ADD PRIMARY KEY (`owner_email`,`service_name`,`address`);
+  ADD PRIMARY KEY (`owner_email`,`service_name`,`provider_email`,`address`);
 
 --
 -- Indexes for table `home`
@@ -422,7 +422,8 @@ ALTER TABLE `password_resets`
 -- Indexes for table `provider`
 --
 ALTER TABLE `provider`
-  ADD PRIMARY KEY (`email`) USING BTREE;
+  ADD PRIMARY KEY (`email`) USING BTREE,
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `quoterequest`

@@ -82,7 +82,7 @@ include("../php/auth_session.php");
                                 // Varify key is Unique
                                 $sql = sprintf("SELECT *
                                 FROM hasservice
-                                WHERE owner_email = '$cemail' AND service_name = '$sname' AND address = '$address'",
+                                WHERE owner_email = '$cemail' AND service_name = '$sname' AND provider_email = '$pemail' AND address = '$address'",
                                 $mysqli->real_escape_string($_POST["address"]));
                     
                                 $result = $mysqli->query($sql);

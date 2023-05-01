@@ -96,7 +96,7 @@ include("../php/service_icon.php");
 
                     <?php
                     require('../php/database.php');
-                    $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, address, type FROM hasservice, service WHERE owner_email='$sanemail' and service_name = name and custom = 0");
+                    $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, address, type FROM hasservice, service WHERE owner_email='$sanemail' and service_name = name and provider_email = provider and custom = 0");
                     while($row = mysqli_fetch_array($result))
                     {
                     ?>
