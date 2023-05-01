@@ -85,33 +85,33 @@
                     <div class="info-card-icon">
                         <i class="fa-solid fa-house"></i>
                     </div>
-                    <div class="info-card-text">
-                        <h1>What We Do</h1>
-                        <p>
+                    <div class="info-card-description">
+                        <h2 class="info-card-title">What We Do</h2>
+                        <p class="info-card-text">
                             Here at MyHome, we provide a convenient interface for finding & managing all the services you or your home need. You can track existing services, document your home information, and find new services all with the press of a button. We'll even assess your needs and recommend the services we think best fit your situation and budget. So what are you waiting for? Sign Up Today!
                             <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui provident cupiditate iste repudiandae quasi ut eum fuga, aperiam voluptatum atque vel ex animi officiis voluptatibus dolore, quas eligendi assumenda unde deleniti neque accusamus. Ab, voluptatum est quisquam minima vitae autem vero aperiam pariatur commodi praesentium necessitatibus reiciendis maxime quod iure. -->
                         </p>
                     </div>
                 </div>
                 <div class="info-card info-card-r">
-                    <div class="info-card-text">
-                        <h1>For Vendors...</h1>
-                        <p>
+                    <div class="info-card-icon">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <div class="info-card-description">
+                        <h2 class="info-card-title">For Vendors...</h2>
+                        <p class="info-card-text">
                             If you're a vendor, we provide a convenient storefront for listing and advertising all the services your company offers. We'll find you the customers that best match your services, and even allow you to negotiate with the more savvy clients out there. All your current clients are listed in one convenient space, so no more annoying bookkeeping to keep track of these things!
                             <!-- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum tempora repellat dicta voluptas animi qui placeat, nam earum eaque, fugiat officiis quasi rerum, perferendis et inventore alias ipsam. Pariatur error vel quos non perspiciatis reprehenderit! Aliquid accusamus magni iure delectus adipisci, quidem illo. Deleniti quia, ratione reiciendis sint sapiente cumque. -->
                         </p>
-                    </div>
-                    <div class="info-card-icon">
-                        <i class="fa-solid fa-handshake"></i>
                     </div>
                 </div>
                 <div class="info-card info-card-l">
                     <div class="info-card-icon">
                         <i class="fa-solid fa-building"></i>
                     </div>
-                    <div class="info-card-text">
-                        <h1>How It Works</h1>
-                        <p>
+                    <div class="info-card-description">
+                        <h2 class="info-card-title">How It Works</h2>
+                        <p class="info-card-text">
                             As a customer, you'll provide us with basic information about your home, vehicles, and general financial situation. You'll also be able to list any existing services you already have. We'll then use this information, assessing your needs and current services, to calculate a list of recommended services. You'll also be able search for specific services and filter them by affordability.
                             <br><br>
                             As a vendor, you provide us with some basic information about your company and one or more services, and then we take care of the rest! We'll bring the customers to you, and all you have to do is verify customer requests and do some occaisonal negotiation.

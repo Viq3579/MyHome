@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <title>MyHome - Login</title>
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/login-signup.css">
+        <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
 
@@ -55,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <header class="header">
 
             <div class="header-container">
-                <h1><a class="header-logo" href="../index.html">MyHome</a></h1>
+                <h1><a class="header-logo" href="../index.php">MyHome</a></h1>
                 
                 
                 <div class="header-cta">
@@ -85,8 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="submit-container">
-                    <a class="input-header" href="signup.html">Create account?</a>
-                    <a class="input-header" href="forgotpass.php">Forgot password?</a>
+                    <a class="form-link" href="signup.html">Create account?</a>
+                    <a class="form-link" href="forgotpass.php">Forgot password?</a>
                     <button class="submit-button">Log In</button>
                 </div>
 

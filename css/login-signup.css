@@ -35,9 +35,31 @@ body {
 
 /* MAIN CONTENT */
 .main-content {
+    background: linear-gradient(180deg, #33619cbf 0%, #162840bf 60%), url(https://www.theplancollection.com/Upload/Designers/161/1030/Plan1611030MainImage_5_11_2020_17.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    padding-block: 2rem;
+}
+.form {
+    box-shadow: 0px 0px 30px 0px #19222e;
+}
+
+@media screen and (min-width: 800px) {
+    
+    .main-content {
+        justify-content: end;
+        padding-block: clamp(4rem, 8vw - 1rem, 8rem);
+        padding-right: clamp(5rem, 15vw - 2rem, 15rem);
+    }
+
+}
+
+/* .main-content {
     min-height: 70vh;
     background: linear-gradient(180deg, #33619cbf 0%, #162840bf 60%), url(https://www.theplancollection.com/Upload/Designers/161/1030/Plan1611030MainImage_5_11_2020_17.jpg);
-    /* background: linear-gradient(180deg, rgba(51, 97, 156,.5) 0%, rgba(22,40,64,.5) 60%), url(https://cdn.discordapp.com/attachments/1008571191935639652/1082140731113750660/Viq_cozy_and_stylistic_concept_art_for_the_coverpage_of_a_home__b6052431-f838-4f46-8833-cd8ea1bcb7e5.png); */
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
@@ -172,4 +194,4 @@ body {
 .info-card-icon {
     font-size: 80px;
     text-align: center;
-}
+} */
