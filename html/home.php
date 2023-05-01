@@ -1,5 +1,6 @@
 <?php
 include("../php/auth_session.php");
+include("../php/service_icon.php");
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +12,7 @@ include("../php/auth_session.php");
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/07a7f1d094.js" crossorigin="anonymous"></script>
 
-        <title>MyHome</title>
+        <title>MyHome - Dashboard</title>
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/footer.css">
@@ -71,14 +72,20 @@ include("../php/auth_session.php");
 
                         <div class="item">
                             <div class="item-title-container">
-                                <i class="item-title fa-solid fa-bolt"></i>
+                                <i class="item-title fa-solid <?php service_icon($row['type']) ?>"></i>
                                 <h3 class="item-title"><?php echo $row['name'];?></h3>
                             </div>
+                            <p class="item-subtitle">Description:</p>
                             <p class="item-description">
-                                <?php echo $row['description'];?><br><br>
-                                Type: <?php echo $row['type'];?><br><br>
-                                Terms: <?php echo $row['terms'];?><br><br>
-                                Address: <?php echo $row['address'];?>
+                                <?php echo $row['description'];?>
+                            </p>
+                            <p class="item-subtitle">Terms:</p>
+                            <p class="item-description">
+                                <?php echo $row['terms'];?>
+                            </p>
+                            <p class="item-subtitle">Address:</p>
+                            <p class="item-description">
+                                <?php echo $row['address'];?>
                             </p>
                             <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
                         </div>
@@ -96,14 +103,20 @@ include("../php/auth_session.php");
 
                         <div class="item">
                             <div class="item-title-container">
-                                <i class="item-title fa-solid fa-bolt"></i>
+                                <i class="item-title fa-solid <?php service_icon($row['type']) ?>"></i>
                                 <h3 class="item-title"><?php echo $row['service_name'];?></h3>
                             </div>
+                            <p class="item-subtitle">Description:</p>
                             <p class="item-description">
-                                <?php echo $row['description'];?><br><br>
-                                Type: <?php echo $row['type'];?><br><br>
-                                Terms: <?php echo $row['terms'];?>
-                                Address: <?php echo $row['address'];?>
+                                <?php echo $row['description'];?>
+                            </p>
+                            <p class="item-subtitle">Terms:</p>
+                            <p class="item-description">
+                                <?php echo $row['terms'];?>
+                            </p>
+                            <p class="item-subtitle">Address:</p>
+                            <p class="item-description">
+                                <?php echo $row['address'];?>
                             </p>
                             <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
                         </div>
@@ -113,21 +126,27 @@ include("../php/auth_session.php");
                     ?>
                     <?php
                     require('../php/database.php');
-                    $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, address, type FROM customservice WHERE cemail='$sanemail'");
+                    $result = mysqli_query($mysqli, "SELECT name, description, terms, cost, address, type FROM customservice WHERE cemail='$sanemail'");
                     while($row = mysqli_fetch_array($result))
                     {
                     ?>
 
                         <div class="item">
                             <div class="item-title-container">
-                                <i class="item-title fa-solid fa-bolt"></i>
-                                <h3 class="item-title"><?php echo $row['service_name'];?></h3>
+                                <i class="item-title fa-solid <?php service_icon($row['type']) ?>"></i>
+                                <h3 class="item-title"><?php echo $row['name'];?></h3>
                             </div>
+                            <p class="item-subtitle">Description:</p>
                             <p class="item-description">
-                                <?php echo $row['description'];?><br><br>
-                                Type: <?php echo $row['type'];?><br><br>
-                                Terms: <?php echo $row['terms'];?>
-                                Address: <?php echo $row['address'];?>
+                                <?php echo $row['description'];?>
+                            </p>
+                            <p class="item-subtitle">Terms:</p>
+                            <p class="item-description">
+                                <?php echo $row['terms'];?>
+                            </p>
+                            <p class="item-subtitle">Address:</p>
+                            <p class="item-description">
+                                <?php echo $row['address'];?>
                             </p>
                             <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
                         </div>
@@ -168,17 +187,17 @@ include("../php/auth_session.php");
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-trowel-bricks"></i>
                                 <p class="image-description">Construction Type: <?php echo $row['construction_type'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-snowflake"></i>
                                 <p class="image-description">Cooling Type: <?php echo $row['cooling_type'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-layer-group"></i>
                                 <p class="image-description">Floor Space: <?php echo $row['floor_space'];?></p>
                             </div>
 
@@ -188,42 +207,42 @@ include("../php/auth_session.php");
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-warehouse"></i>
                                 <p class="image-description">Garage Size: <?php echo $row['garage_size'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-clock"></i>
                                 <p class="image-description">Heating Time: <?php echo $row['heating_time'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-fire"></i>
                                 <p class="image-description">Heating Type: <?php echo $row['heating_type'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-layer-group"></i>
                                 <p class="image-description">Lot Size: <?php echo $row['lot_size'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-building"></i>
                                 <p class="image-description">Number of Floors: <?php echo $row['num_floors'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-house"></i>
                                 <p class="image-description">Property Type: <?php echo $row['property_type'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-house-chimney-window"></i>
                                 <p class="image-description">Roof Style: <?php echo $row['roof'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-calendar"></i>
                                 <p class="image-description">Year Built: <?php echo $row['year_built'];?></p>
                             </div>
                         </div>
@@ -244,7 +263,7 @@ include("../php/auth_session.php");
                             ?>
                             <form class="item highlighted-item" action="negotiate.php" target="_blank" method="post">
                                 <div class="item-title-container">
-                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <i class="item-title fa-solid <?php service_icon($row['s_type']) ?>"></i>
                                     <h3 class="item-title"><?php echo $row['s_name'];?></h3>
                                     <input type="hidden" name="servicename" value="<?php echo $row['s_name'];?>">
                                     <input type="hidden" name="type" value="<?php echo $row['s_type'];?>">

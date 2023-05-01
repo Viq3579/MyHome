@@ -83,6 +83,9 @@ COLORS:
     border-radius: 1rem;
     padding: .5rem;
 }
+.dropdown:focus {
+    height: 20rem;
+}
 .dropdown-option {
     background: #162840;
     color: #f7f2ef;
