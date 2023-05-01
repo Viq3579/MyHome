@@ -113,7 +113,7 @@ include("../php/auth_session.php");
                     ?>
                     <?php
                     require('../php/database.php');
-                    $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, address, type FROM customservice WHERE cemail='$sanemail'");
+                    $result = mysqli_query($mysqli, "SELECT name, description, terms, cost, address, type FROM customservice WHERE cemail='$sanemail'");
                     while($row = mysqli_fetch_array($result))
                     {
                     ?>

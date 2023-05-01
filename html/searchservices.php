@@ -28,10 +28,11 @@ include("../php/auth_session.php");
         {
             $name = stripslashes($_REQUEST['name']);
             $name = mysqli_real_escape_string($mysqli, $name);
+            $name = trim($name, "\n");
         } else {
             $name = "NULL";
         }
-        
+        //echo "$name";
         $sanemail = mysqli_real_escape_string($mysqli, $_SESSION['email']);
         $result = mysqli_query($mysqli, "SELECT family_income FROM customer WHERE email = '$sanemail'");
         $temp = mysqli_fetch_array($result);
@@ -183,6 +184,7 @@ include("../php/auth_session.php");
 
                     if ($name != NULL)
                     {
+                        //echo "we are here";
                         $result = mysqli_query($mysqli, $snamequery);
                         while($row = mysqli_fetch_array($result))
                         {
@@ -383,7 +385,7 @@ include("../php/auth_session.php");
                     }
                     ?>
                     <?php
-                    $result = mysqli_query($mysqli, "SELECT service_name, description, terms, cost, address, type FROM customservice WHERE cemail='$sanemail'");
+                    $result = mysqli_query($mysqli, "SELECT name, description, terms, cost, address, type FROM customservice WHERE cemail='$sanemail'");
                     while($row = mysqli_fetch_array($result))
                     {
                     ?>
@@ -391,7 +393,7 @@ include("../php/auth_session.php");
                         <div class="item">
                             <div class="item-title-container">
                                 <i class="item-title fa-solid fa-bolt"></i>
-                                <h3 class="item-title"><?php echo $row['service_name'];?></h3>
+                                <h3 class="item-title"><?php echo $row['name'];?></h3>
                             </div>
                             <p class="item-description">
                                 <?php echo $row['description'];?><br><br>
