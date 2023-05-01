@@ -1,3 +1,160 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION["email"])) {
+
+    $mysqli = require __DIR__ . "/../php/database.php";
+    $sql = sprintf("SELECT *
+                    FROM user
+                    WHERE email = '%s'",
+                $mysqli->real_escape_string($_SESSION["email"]));
+
+    $result = $mysqli->query($sql);
+    $user = $result->fetch_assoc();
+
+    if ($user["user_type"] == "Client") {
+
+        header("Location: home.php");
+        exit;
+
+    } else if ($user["user_type"] == "Vendor") {
+
+        header("Location: vendor-home.php");
+        exit;
+
+    }
+    die("An error has occured.");
+    exit;
+}
+
+$is_invalid = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    $is_invalid = false;
+
+    // Connect to mySQL
+    $mysqli = require __DIR__ . "/../php/database.php";
+
+
+    // Email Check
+    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+        $is_invalid = true;
+        $error_msg = "Valid email is required.";
+    }
+
+    // Varify Email is Unique
+    if ($is_invalid == false) {
+        $sql = sprintf("SELECT *
+                        FROM user
+                        WHERE email = '%s'",
+                    $mysqli->real_escape_string($_POST["email"]));
+
+        $result = $mysqli->query($sql);
+        $user = $result->fetch_assoc();
+
+        if ($user) {
+            $is_invalid = true;
+            $error_msg = "Email is already taken.";
+        }
+    }
+
+    // Password Check and Hash
+    if ($is_invalid == false) {
+        if (empty($_POST["password"])) {
+            $is_invalid = true;
+            $error_msg = "Password is required.";
+        }
+    }
+    if ($is_invalid == false) {
+        if (strlen($_POST["password"]) < 8) {
+            $is_invalid = true;
+            $error_msg = "Password must be at least 8 characters.";
+        }
+    }
+    if ($is_invalid == false) {
+        if (!preg_match("/[a-z]/", $_POST["password"])) {
+            $is_invalid = true;
+            $error_msg = "Password must contain a lowercase letter.";
+        }
+    }
+    if ($is_invalid == false) {
+        if (!preg_match("/[A-Z]/", $_POST["password"])) {
+            $is_invalid = true;
+            $error_msg = "Password must contain a capital letter.";
+        }
+    }
+    if ($is_invalid == false) {
+        if (!preg_match("/[0-9]/i", $_POST["password"])) {
+            $is_invalid = true;
+            $error_msg = "Password must contain a number.";
+        }
+    }
+    if ($is_invalid == false) {
+        if($_POST["password"] != $_POST["password_confirmation"]) {
+            $is_invalid = true;
+            $error_msg = "Passwords must match.";
+        }
+        $hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+    }
+
+    // Client or Vendor Check
+    if ($is_invalid == false) {
+        if (isset($_POST["type"])&& $_POST["type"] == 'Yes') {
+            $user_type = "Vendor";
+        } else {
+            $user_type = "Client";
+        }
+    }
+
+    // Captcha Validation
+    if ($is_invalid == false) {
+        $captcha;
+        if(isset($_POST['g-recaptcha-response'])){
+            $captcha=$_POST['g-recaptcha-response'];
+        }
+        if(!$captcha){
+            $is_invalid = true;
+            $error_msg = "Check recaptcha";
+        }
+    }
+
+
+    // Add Account to Database
+    if ($is_invalid == false) {
+        $sql = "INSERT INTO user (email, password_hash, user_type)
+                VALUES (?, ?, ?)";
+
+        $stmt = $mysqli->stmt_init();
+
+        if (!$stmt->prepare($sql)) {
+            die ("SQL Error: " . $mysqli->error);
+        }
+
+        $stmt->bind_param("sss", $_POST['email'], $hash, $user_type);
+
+        if ($stmt->execute()) {
+            session_start();
+            $_SESSION['email'] = $_POST['email'];
+            if ($user_type == 'Client') {
+                header("Location: ../html/editprofilep2.php");
+            } else if ($user_type == 'Vendor') {
+                header("Location: ../html/editprofile3.php");
+            }
+
+        } else {
+            if ($mysqli->errno == 1062) {
+                die("Email already taken");
+            } else {
+                die($mysqli->error . " " . $mysqli->errno);
+            }
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +185,7 @@
                 
                 <div class="header-cta">
                     <a class="header-login login" href="login.php">Log In</a>
-                    <a class="header-signup signup" href="signup.html">Sign Up</a>
+                    <a class="header-signup signup" href="signup.php">Sign Up</a>
                 </div>
             
             </div>
@@ -38,13 +195,23 @@
         
         <main class="main-content">
 
-            <form class="form" action="../php/signup-process.php" method="post">
+            <form class="form" method="post">
 
                 <h2 class="form-header">Create Account</h2>
 
+                <?php
+                if ($is_invalid == true) {
+                ?>
+                    <h3 class="form-error">
+                        <?php echo $error_msg ?>
+                    </h3>
+                <?php
+                }
+                ?>
+
                 <div class="input">
                     <label class="input-header" for="email">Email:</label>
-                    <input class="input-field" type="email" id="email" name="email">
+                    <input class="input-field" type="text" id="email" name="email" value="<?php if (isset($_POST['email'])) { echo $_POST['email']; } ?>">
                 </div>
 
                 <div class="input">
@@ -58,7 +225,7 @@
                 </div>
 
                 <div class="input inline-input">
-                    <input class="input-checkbox" type="checkbox" name="type" value="Yes" id="type">
+                    <input class="input-checkbox" type="checkbox" name="type" value="Yes" id="type" <?php if (isset($_POST['type'])) { echo "checked"; } ?>>
                     <label class="input-header" for="type">Are you a Vendor?</label>
                 </div>
                 <div class="g-recaptcha input-header" data-sitekey="6Le5aJMlAAAAAAfVkQn_W8IOvOVIJOkQ7WeNgfe1"></div>

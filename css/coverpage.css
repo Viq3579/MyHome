@@ -138,9 +138,6 @@ body {
         grid-template-columns: 5rem 4fr;
         text-align: start;
     }
-    .info-card-l .info-card-icon {
-        text-align: end;
-    }
 
     .info-card-r {
         grid-template-columns: 4fr 5rem;
@@ -148,7 +145,6 @@ body {
     }
     .info-card-r .info-card-icon {
         grid-column: 2 / 3;
-        text-align: start;
     }
     .info-card-r .info-card-description {
         grid-row: 1 / 2;
@@ -156,6 +152,7 @@ body {
 
     .info-card-icon {
         align-self: center;
+        text-align: center;
     }
     
 }

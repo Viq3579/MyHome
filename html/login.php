@@ -1,35 +1,67 @@
 <?php
 
-$is_invalid = false;
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_SESSION["email"])) {
+
     $mysqli = require __DIR__ . "/../php/database.php";
-
     $sql = sprintf("SELECT *
                     FROM user
                     WHERE email = '%s'",
-                $mysqli->real_escape_string($_POST["email"]));
+                $mysqli->real_escape_string($_SESSION["email"]));
 
     $result = $mysqli->query($sql);
     $user = $result->fetch_assoc();
 
-    if ($user) {
-        if (password_verify($_POST["password"], $user["password_hash"])) {
+    if ($user["user_type"] == "Client") {
 
-            session_start();
-            session_regenerate_id();
-            $_SESSION["email"] = $user["email"];
+        header("Location: home.php");
+        exit;
 
-            if ($user["user_type"] == 'Client') {
-                header("Location: home.php");
+    } else if ($user["user_type"] == "Vendor") {
+
+        header("Location: vendor-home.php");
+        exit;
+
+    }
+    die("An error has occured.");
+    exit;
+}
+
+$is_invalid = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    $is_invalid = false;
+
+    $mysqli = require __DIR__ . "/../php/database.php";
+    
+    $sql = sprintf("SELECT *
+                    FROM user
+                    WHERE email = '%s'",
+                $mysqli->real_escape_string($_POST["email"]));
+                
+                $result = $mysqli->query($sql);
+                $user = $result->fetch_assoc();
+                
+                if ($user) {
+                    if (password_verify($_POST["password"], $user["password_hash"])) {
+                        
+                        session_start();
+                        session_regenerate_id();
+                        $_SESSION["email"] = $user["email"];
+                        
+                        if ($user["user_type"] == 'Client') {
+                            header("Location: home.php");
             } else if ($user["user_type"] == 'Vendor') {
                 header("Location: vendor-home.php");
             }
             exit;
         }
     }
-
+    
     $is_invalid = true;
+    $error_msg = "Credentials are incorrect";
 }
 
 ?>
@@ -61,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 <div class="header-cta">
                     <a class="header-login login" href="login.php">Log In</a>
-                    <a class="header-signup signup" href="signup.html">Sign Up</a>
+                    <a class="header-signup signup" href="signup.php">Sign Up</a>
                 </div>
             
             </div>
@@ -75,9 +107,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <h2 class="form-header">Log In</h2>
 
+                <?php
+                if ($is_invalid == true) {
+                ?>
+                    <h3 class="form-error">
+                        <?php echo $error_msg ?>
+                    </h3>
+                <?php
+                }
+                ?>
+
                 <div class="input">
                     <label class="input-header" for="email">Email:</label>
-                    <input class="input-field" type="email" id="email" name="email">
+                    <input class="input-field" type="text" id="email" name="email" value="<?php if (isset($_POST['email'])) { echo $_POST['email']; } ?>">
                 </div>
 
                 <div class="input">
@@ -86,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="submit-container">
-                    <a class="form-link" href="signup.html">Create account?</a>
+                    <a class="form-link" href="signup.php">Create account?</a>
                     <a class="form-link" href="forgotpass.php">Forgot password?</a>
                     <button class="submit-button">Log In</button>
                 </div>

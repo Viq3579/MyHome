@@ -1,34 +1,32 @@
 <?php
 
-    session_start();
+session_start();
 
-    $_SESSION;
+if (isset($_SESSION["email"])) {
 
-    if (isset($_SESSION["email"])) {
+    $mysqli = require __DIR__ . "/php/database.php";
+    $sql = sprintf("SELECT *
+                    FROM user
+                    WHERE email = '%s'",
+                $mysqli->real_escape_string($_SESSION["email"]));
 
-        $mysqli = require __DIR__ . "/php/database.php";
-        $sql = sprintf("SELECT *
-                        FROM user
-                        WHERE email = '%s'",
-                    $mysqli->real_escape_string($_SESSION["email"]));
+    $result = $mysqli->query($sql);
+    $user = $result->fetch_assoc();
 
-        $result = $mysqli->query($sql);
-        $user = $result->fetch_assoc();
+    if ($user["user_type"] == "Client") {
 
-        if ($user["user_type"] == "Client") {
-
-            header("Location: html/home.php");
-            exit;
-
-        } else if ($user["user_type"] == "Vendor") {
-
-            header("Location: html/vendor-home.php");
-            exit;
-
-        }
-        die("An error has occured.");
+        header("Location: html/home.php");
         exit;
+
+    } else if ($user["user_type"] == "Vendor") {
+
+        header("Location: html/vendor-home.php");
+        exit;
+
     }
+    die("An error has occured.");
+    exit;
+}
 
 ?>
 
@@ -58,7 +56,7 @@
                 
                 <div class="header-cta">
                     <a class="header-login login" href="html/login.php">Log In</a>
-                    <a class="header-signup signup" href="html/signup.html">Sign Up</a>
+                    <a class="header-signup signup" href="html/signup.php">Sign Up</a>
                 </div>
             
             </div>
@@ -76,7 +74,7 @@
                         Find & manage services fast! Your home for everything your home needs.
                     </p>
                     
-                    <a class="signup" href="html/signup.html">Sign Up Today</a>
+                    <a class="signup" href="html/signup.php">Sign Up Today</a>
                 </div>
             </div>
 
