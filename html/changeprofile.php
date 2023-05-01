@@ -29,6 +29,8 @@ include("../php/auth_session.php");
         $name = mysqli_real_escape_string($mysqli, $name);
         $phone = stripslashes($_REQUEST['phone']);
         $phone = mysqli_real_escape_string($mysqli, $phone);
+        $family_size = stripslashes($_REQUEST['family_size']);
+        $family_size = mysqli_real_escape_string($mysqli, $family_size);
         $income = stripslashes($_REQUEST['income']);
         $income = mysqli_real_escape_string($mysqli, $income);
         $expense = stripslashes($_REQUEST['miscexpenses']);
@@ -53,7 +55,7 @@ include("../php/auth_session.php");
         }
         else
         {
-            $query    = "UPDATE customer SET name = '$name', phone_num = '$phone', family_income = '$income', num_cars = '$cars', misc_expenses = '$expense' WHERE email = '$email';";
+            $query    = "UPDATE customer SET name = '$name', phone_num = '$phone', family_size = '$family_size', family_income = '$income', num_cars = '$cars', misc_expenses = '$expense' WHERE email = '$email';";
             $result   = mysqli_query($mysqli, $query);
             if ($result) {
                 echo "<div class='form'>
@@ -111,6 +113,11 @@ include("../php/auth_session.php");
                         <div class="input">
                             <label class="input-header" for="phone">Phone Number:</label>
                             <input class="input-field white" type="number" id="phone" name="phone" required>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-header" for="family_size">Family Household Size:</label>
+                            <input class="input-field white" type="number" id="family_size" name="family_size" required>
                         </div>
                         
                         <div class="input">

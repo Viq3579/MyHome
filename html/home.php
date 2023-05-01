@@ -212,11 +212,6 @@ include("../php/service_icon.php");
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-clock"></i>
-                                <p class="image-description">Heating Time: <?php echo $row['heating_time'];?></p>
-                            </div>
-
-                            <div class="image-detail">
                                 <i class="image-description fa-solid fa-fire"></i>
                                 <p class="image-description">Heating Type: <?php echo $row['heating_type'];?></p>
                             </div>

@@ -32,6 +32,8 @@ include("../php/auth_session.php");
             $name = mysqli_real_escape_string($mysqli, $name);
             $phone = stripslashes($_REQUEST['phone']);
             $phone = mysqli_real_escape_string($mysqli, $phone);
+            $family_size = stripslashes($_REQUEST['family_size']);
+            $family_size = mysqli_real_escape_string($mysqli, $family_size);
             $income = stripslashes($_REQUEST['income']);
             $income = mysqli_real_escape_string($mysqli, $income);
             $expense = stripslashes($_REQUEST['miscexpenses']);
@@ -56,8 +58,8 @@ include("../php/auth_session.php");
             }
             else
             {
-                $query    = "INSERT into `customer` (name, email, phone_num, family_income, num_cars, misc_expenses)
-                            VALUES ('$name', '$email', '$phone', '$income', '$cars', '$expense')";
+                $query    = "INSERT into `customer` (name, email, phone_num, family_size, family_income, num_cars, misc_expenses)
+                            VALUES ('$name', '$email', '$phone', '$family_size', '$income', '$cars', '$expense')";
                     $result   = mysqli_query($mysqli, $query);
                     if ($result) {
                         echo "<div class='form'>
@@ -117,6 +119,11 @@ include("../php/auth_session.php");
                             <input class="input-field white" type="number" id="phone" name="phone" required>
                         </div>
                         
+                        <div class="input">
+                            <label class="input-header" for="family_size">Family Household Size:</label>
+                            <input class="input-field white" type="number" id="family_size" name="family_size" required>
+                        </div>
+
                         <div class="input">
                             <label class="input-header" for="income">Annual Income:</label>
                             <input class="input-field white" type="number" id="income" name="income" required>

@@ -47,8 +47,6 @@ include("../php/auth_session.php");
             $bathrooms = mysqli_real_escape_string($mysqli, $bathrooms);
             $heattype = stripslashes($_REQUEST['heattype']);
             $heattype = mysqli_real_escape_string($mysqli, $heattype);
-            $heattime = stripslashes($_REQUEST['heattime']);
-            $heattime = mysqli_real_escape_string($mysqli, $heattime);
             $bedrooms = stripslashes($_REQUEST['bedrooms']);
             $bedrooms = mysqli_real_escape_string($mysqli, $bedrooms);
             $proptype = stripslashes($_REQUEST['proptype']);
@@ -68,7 +66,7 @@ include("../php/auth_session.php");
             $user = $result->fetch_assoc();
 
             if ($user) {
-                $query    = "UPDATE home SET lot_size = '$lot_size', cooling_type = '$cooltype', construction_type = '$contype', garage_size = '$garage', year_built = '$year_built', property_type = '$proptype', heating_type = '$heattype', heating_time = '$heattime', num_floors = '$floors', floor_space = '$floorspace', roof = '$rooftype', bathrooms = '$bathrooms', bedrooms = '$bedrooms', foundation = '$foundation' WHERE address = '$address';";
+                $query    = "UPDATE home SET lot_size = '$lot_size', cooling_type = '$cooltype', construction_type = '$contype', garage_size = '$garage', year_built = '$year_built', property_type = '$proptype', heating_type = '$heattype', num_floors = '$floors', floor_space = '$floorspace', roof = '$rooftype', bathrooms = '$bathrooms', bedrooms = '$bedrooms', foundation = '$foundation' WHERE address = '$address';";
                 $result   = mysqli_query($mysqli, $query);
                 if ($result) {
                     echo "<div class='form'>
@@ -171,11 +169,6 @@ include("../php/auth_session.php");
                         <div class="input">
                             <label class="input-header" for="heattype">Heating Type:</label>
                             <input class="input-field white" type="text" id="heattype" name="heattype" required>
-                        </div>
-
-                        <div class="input">
-                            <label class="input-header" for="heattime">Heating Time (minutes):</label>
-                            <input class="input-field white" type="number" id="heattime" name="heattime" required>
                         </div>
 
                         <div class="input">
