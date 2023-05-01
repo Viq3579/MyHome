@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/07a7f1d094.js" crossorigin="anonymous"></script>
 
-        <title>Edit Profile</title>
+        <title>MyHome - Add Service</title>
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/input-form.css">

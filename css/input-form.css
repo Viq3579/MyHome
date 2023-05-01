@@ -57,6 +57,9 @@ COLORS:
     margin-left: .5rem;
     margin-top: .5rem;
 }
+.form-link {
+    font-size: var(--font-size-xxs);
+}
 .input-field {
     width: calc(100% - 1rem);
     overflow: scroll;
@@ -83,15 +86,22 @@ COLORS:
     border-radius: 1rem;
     padding: .5rem;
 }
+.dropdown:focus {
+    height: 20rem;
+}
 .dropdown-option {
     background: #162840;
     color: #f7f2ef;
 }
 .submit-container {
-    display: grid;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 1rem;
     margin-top: 1rem;
 }
 .submit-button {
+    white-space: nowrap;
     background: #F2620F;
     color: #f7f2ef;
     font-size: var(--font-size-base);

@@ -11,7 +11,7 @@ include("../php/auth_session.php");
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/07a7f1d094.js" crossorigin="anonymous"></script>
 
-        <title>MyHome</title>
+        <title>MyHome - Profile</title>
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/footer.css">
@@ -77,17 +77,17 @@ include("../php/auth_session.php");
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-trowel-bricks"></i>
                                 <p class="image-description">Construction Type: <?php echo $row['construction_type'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-snowflake"></i>
                                 <p class="image-description">Cooling Type: <?php echo $row['cooling_type'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-layer-group"></i>
                                 <p class="image-description">Floor Space: <?php echo $row['floor_space'];?></p>
                             </div>
 
@@ -97,42 +97,42 @@ include("../php/auth_session.php");
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-warehouse"></i>
                                 <p class="image-description">Garage Size: <?php echo $row['garage_size'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-clock"></i>
                                 <p class="image-description">Heating Time: <?php echo $row['heating_time'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-fire"></i>
                                 <p class="image-description">Heating Type: <?php echo $row['heating_type'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-layer-group"></i>
                                 <p class="image-description">Lot Size: <?php echo $row['lot_size'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-building"></i>
                                 <p class="image-description">Number of Floors: <?php echo $row['num_floors'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-house"></i>
                                 <p class="image-description">Property Type: <?php echo $row['property_type'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-house-chimney-window"></i>
                                 <p class="image-description">Roof Style: <?php echo $row['roof'];?></p>
                             </div>
 
                             <div class="image-detail">
-                                <i class="image-description fa-solid fa-square"></i>
+                                <i class="image-description fa-solid fa-calendar"></i>
                                 <p class="image-description">Year Built: <?php echo $row['year_built'];?></p>
                             </div>
                             <a href="edithome.php" class="item-footer item-footer-button"><b>Edit Property Details</b></a>

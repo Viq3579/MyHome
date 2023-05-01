@@ -1,5 +1,6 @@
 <?php
 include("../php/auth_session.php");
+include("../php/service_icon.php");
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +12,7 @@ include("../php/auth_session.php");
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/07a7f1d094.js" crossorigin="anonymous"></script>
 
-        <title>MyHome</title>
+        <title>MyHome - Services</title>
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/input-form.css">
@@ -141,7 +142,7 @@ include("../php/auth_session.php");
                         ?>
                             <form class="item highlighted-item" action="negotiate.php" target="_blank" method="post">
                                 <div class="item-title-container">
-                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <i class="item-title fa-solid <?php service_icon($row['type']) ?>"></i>
                                     <h3 class="item-title"><?php echo $row['sname'];?></h3>
                                     <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
                                 </div>
@@ -191,7 +192,7 @@ include("../php/auth_session.php");
                         ?>
                             <form class="item highlighted-item" action="negotiate.php" target="_blank" method="post">
                                 <div class="item-title-container">
-                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <i class="item-title fa-solid <?php service_icon($row['type']) ?>"></i>
                                     <h3 class="item-title"><?php echo $row['sname'];?></h3>
                                     <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
                                 </div>
@@ -239,7 +240,7 @@ include("../php/auth_session.php");
                         ?>
                             <form class="item highlighted-item" action="negotiate.php" target="_blank" method="post">
                                 <div class="item-title-container">
-                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <i class="item-title fa-solid <?php service_icon($row['type']) ?>"></i>
                                     <h3 class="item-title"><?php echo $row['sname'];?></h3>
                                     <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
                                 </div>
@@ -286,7 +287,7 @@ include("../php/auth_session.php");
                         ?>
                             <form class="item highlighted-item" action="negotiate.php" target="_blank" method="post">
                                 <div class="item-title-container">
-                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <i class="item-title fa-solid <?php service_icon($row['type']) ?>"></i>
                                     <h3 class="item-title"><?php echo $row['sname'];?></h3>
                                     <input type="hidden" name="servicename" value="<?php echo $row['sname'];?>">
                                 </div>
@@ -344,14 +345,20 @@ include("../php/auth_session.php");
 
                         <div class="item">
                             <div class="item-title-container">
-                                <i class="item-title fa-solid fa-bolt"></i>
+                                <i class="item-title fa-solid <?php service_icon($row['type']) ?>"></i>
                                 <h3 class="item-title"><?php echo $row['name'];?></h3>
                             </div>
+                            <p class="item-subtitle">Description:</p>
                             <p class="item-description">
-                                <?php echo $row['description'];?><br><br>
-                                Type: <?php echo $row['type'];?><br><br>
-                                Terms: <?php echo $row['terms'];?><br><br>
-                                Address: <?php echo $row['address'];?>
+                                <?php echo $row['description'];?>
+                            </p>
+                            <p class="item-subtitle">Terms:</p>
+                            <p class="item-description">
+                                <?php echo $row['terms'];?>
+                            </p>
+                            <p class="item-subtitle">Address:</p>
+                            <p class="item-description">
+                                <?php echo $row['address'];?>
                             </p>
                             <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
                         </div>
@@ -369,14 +376,20 @@ include("../php/auth_session.php");
 
                         <div class="item">
                             <div class="item-title-container">
-                                <i class="item-title fa-solid fa-bolt"></i>
+                                <i class="item-title fa-solid <?php service_icon($row['type']) ?>"></i>
                                 <h3 class="item-title"><?php echo $row['service_name'];?></h3>
                             </div>
+                            <p class="item-subtitle">Description:</p>
                             <p class="item-description">
-                                <?php echo $row['description'];?><br><br>
-                                Type: <?php echo $row['type'];?><br><br>
-                                Terms: <?php echo $row['terms'];?>
-                                Address: <?php echo $row['address'];?>
+                                <?php echo $row['description'];?>
+                            </p>
+                            <p class="item-subtitle">Terms:</p>
+                            <p class="item-description">
+                                <?php echo $row['terms'];?>
+                            </p>
+                            <p class="item-subtitle">Address:</p>
+                            <p class="item-description">
+                                <?php echo $row['address'];?>
                             </p>
                             <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
                         </div>
@@ -392,14 +405,20 @@ include("../php/auth_session.php");
 
                         <div class="item">
                             <div class="item-title-container">
-                                <i class="item-title fa-solid fa-bolt"></i>
+                                <i class="item-title fa-solid <?php service_icon($row['type']) ?>"></i>
                                 <h3 class="item-title"><?php echo $row['name'];?></h3>
                             </div>
+                            <p class="item-subtitle">Description:</p>
                             <p class="item-description">
-                                <?php echo $row['description'];?><br><br>
-                                Type: <?php echo $row['type'];?><br><br>
-                                Terms: <?php echo $row['terms'];?>
-                                Address: <?php echo $row['address'];?>
+                                <?php echo $row['description'];?>
+                            </p>
+                            <p class="item-subtitle">Terms:</p>
+                            <p class="item-description">
+                                <?php echo $row['terms'];?>
+                            </p>
+                            <p class="item-subtitle">Address:</p>
+                            <p class="item-description">
+                                <?php echo $row['address'];?>
                             </p>
                             <p class="item-footer"><b>$<?php echo $row['cost'];?></b> per Month</p>
                         </div>
@@ -424,7 +443,7 @@ include("../php/auth_session.php");
                         <div class="item highlighted-item">
                             <form action="negotiate.php" target="_blank" method="post">
                                 <div class="item-title-container">
-                                    <i class="item-title fa-solid fa-bolt"></i>
+                                    <i class="item-title fa-solid <?php service_icon($row['s_type']) ?>"></i>
                                     <h3 class="item-title"><?php echo $row['s_name'];?></h3>
                                     <input type="hidden" name="servicename" value="<?php echo $row['s_name'];?>">
                                     <input type="hidden" name="type" value="<?php echo $row['s_type'];?>">
