@@ -436,7 +436,7 @@ include("../php/service_icon.php");
                 
                     <?php
                     $sql = require __DIR__ . "/../php/service-calculator.php";
-                    $sql = $sql . sprintf("AND c.email = '%s'", $mysqli->real_escape_string($_SESSION["email"]));
+                    $sql = $sql . sprintf("AND c_email = '%s'", $mysqli->real_escape_string($_SESSION["email"]));
                     $client_result = $mysqli->query($sql);
                     while ($row = mysqli_fetch_array($client_result)){
                     ?>

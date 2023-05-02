@@ -24,7 +24,7 @@ $result = $mysqli->query($sql);
 
 
 // Service Calculator
-$sql = require __DIR__ . "/../php/service-calculator.php";
+$sql = require __DIR__ . "/../php/service-calculatorOLD.php";
 
 $sql = $sql . sprintf("AND s.provider = '%s'", $mysqli->real_escape_string($_SESSION["email"]));
 
