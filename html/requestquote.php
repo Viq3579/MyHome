@@ -21,6 +21,29 @@ include("../php/auth_session.php");
 
 
     <body>
+
+        <header class="header">
+
+            <div class="header-container">
+                <h1 class="header-logo">MyHome</h1>
+
+                <nav class="header-nav">
+
+                    <a class="header-links" href="home.php">Dashboard</a>
+                    <a class="header-links" href="searchservices.php">Services</a>
+                    <a class="header-links" href="profile.php">Profile</a>
+
+                </nav>
+                
+                
+                <div class="header-cta">
+                    <a class="header-login login" href="../php/logout.php">Log Out</a>
+                </div>
+
+            </div>
+
+        </header>
+
         <?php
         require('../php/database.php');
         
@@ -48,10 +71,18 @@ include("../php/auth_session.php");
             $user = $result->fetch_assoc();
 
             if ($user) {
-                echo "<div class='form'>
-                <h3>You already have an active request for this service. If you believe this to be an error, please contact support</h3><br/>
-                <p class='link'>Click here to <a href='requestquote.php'>Try Again</a></p>
-                </div>";
+            ?>
+                <main class="main-content">
+                    <div class="container">
+                        <div class="center-content">
+                            <div class="item important-item clear">
+                                <h3 class="subtitle">You already have an active request for this service. If you believe this to be an error, please contact support.</h3>
+                                <a class="submit-button" style="justify-self: center;" href="requestquote.php">Try Again</a>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            <?php
             }
             else
             {
@@ -59,43 +90,35 @@ include("../php/auth_session.php");
                             VALUES ('$email', '$address','$cname', '$pname', '$sname')";
                 $result   = mysqli_query($mysqli, $query);
                 if ($result) {
-                    echo "<div class='form'>
-                        <h3> Request made successfully.</h3><br/>
-                        <p class='link'>Click here to return to <a href='searchservices.php'>Search</a></p>
-                        </div>";
+                ?>
+                    <main class="main-content">
+                        <div class="container">
+                            <div class="center-content">
+                                <div class="item important-item clear">
+                                    <h3 class="subtitle">Request made successfully.</h3>
+                                    <a class="submit-button" style="justify-self: center;" href="searchservices.php">Okay</a>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                <?php
                 } else {
-                    echo "<div class='form'>
-                        <h3>Required fields are missing.</h3><br/>
-                        <p class='link'>Click here to <a href='requestquote.php'>Request Quote</a> again.</p>
-                        </div>";
+                ?>
+                    <main class="main-content">
+                        <div class="container">
+                            <div class="center-content">
+                                <div class="item important-item clear">
+                                    <h3 class="subtitle">Required fields are missing.</h3>
+                                    <a class="submit-button" style="justify-self: center;" href="requestquote.php">Try Again</a>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                <?php
                 }
             }
         } else {
         ?>
-
-
-        <header class="header">
-
-            <div class="header-container">
-                <h1 class="header-logo">MyHome</h1>
-
-                <nav class="header-nav">
-
-                    <a class="header-links" href="home.php">Dashboard</a>
-                    <a class="header-links" href="searchservices.php">Services</a>
-                    <a class="header-links" href="profile.php">Profile</a>
-
-                </nav>
-                
-                
-                <div class="header-cta">
-                    <a class="header-login login" href="../php/logout.php">Log Out</a>
-                </div>
-            
-            </div>
-
-        </header>
-
 
         <main class="main-content">
 
@@ -138,7 +161,10 @@ include("../php/auth_session.php");
             </div>
 
         </main>
-        
+
+        <?php
+        }
+        ?>
 
         <footer class="footer">
 
@@ -164,9 +190,7 @@ include("../php/auth_session.php");
             </div>
 
         </footer>
-        <?php
-        }
-        ?>
+        
     </body>
 
 </html>

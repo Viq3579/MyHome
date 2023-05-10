@@ -17,6 +17,26 @@
 
     <body>
 
+        <header class="header">
+
+            <div class="header-container">
+                <h1 class="header-logo">MyHome</h1>
+
+                <nav class="header-nav">
+
+                    <a class="header-links" href="../index.php">Home</a>
+
+                </nav>
+                
+                
+                <div class="header-cta">
+                    <a class="header-login login" href="../php/logout.php">Log Out</a>
+                </div>
+
+            </div>
+
+        </header>
+
         <?php
             require('../php/database.php');
             
@@ -55,34 +75,74 @@
                     if ($interval->format('%H') < 24){
                         echo "We are here";
                         if (empty($_POST["password"])) {
-                            echo "<div class='form' action='passrecovery.php' method='get'>
-                            <h3> Password is required.</h3><br/>
-                            <button class=\"login-button\">Try Again</button>
-                            </div>";
+                        ?>
+                            <main class="main-content">
+                                <div class="container">
+                                    <div class="center-content">
+                                        <form class="item important-item clear" action='passrecovery.php' method='get'>
+                                            <h3 class="subtitle">Password is required.</h3>
+                                            <button class="submit-button" style="justify-self: center;">Try Again</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </main>
+                        <?php
                         }
                         elseif (strlen($_POST["password"]) < 8) {
-                            echo "<div class='form' action='passrecovery.php' method='get'>
-                            <h3> Passwords Must be at least 8 characters.</h3><br/>
-                            <button class=\"login-button\">Try Again</button>
-                            </div>";
+                        ?>
+                            <main class="main-content">
+                                <div class="container">
+                                    <div class="center-content">
+                                        <form class="item important-item clear" action='passrecovery.php' method='get'>
+                                            <h3 class="subtitle">Passwords Must be at least 8 characters.</h3>
+                                            <button class="submit-button" style="justify-self: center;">Try Again</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </main>
+                        <?php
                         }
                         elseif (!preg_match("/[a-z]/i", $_POST["password"])) {
-                            echo "<div class='form' action='passrecovery.php' method='get'>
-                            <h3> Passwords Must Contain a Lowercase Letter.</h3><br/>
-                            <button class=\"login-button\">Try Again</button>
-                            </div>";
+                        ?>
+                            <main class="main-content">
+                                <div class="container">
+                                    <div class="center-content">
+                                        <form class="item important-item clear" action='passrecovery.php' method='get'>
+                                            <h3 class="subtitle">Passwords Must Contain a Lowercase Letter.</h3>
+                                            <button class="submit-button" style="justify-self: center;">Try Again</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </main>
+                        <?php
                         }
                         elseif (!preg_match("/[0-9]/i", $_POST["password"])) {
-                            echo "<div class='form' action='passrecovery.php' method='get'>
-                            <h3> Password Must Contain a Number.</h3><br/>
-                            <button class=\"login-button\">Try Again</button>
-                            </div>";
+                        ?>
+                            <main class="main-content">
+                                <div class="container">
+                                    <div class="center-content">
+                                        <form class="item important-item clear" action='passrecovery.php' method='get'>
+                                            <h3 class="subtitle">Password Must Contain a Number.</h3>
+                                            <button class="submit-button" style="justify-self: center;">Try Again</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </main>
+                        <?php
                         }
                         elseif($_POST["password"] != $_POST["password_confirmation"]) {
-                            echo "<div class='form' action='passrecovery.php' method='get'>
-                            <h3> Passwords Must Match.</h3><br/>
-                            <button class=\"login-button\">Try Again</button>
-                            </div>";
+                        ?>
+                            <main class="main-content">
+                                <div class="container">
+                                    <div class="center-content">
+                                        <form class="item important-item clear" action='passrecovery.php' method='get'>
+                                            <h3 class="subtitle">Passwords Must Match.</h3>
+                                            <button class="submit-button" style="justify-self: center;">Try Again</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </main>
+                        <?php
                         }
                         else{
                             $hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
@@ -91,50 +151,54 @@
                             if ($result){
                                 $query = "DELETE FROM password_resets WHERE email = $email";
                                 $result = $mysqli->query($query);
-                                echo "<div class='form'>
-                                <h3>Edited successfully.</h3><br/>
-                                <p class='link'>Click here to <a href='login.php'>Login</a></p>
-                                </div>";
+                                ?>
+                                <main class="main-content">
+                                    <div class="container">
+                                        <div class="center-content">
+                                            <div class="item important-item clear">
+                                                <h3 class="subtitle">Edited successfully.</h3>
+                                                <a class="submit-button" style="justify-self: center;" href="login.php">Login</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </main>
+                                <?php
                             } else {
-                                echo "<div class='form'>
-                                <h3>Unidentified Error.</h3><br/>
-                                <p class='link'>Click here to <a href='login.php'>Login</a></p>
-                                </div>";
+                            ?>
+                                <main class="main-content">
+                                    <div class="container">
+                                        <div class="center-content">
+                                            <div class="item important-item clear">
+                                                <h3 class="subtitle">Unidentified Error.</h3>
+                                                <a class="submit-button" style="justify-self: center;" href="login.php">Login</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </main>
+                            <?php
                             }
                         }
 
                     } else {
                         $query = "DELETE FROM password_resets WHERE email = $email";
                         $result = $mysqli->query($query);
-                        echo "<div class='form'>
-                        <h3>ERROR: Expired Link.</h3><br/>
-                        <p class='link'>Click here to <a href='login.php'>Login</a></p>
-                        </div>";
+                        ?>
+                        <main class="main-content">
+                            <div class="container">
+                                <div class="center-content">
+                                    <div class="item important-item clear">
+                                        <h3 class="subtitle">ERROR: Expired Link.</h3>
+                                        <a class="submit-button" style="justify-self: center;" href="login.php">Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                        <?php
                     }
                 }
             } else {
         ?>
-        <header class="header">
-
-            <div class="header-container">
-                <h1 class="header-logo">MyHome</h1>
-
-                <nav class="header-nav">
-
-                    <a class="header-links" href="../index.php">Home</a>
-
-                </nav>
                 
-                
-                <div class="header-cta">
-                    <a class="header-login login" href="../php/logout.php">Log Out</a>
-                </div>
-            
-            </div>
-
-        </header>
-
-        
         <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
 
             <div class="container">

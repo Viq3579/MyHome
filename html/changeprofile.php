@@ -16,84 +16,111 @@ include("../php/auth_session.php");
         <link rel="stylesheet" href="../css/input-form.css">
         <link rel="stylesheet" href="../css/footer.css">
     </head>
-<body>
-    <?php
-    require('../php/database.php');
-    
-    // When form submitted, insert values into the database.
-    if (isset($_REQUEST['name'])) {
-        // removes backslashes
-        $email = ($_SESSION['email']);
-        $name = stripslashes($_REQUEST['name']);
-        //escapes special characters in a string
-        $name = mysqli_real_escape_string($mysqli, $name);
-        $phone = stripslashes($_REQUEST['phone']);
-        $phone = mysqli_real_escape_string($mysqli, $phone);
-        $family_size = stripslashes($_REQUEST['family_size']);
-        $family_size = mysqli_real_escape_string($mysqli, $family_size);
-        $income = stripslashes($_REQUEST['income']);
-        $income = mysqli_real_escape_string($mysqli, $income);
-        $expense = stripslashes($_REQUEST['miscexpenses']);
-        $expense = mysqli_real_escape_string($mysqli, $expense);
-        $cars = stripslashes($_REQUEST['numbcars']);
-        $cars = mysqli_real_escape_string($mysqli, $cars);
 
-        // Varify Phone is Unique
-        $sql = sprintf("SELECT *
-        FROM customer
-        WHERE phone_num = '$phone'",
-        $mysqli->real_escape_string($_POST["phone"]));
 
-        $result = $mysqli->query($sql);
-        $user = $result->fetch_assoc();
+    <body>
 
-        if ($user) {
-            echo "<div class='form'>
-            <h3>That Phone Number has already been registered. If you believe this to be an error, please contact support</h3><br/>
-            <p class='link'>Click here to <a href='changeprofile.php'>Try Again</a></p>
-            </div>";
-        }
-        else
-        {
-            $query    = "UPDATE customer SET name = '$name', phone_num = '$phone', family_size = '$family_size', family_income = '$income', num_cars = '$cars', misc_expenses = '$expense' WHERE email = '$email';";
-            $result   = mysqli_query($mysqli, $query);
-            if ($result) {
-                echo "<div class='form'>
-                    <h3>Edited successfully.</h3><br/>
-                    <p class='link'>Click here to <a href='profile.php'>Return to Profile</a></p>
-                    </div>";
-            } else {
-                echo "<div class='form'>
-                    <h3>Required fields are missing.</h3><br/>
-                    <p class='link'>Click here to <a href='changeprofile.php'>Edit Profile</a> again.</p>
-                    </div>";
-            }
-        }
-    } else {
-?>
         <header class="header">
 
-        <div class="header-container">
-            <h1 class="header-logo">MyHome</h1>
+            <div class="header-container">
+                <h1 class="header-logo">MyHome</h1>
 
-            <nav class="header-nav">
+                <nav class="header-nav">
 
-                <a class="header-links" href="home.php">Dashboard</a>
-                <a class="header-links" href="searchservices.php">Services</a>
-                <a class="header-links" href="profile.php">Profile</a>
+                    <a class="header-links" href="home.php">Dashboard</a>
+                    <a class="header-links" href="searchservices.php">Services</a>
+                    <a class="header-links" href="profile.php">Profile</a>
 
-            </nav>
-            
-            
-            <div class="header-cta">
-                <a class="header-login login" href="../php/logout.php">Log Out</a>
+                </nav>
+                
+                
+                <div class="header-cta">
+                    <a class="header-login login" href="../php/logout.php">Log Out</a>
+                </div>
+
             </div>
-
-        </div>
 
         </header>
 
+        <?php
+        require('../php/database.php');
+        
+        // When form submitted, insert values into the database.
+        if (isset($_REQUEST['name'])) {
+            // removes backslashes
+            $email = ($_SESSION['email']);
+            $name = stripslashes($_REQUEST['name']);
+            //escapes special characters in a string
+            $name = mysqli_real_escape_string($mysqli, $name);
+            $phone = stripslashes($_REQUEST['phone']);
+            $phone = mysqli_real_escape_string($mysqli, $phone);
+            $family_size = stripslashes($_REQUEST['family_size']);
+            $family_size = mysqli_real_escape_string($mysqli, $family_size);
+            $income = stripslashes($_REQUEST['income']);
+            $income = mysqli_real_escape_string($mysqli, $income);
+            $expense = stripslashes($_REQUEST['miscexpenses']);
+            $expense = mysqli_real_escape_string($mysqli, $expense);
+            $cars = stripslashes($_REQUEST['numbcars']);
+            $cars = mysqli_real_escape_string($mysqli, $cars);
 
+            // Varify Phone is Unique
+            $sql = sprintf("SELECT *
+            FROM customer
+            WHERE phone_num = '$phone'",
+            $mysqli->real_escape_string($_POST["phone"]));
+
+            $result = $mysqli->query($sql);
+            $user = $result->fetch_assoc();
+
+            if ($user) {
+            ?>
+                <main class="main-content">
+                    <div class="container">
+                        <div class="center-content">
+                            <div class="item important-item clear">
+                                <h3 class="subtitle">That Phone Number has already been registered. If you believe this to be an error, please contact support.</h3>
+                                <a class="submit-button" style="justify-self: center;" href="changeprofile.php">Try Again</a>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            <?php
+            }
+            else
+            {
+                $query    = "UPDATE customer SET name = '$name', phone_num = '$phone', family_size = '$family_size', family_income = '$income', num_cars = '$cars', misc_expenses = '$expense' WHERE email = '$email';";
+                $result   = mysqli_query($mysqli, $query);
+                if ($result) {
+                ?>
+                    <main class="main-content">
+                        <div class="container">
+                            <div class="center-content">
+                                <div class="item important-item clear">
+                                    <h3 class="subtitle">Edited successfully.</h3>
+                                    <a class="submit-button" style="justify-self: center;" href="profile.php">Okay</a>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                <?php
+                } else {
+                ?>
+                    <main class="main-content">
+                        <div class="container">
+                            <div class="center-content">
+                                <div class="item important-item clear">
+                                    <h3 class="subtitle">Required fields are missing.</h3>
+                                    <a class="submit-button" style="justify-self: center;" href="changeprofile.php">Try Again</a>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                <?php
+                }
+            }
+        } else {
+        ?>
+        
         <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
 
             <div class="container">
@@ -146,11 +173,14 @@ include("../php/auth_session.php");
             </div>
 
         </main>
-
+        
+        <?php
+        }
+        ?>
 
         <footer class="footer">
 
-        <div class="footer-container">
+            <div class="footer-container">
                 <p class="footer-subtitle">Terms and Conditions</p>
                 <p class="footer-content">
                     By using this site I consent to MyHome using my submitted data for calculations to determine services which I can afford or which I should be interested in. I also consent to MyHome providing my personal information to vendors in the event that I purchase a service from said vendor. I certify that all information submitted to this site is correct to the best of my knowledge. MyHome is not responsible for faulty results due to incorrect data. MyHome is also not responsible for difficulties in procuring an advertised service beyond the steps streamlined by our calculators. Although users should report fraudulent vendors to MyHome immediately, MyHome is not responsible for reimbursing any lost funds.
@@ -172,9 +202,7 @@ include("../php/auth_session.php");
             </div>
 
         </footer>
-        <?php
-        }
-        ?>
+    
     </body>
 
 </html>

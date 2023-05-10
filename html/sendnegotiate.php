@@ -89,10 +89,12 @@ include("../php/auth_session.php");
                                 $user = $result->fetch_assoc();
                     
                                 if ($user) {
-                                    echo "<div class='form'>
-                                    <h3>Our records show you already have this service. If you believe this to be an error, please contact the site administrator.</h3><br/>
-                                    <p class='link'>Click here to <a href='profile.php'>Return to Profile</a></p>
-                                    </div>";
+                                ?>
+                                    <div class="item important-item clear">
+                                        <h3 class="subtitle">Our records show you already have this service. If you believe this to be an error, please contact the site administrator.</h3>
+                                        <a class="submit-button" style="justify-self: center;" href="profile.php">Okay</a>
+                                    </div>
+                                <?php
                                 } else {
                                     $sql = sprintf("SELECT *
                                     FROM unverifiedservice
@@ -102,10 +104,12 @@ include("../php/auth_session.php");
                                     $result = $mysqli->query($sql);
                                     $user = $result->fetch_assoc();
                                     if ($user) {
-                                        echo "<div class='form'>
-                                        <h3>Our records show you already have an active request for this service. If you believe this to be an error, please contact the site administrator.</h3><br/>
-                                        <p class='link'>Click here to <a href='profile.php'>Return to Profile</a></p>
-                                        </div>";
+                                    ?>
+                                        <div class="item important-item clear">
+                                            <h3 class="subtitle">Our records show you already have an active request for this service. If you believe this to be an error, please contact the site administrator.</h3>
+                                            <a class="submit-button" style="justify-self: center;" href="profile.php">Okay</a>
+                                        </div>
+                                    <?php
                                     } else {
                                         
                                         $query = "INSERT into `unverifiedservice` (name, provider, cemail, address, type, description, terms, penalty, custom, cost)
@@ -122,16 +126,19 @@ include("../php/auth_session.php");
                                             $result = mysqli_query($mysqli, $query);
                                             $temp = mysqli_fetch_array($result);
                                             $pay_link = $temp[0];
-
-                                            echo "<div class='form'>
-                                                <h3></h3><br/>
-                                                <p class='link'>Click here to <a href='https://$pay_link'>Fill out payment information</a></p>
-                                                </div>";
+                                            ?>
+                                            <div class="item important-item clear">
+                                                <h3 class="subtitle">Complete Payment to Proceed.</h3>
+                                                <a class="submit-button" style="justify-self: center;" href="https://<?php echo $pay_link ?>">Payment Portal</a>
+                                            </div>
+                                            <?php
                                         } else {
-                                            echo "<div class='form'>
-                                                <h3>Required fields are missing.</h3><br/>
-                                                <p class='link'>Click here to <a href='negotiate.php'>Try Again</a> again.</p>
-                                                </div>";
+                                        ?>
+                                            <div class="item important-item clear">
+                                                <h3 class="subtitle">Required fields are missing.</h3>
+                                                <a class="submit-button" style="justify-self: center;" href="negotiate.php">Try Again</a>
+                                            </div>
+                                        <?php
                                         }
                                     }
 
@@ -146,10 +153,12 @@ include("../php/auth_session.php");
 
                                 }
                             } else {
-                                echo "<div class='form'>
-                                    <h3>We have no record of you in that address.</h3><br/>
-                                    <p class='link'>Click here to return to<a href='profile.php'>Dashboard</a></p>
-                                    </div>";
+                            ?>
+                                <div class="item important-item clear">
+                                    <h3 class="subtitle">We have no record of you in that address.</h3>
+                                    <a class="submit-button" style="justify-self: center;" href="profile.php">Okay</a>
+                                </div>
+                            <?php
                             }
                         }
                         else {
@@ -211,15 +220,19 @@ include("../php/auth_session.php");
                                     
                                     $result   = mysqli_query($mysqli, $query);
                                     if ($result) {
-                                        echo "<div class='form'>
-                                            <h3>Requested successfully.</h3><br/>
-                                            <p class='link'>Click here to <a href='profile.php'>Return to Profile</a></p>
-                                            </div>";
+                                    ?>
+                                        <div class="item important-item clear">
+                                            <h3 class="subtitle">Requested successfully.</h3>
+                                            <a class="submit-button" style="justify-self: center;" href="profile.php">Okay</a>
+                                        </div>
+                                    <?php
                                     } else {
-                                        echo "<div class='form'>
-                                            <h3>Required fields are missing.</h3><br/>
-                                            <p class='link'>Click here to <a href='negotiate.php'>Try Again</a> again.</p>
-                                            </div>";
+                                    ?>
+                                        <div class="item important-item clear">
+                                            <h3 class="subtitle">Required fields are missing.</h3>
+                                            <a class="submit-button" style="justify-self: center;" href="negotiate.php">Try Again</a>
+                                        </div>
+                                    <?php
                                     }
                                 }
                                 else
@@ -228,24 +241,30 @@ include("../php/auth_session.php");
                                                 VALUES ('$custom', '$address', '$cemail', '$pemail', '$sname', '$cost', '$terms', '$penalty')";
                                     $result   = mysqli_query($mysqli, $query);
                                     if ($result) {
-                                        echo "<div class='form'>
-                                            <h3>Offer senty successfully.</h3><br/>
-                                            <p class='link'>Click here to return to<a href='profile.php'>Dashboard</a></p>
-                                            </div>";
+                                    ?>
+                                        <div class="item important-item clear">
+                                            <h3 class="subtitle">Offer sent successfully.</h3>
+                                            <a class="submit-button" style="justify-self: center;" href="profile.php">Okay</a>
+                                        </div>
+                                    <?php
                                     } else {
-                                        echo "<div class='form'>
-                                            <h3>Required fields are missing.</h3><br/>
-                                            <p class='link'>Click here to <a href='negotiate.php'>Try Again</a> again.</p>
-                                            </div>";
+                                    ?>
+                                        <div class="item important-item clear">
+                                            <h3 class="subtitle">Required fields are missing.</h3>
+                                            <a class="submit-button" style="justify-self: center;" href="negotiate.php">Try Again</a>
+                                        </div>
+                                    <?php
                                     }
                                 }
 
                             } else {
-                                echo $address;
-                                echo "<div class='form'>
-                                    <h3> :We have no record of you in that address.</h3><br/>
-                                    <p class='link'>Click here to return to<a href='profile.php'>Dashboard</a></p>
-                                    </div>";
+                                //echo $address;
+                            ?>
+                                <div class="item important-item clear">
+                                    <h3 class="subtitle">We have no record of you in that address.</h3>
+                                    <a class="submit-button" style="justify-self: center;" href="profile.php">Okay</a>
+                                </div>
+                            <?php 
                             }
                         }
                     ?>

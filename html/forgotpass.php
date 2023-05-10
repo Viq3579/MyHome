@@ -16,95 +16,6 @@
 
 
     <body>
-    <?php
-    require('../php/database.php');
-    require_once '../vendor/autoload.php';
-    use League\OAuth2\Client\Provider\Google;
-
-    session_start(); // Remove if session.auto_start=1 in php.ini
-
-    $provider = new Google([
-        'clientId'     => '{google-client-id}',
-        'clientSecret' => '{google-client-secret}',
-        'redirectUri'  => 'http://localhost/MyHome/html/forgotpass.php',
-    ]);
-    //Import PHPMailer classes into the global namespace
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-    
-    
-    
-    $mail = new PHPMailer(true);
-
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';  //gmail SMTP server
-    $mail->SMTPAuth = true;
-    //to view proper logging details for success and error messages
-    // $mail->SMTPDebug = 1;
-    $mail->Host = 'smtp.gmail.com';  //gmail SMTP server
-    $mail->Username = 'ian.m.finnigan@gmail.com';   //email
-    $mail->Password = '' ;   //16 character obtained from app password created
-    $mail->Port = 465;                    //SMTP port
-    $mail->SMTPSecure = "ssl";
-
-
-    if (isset($_REQUEST['email'])) {
-        $email = $_REQUEST['email'];
-        //$email = mysqli_real_escape_string($mysqli, $email);
-        //verify the email is valid
-        $query = "SELECT * FROM user WHERE email = '$email'";
-        $result = $mysqli->query($query);
-        if ($result){
-            //sender information
-            $mail->setFrom('ian.m.finnigan@gmail.com', 'MyHome');
-
-            //receiver email address and name
-            $mail->addAddress($email); 
-
-            // Add cc or bcc   
-            // $mail->addCC('email@mail.com');  
-            // $mail->addBCC('user@mail.com');  
-            
-            
-            $mail->isHTML(true);
-            
-            $mail->Subject = 'My Home Password Reset';
-            $mail->Body    = "
-            <b>You are recieving this email because someone requested a password change for your MyHome account.</b>
-                <p>If you did not request a change, ignore this email. If you did make this request, please click the following link:</p>
-                <a href=\"http://localhost/MyHome/html/passrecovery.php?email='$email'\">Reset Password</a>
-                <p>This link will last for 24 hours or until used.</p>";
-
-            // Send mail   
-            if (!$mail->send()) {
-                echo 'Email not sent an error was encountered: ' . $mail->ErrorInfo;
-            } else {
-                $timestamp = date("Y-m-d H:i:s");
-                $query = "SELECT * FROM password_resets WHERE email = '$email'";
-                $temp = $mysqli->query($query);
-                $result = $temp->fetch_assoc();
-                if ($result){
-                    $query = "UPDATE password_resets SET created_at = '$timestamp' WHERE email = '$email'";
-                } else {
-                    $query = "INSERT into `password_resets` (email, created_at)
-                    VALUES ('$email', '$timestamp')";
-                }
-                $result = $mysqli->query($query);
-                echo 'Message has been sent.';
-            }
-
-            $mail->smtpClose();
-
-
-        } else {
-            $mail->smtpClose();
-            echo "<div class='form'>
-            <h3>There is no account associated with that email.<br>If you believe this to be an error, please contact the site administrator.</h3><br/>
-            <p class='link'>Click here to <a href='forgotpass.php'>Try Again</a></p>
-            </div>";
-        }
-    } else {
-    ?>
 
         <header class="header">
 
@@ -122,11 +33,109 @@
                 <div class="header-cta">
                     <a class="header-login login" href="../php/logout.php">Log Out</a>
                 </div>
-            
+
             </div>
 
         </header>
 
+        <?php
+        require('../php/database.php');
+        require_once '../vendor/autoload.php';
+        use League\OAuth2\Client\Provider\Google;
+
+        session_start(); // Remove if session.auto_start=1 in php.ini
+
+        $provider = new Google([
+            'clientId'     => '{google-client-id}',
+            'clientSecret' => '{google-client-secret}',
+            'redirectUri'  => 'http://localhost/MyHome/html/forgotpass.php',
+        ]);
+        //Import PHPMailer classes into the global namespace
+        use PHPMailer\PHPMailer\PHPMailer;
+        use PHPMailer\PHPMailer\Exception;
+        
+        
+        
+        $mail = new PHPMailer(true);
+
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';  //gmail SMTP server
+        $mail->SMTPAuth = true;
+        //to view proper logging details for success and error messages
+        // $mail->SMTPDebug = 1;
+        $mail->Host = 'smtp.gmail.com';  //gmail SMTP server
+        $mail->Username = 'ian.m.finnigan@gmail.com';   //email
+        $mail->Password = '' ;   //16 character obtained from app password created
+        $mail->Port = 465;                    //SMTP port
+        $mail->SMTPSecure = "ssl";
+
+
+        if (isset($_REQUEST['email'])) {
+            $email = $_REQUEST['email'];
+            //$email = mysqli_real_escape_string($mysqli, $email);
+            //verify the email is valid
+            $query = "SELECT * FROM user WHERE email = '$email'";
+            $result = $mysqli->query($query);
+            if ($result){
+                //sender information
+                $mail->setFrom('ian.m.finnigan@gmail.com', 'MyHome');
+
+                //receiver email address and name
+                $mail->addAddress($email); 
+
+                // Add cc or bcc   
+                // $mail->addCC('email@mail.com');  
+                // $mail->addBCC('user@mail.com');  
+                
+                
+                $mail->isHTML(true);
+                
+                $mail->Subject = 'My Home Password Reset';
+                $mail->Body    = "
+                <b>You are recieving this email because someone requested a password change for your MyHome account.</b>
+                    <p>If you did not request a change, ignore this email. If you did make this request, please click the following link:</p>
+                    <a href=\"http://localhost/MyHome/html/passrecovery.php?email='$email'\">Reset Password</a>
+                    <p>This link will last for 24 hours or until used.</p>";
+
+                // Send mail   
+                if (!$mail->send()) {
+                    echo 'Email not sent an error was encountered: ' . $mail->ErrorInfo;
+                } else {
+                    $timestamp = date("Y-m-d H:i:s");
+                    $query = "SELECT * FROM password_resets WHERE email = '$email'";
+                    $temp = $mysqli->query($query);
+                    $result = $temp->fetch_assoc();
+                    if ($result){
+                        $query = "UPDATE password_resets SET created_at = '$timestamp' WHERE email = '$email'";
+                    } else {
+                        $query = "INSERT into `password_resets` (email, created_at)
+                        VALUES ('$email', '$timestamp')";
+                    }
+                    $result = $mysqli->query($query);
+                    echo 'Message has been sent.';
+                }
+
+                $mail->smtpClose();
+
+
+            } else {
+                $mail->smtpClose();
+                ?>
+                <main class="main-content">
+                    <div class="container">
+                        <div class="center-content">
+                            <div class="item important-item clear">
+                                <h3 class="subtitle">There is no account associated with that email.</h3>
+                                <h3 class="subtitle">If you believe this to be an error, please contact the site administrator.</h3>
+                                <a class="submit-button" style="justify-self: center;" href="forgotpass.php">Try Again</a>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <?php
+            }
+        } else {
+        ?>
     
         <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
 

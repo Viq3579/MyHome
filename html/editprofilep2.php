@@ -20,6 +20,29 @@ include("../php/auth_session.php");
 
 
     <body>
+
+        <header class="header">
+
+            <div class="header-container">
+                <h1 class="header-logo">MyHome</h1>
+
+                <nav class="header-nav">
+
+                    <a class="header-links" href="home.php">Dashboard</a>
+                    <a class="header-links" href="searchservices.php">Services</a>
+                    <a class="header-links" href="profile.php">Profile</a>
+
+                </nav>
+                
+                
+                <div class="header-cta">
+                    <a class="header-login login" href="../php/logout.php">Log Out</a>
+                </div>
+
+            </div>
+
+        </header>
+    
         <?php
         require('../php/database.php');
         
@@ -51,10 +74,18 @@ include("../php/auth_session.php");
             $user = $result->fetch_assoc();
 
             if ($user) {
-                echo "<div class='form'>
-                <h3>That Phone Number has already been registered. If you believe this to be an error, please contact support</h3><br/>
-                <p class='link'>Click here to <a href='editprofilep2.php'>Try Again</a></p>
-                </div>";
+            ?>
+                <main class="main-content">
+                    <div class="container">
+                        <div class="center-content">
+                            <div class="item important-item clear">
+                                <h3 class="subtitle">That Phone Number has already been registered. If you believe this to be an error, please contact support.</h3>
+                                <a class="submit-button" style="justify-self: center;" href="editprofilep2.php">Try Again</a>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            <?php
             }
             else
             {
@@ -62,42 +93,36 @@ include("../php/auth_session.php");
                             VALUES ('$name', '$email', '$phone', '$family_size', '$income', '$cars', '$expense')";
                     $result   = mysqli_query($mysqli, $query);
                     if ($result) {
-                        echo "<div class='form'>
-                        <h3>You are registered successfully.</h3><br/>
-                        <p class='link'>Click here to <a href='home.php'>Login</a></p>
-                        </div>";
+                    ?>
+                        <main class="main-content">
+                            <div class="container">
+                                <div class="center-content">
+                                    <div class="item important-item clear">
+                                        <h3 class="subtitle">You are registered successfully.</h3>
+                                        <a class="submit-button" style="justify-self: center;" href="home.php">Okay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    <?php
                     } else {
-                        echo "<div class='form'>
-                        <h3>Required fields are missing.</h3><br/>
-                        <p class='link'>Click here to <a href='editprofilep2.php'>registration</a> again.</p>
-                        </div>";
+                    ?>
+                        <main class="main-content">
+                            <div class="container">
+                                <div class="center-content">
+                                    <div class="item important-item clear">
+                                        <h3 class="subtitle">Required fields are missing.</h3>
+                                        <a class="submit-button" style="justify-self: center;" href="editprofilep2.php">Try Again</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    <?php
                     }
                 }
         } else {
         ?>
-        <header class="header">
-
-            <div class="header-container">
-                <h1 class="header-logo">MyHome</h1>
-
-                <nav class="header-nav">
-
-                    <a class="header-links" href="home.php">Dashboard</a>
-                    <a class="header-links" href="searchservices.php">Services</a>
-                    <a class="header-links" href="profile.php">Profile</a>
-
-                </nav>
-                
-                
-                <div class="header-cta">
-                    <a class="header-login login" href="../php/logout.php">Log Out</a>
-                </div>
-
-            </div>
-
-        </header>
-
-
+        
         <main class="main-content" style="display: flex; flex-direction: column; align-items: center;">
 
             <div class="container">
@@ -153,6 +178,9 @@ include("../php/auth_session.php");
 
         </main>
 
+        <?php
+        }
+        ?>
 
         <footer class="footer">
 
@@ -178,9 +206,7 @@ include("../php/auth_session.php");
             </div>
 
         </footer>
-        <?php
-        }
-        ?>
+        
     </body>
 
 </html>
